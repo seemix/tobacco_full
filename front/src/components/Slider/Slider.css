@@ -1,0 +1,31 @@
+.slider_container {
+    height: calc(100vh);
+    width: 100%;
+}
+
+.pic {
+    width: 100%;
+    height: calc(100vh);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.slide_text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, .7);
+    padding: 20px;
+    color: whitesmoke;
+    width: 50%;
+    font-size: calc(18px + (23 - 18) * ((100vw - 360px) / (1920 - 360)));
+}
+
+@media screen and (max-width: 800px) {
+    .slide_text {
+        width: 80%;
+    }
+}

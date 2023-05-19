@@ -1,0 +1,17 @@
+.main_order_wrapper {
+    width: 700px;
+    margin: 20px;
+}
+.uncompleted {
+    background-color: #e5f3dd !important;
+}
+.order_top_wrapper {
+    display: flex;
+    gap: 25px;
+    justify-content: space-between;
+    width: 100%;
+}
+.inside_wrapper {
+    display: flex;
+    align-items: center;
+}

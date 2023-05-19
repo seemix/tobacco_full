@@ -1,0 +1,33 @@
+.card_wrapper {
+    width: 330px;
+    margin: 10px;
+}
+
+.card_content {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+.card_content h3 {
+    margin: 0;
+}
+.gray_scale {
+    transition: all 0.3s ease-in-out;
+}
+
+.gray_scale:hover {
+    filter: grayscale(80%);
+    transition: all 0.3s ease-in-out;
+}
+.brand_label {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    background-color: #4a3d35;
+    padding: 5px;
+    font-size: 13px;
+    color: white;
+    letter-spacing: 1px;
+}

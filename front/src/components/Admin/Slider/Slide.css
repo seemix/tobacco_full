@@ -1,0 +1,8 @@
+.slider_picture  {
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 320px;
+    height: 180px;
+    background-position: center center;
+}

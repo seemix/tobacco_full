@@ -1,0 +1,17 @@
+.card {
+    padding: 20px;
+    width: 350px;
+}
+
+.card_inside {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+}
+
+.icon_wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}

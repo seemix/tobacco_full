@@ -1,0 +1,18 @@
+.content_container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.items_slider {
+    max-width: 1500px;
+    margin: 0 auto;
+
+}
+.swiper-button-next, .swiper-button-prev {
+    color: #b17862;
+}

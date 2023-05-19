@@ -1,0 +1,21 @@
+.path {
+    margin: 20px 0;
+    padding: 0 20px;
+}
+.card_details {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.details_wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.image_box {
+    width: calc(360px + (600 - 360) * ((100vw - 360px) / (1920 - 360)));
+    height: calc(360px + (700 - 360) * ((100vw - 360px) / (1920 - 360)));
+}

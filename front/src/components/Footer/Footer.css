@@ -1,0 +1,14 @@
+.footer_wrapper {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: rgba(240, 240, 240, 1);
+    align-items: center;
+    box-shadow: 5px 0 7px 0 rgba(143, 139, 143, 0.29);
+    display: flex;
+    justify-content: space-evenly;
+    gap: 15px;
+    font-family: 'Oswald', sans-serif;
+    color: rgba(109, 109, 109);
+    padding: 30px 0;
+    margin-top: auto;
+}

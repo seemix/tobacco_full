@@ -1,0 +1,17 @@
+.checkout_wrap {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.checkout_card {
+    width: 300px;
+    padding: 20px;
+}
+
+.checkout_form_wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}

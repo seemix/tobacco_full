@@ -1,0 +1,118 @@
+.cart_wrapper {
+    font-family: 'Fira Sans', sans-serif;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    right: -450px;
+    width: 450px;
+    height: 100vh;
+    background: rgba(249, 249, 249, 1);
+    transition: 0.5s all ease-in-out;
+    z-index: 2;
+}
+
+.show_cart {
+    right: 0;
+    transition: 0.5s all ease-in-out;
+}
+
+.cart_header {
+    background-color: white;
+}
+
+.cart_wrapper h3 {
+    margin-right: 30px;
+    color: rgb(109, 109, 109);
+    margin-top: -1px;
+    margin-left: -1px;
+    font-size: 20px;
+    width: 100%;
+    background-color: white;
+    padding: 15px 0;
+    box-shadow: 0 3px 5px 0 rgba(143, 139, 143, 0.24);
+
+}
+
+.close_icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: rgb(109, 109, 109);
+}
+
+.inside_wrapper_cart {
+    height: calc(100% - 85px);
+}
+
+.items_wrapper {
+    height: calc(100% - 100px);
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.bottom_wrapper {
+    box-sizing: border-box;
+    background-color: rgba(240, 240, 240, 1);
+    align-items: center;
+    box-shadow: 5px 0 7px 0 rgba(143, 139, 143, 0.29);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: auto;
+    padding: 20px 15px;
+}
+
+.bottom_wrapper div {
+    margin-bottom: 5px;
+}
+
+.total_wrapper {
+    text-align: center;
+}
+
+.empty_wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty_cart {
+    margin-top: 50px;
+    text-align: center;
+    position: relative;
+}
+
+.empty_cart_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(249, 249, 249, 0.5);
+    width: 100%;
+    height: 100%;
+}
+
+.remove_all_wrapper {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: auto;
+}
+.total_price {
+    font-size: 20px;
+}
+
+@media screen and (max-width: 460px) {
+    .cart_wrapper {
+        width: 100%;
+    }
+    .total_price {
+        font-size: 16px;
+    }
+    .total_price .price {
+        display: block;
+        font-size: 20px;
+    }
+}

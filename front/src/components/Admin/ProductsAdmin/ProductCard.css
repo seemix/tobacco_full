@@ -1,0 +1,7 @@
+.product_card_wrapper {
+    width: 260px;
+    margin: 10px;
+}
+.product_card_wrapper h4 {
+    margin-top: -10px;
+}

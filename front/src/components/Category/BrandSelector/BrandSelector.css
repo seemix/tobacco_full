@@ -1,0 +1,8 @@
+.brand_selector_wrapper {
+    display: flex;
+    max-width: 1000px;
+    margin: 20px auto 0;
+    justify-content: right;
+    align-items: center;
+    padding-right: 10px;
+}

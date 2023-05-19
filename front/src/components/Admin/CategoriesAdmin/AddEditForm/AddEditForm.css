@@ -1,0 +1,22 @@
+.modal_box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 400px;
+}
+
+.paper_box {
+    padding: 10px;
+    border-radius: 0;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+}
+.wrapper div {
+    margin-bottom: 5px;
+}
