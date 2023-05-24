@@ -1,8 +1,9 @@
 import React from 'react';
 import { Button, DialogActions } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { hideOrderDeleteModal } from '../../../../store/appearance';
-import { deleteOrderById} from '../../../../store/order';
+import { deleteOrderById } from '../../../../store/order';
 
 const ConfirmDeleteOrder = () => {
     const { orderForDelete } = useSelector(state => state.orderStore);
@@ -14,7 +15,7 @@ const ConfirmDeleteOrder = () => {
         dispatch(deleteOrderById(orderForDelete._id));
         dispatch(hideOrderDeleteModal());
     }
-   return (
+    return (
         <div>
             <h2>Do you confirm deleting all information about order
                 from {orderForDelete.customerName} {orderForDelete.customerSurname}?</h2>

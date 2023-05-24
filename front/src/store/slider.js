@@ -104,7 +104,7 @@ export const sliderSlice = createSlice({
             .addCase(saveSlidesOrder.fulfilled, state => {
                 state.saveOrderButton = false;
             })
-            .addCase(deleteSlide.fulfilled, (state, action)  => {
+            .addCase(deleteSlide.fulfilled, (state, action) => {
                 state.status = 'fulfilled';
                 state.error = null;
                 state.slides = state.slides.filter(obj => obj._id !== action.payload);

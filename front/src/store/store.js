@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+
 import appearanceStore from './appearance';
 import categoryStore from './category';
 import productStore from './product';
@@ -13,5 +14,14 @@ export const store = configureStore({
         getDefaultMiddleware({
             serializableCheck: false,
         }),
-    reducer: { appearanceStore, categoryStore, sliderStore, brandStore, productStore, authStore, orderStore, searchStore }
+    reducer: {
+        appearanceStore,
+        categoryStore,
+        sliderStore,
+        brandStore,
+        productStore,
+        authStore,
+        orderStore,
+        searchStore
+    }
 });

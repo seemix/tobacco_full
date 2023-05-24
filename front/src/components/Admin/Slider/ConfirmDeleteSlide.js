@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, DialogActions } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { closeSlideDelete, deleteSlide } from '../../../store/slider';
 
 const ConfirmDeleteSlide = () => {

@@ -1,7 +1,7 @@
-const { TG_TOKEN, TG_CHAT_ID } = require('../config/config');
 const axios = require('axios');
-const url = `https://api.telegram.org/bot${TG_TOKEN}/sendMessage`;
 
+const { TG_TOKEN, TG_CHAT_ID } = require('../config/config');
+const url = `https://api.telegram.org/bot${TG_TOKEN}/sendMessage`;
 const sendTgMessage = async (order) => {
     let message = '<b>✅ Tobacco shop new order</b>\n\n';
     message += `<b>Customer:</b> ${order.customerName} ${order.customerSurname}\n`;

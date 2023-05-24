@@ -11,6 +11,7 @@ import { Link, Navigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { login } from '../../../store/auth';
 
 const Login = () => {
@@ -87,11 +88,11 @@ const Login = () => {
                             </Grid>
                         </Grid>
                     </Box>
-                    {status === 'error' && error ?  <Alert severity="error">{error}</Alert> : '' }
+                    {status === 'error' && error ? <Alert severity="error">{error}</Alert> : ''}
                     {auth ?
                         <>
-                        <Alert severity={'success'}>Login success!!!</Alert>
-                        <Navigate to={'/admin'}/></>
+                            <Alert severity={'success'}>Login success!!!</Alert>
+                            <Navigate to={'/admin'}/></>
                         : ''}
                 </Box>
             </Container>

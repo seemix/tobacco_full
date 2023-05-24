@@ -1,8 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { hideCategoryDeleteModal } from '../../../store/appearance';
 import { Button, DialogActions } from '@mui/material';
+
 import { deleteCategory } from '../../../store/category';
+import { hideCategoryDeleteModal } from '../../../store/appearance';
 
 const ConfirmDeleteCategory = () => {
     const dispatch = useDispatch();

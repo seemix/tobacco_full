@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '@mui/material/Pagination'
 import { Dialog, DialogContent } from '@mui/material';
+import io from 'socket.io-client';
 
 import SingleOrder from './SingleOrder/SingleOrder';
-import './Orders.css';
 import { getAllOrders, putNewOrder } from '../../../store/order';
 import ConfirmDeleteOrder from './ConfirmDeleteOrder/ConfirmDeleteOrder';
 import { hideOrderDeleteModal } from '../../../store/appearance';
-
-import io from 'socket.io-client';
+import './Orders.css';
 import { config } from '../../../config/config';
 import sound from './notification.wav';
 

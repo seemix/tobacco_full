@@ -1,7 +1,8 @@
 const http = require('http');
-const socketIo = require('socket.io');
-const { FRONTEND_URL } = require('../config/config');
 const express = require('express');
+const socketIo = require('socket.io');
+
+const { FRONTEND_URL } = require('../config/config');
 
 const app = express();
 

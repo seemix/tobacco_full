@@ -1,11 +1,12 @@
 import React from 'react';
 import { Button, Card } from '@mui/material';
-import './Slide.css'
-import { config } from '../../../config/config';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useDispatch } from 'react-redux';
+
+import { config } from '../../../config/config';
 import { openSlideDelete, openSlideEdit, setSlideForDelete, setSlideForUpdate } from '../../../store/slider';
+import './Slide.css'
 
 const Slide = ({ slide }) => {
     const dispatch = useDispatch();

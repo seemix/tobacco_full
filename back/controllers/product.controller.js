@@ -1,8 +1,9 @@
+const fs = require('fs');
+const path = require('path');
+
 const Product = require('../models/pruduct.model');
 const status = require('../enums/status.enum');
 const ApiError = require('../errors/api.error');
-const path = require('path');
-const fs = require('fs');
 const { PRODUCTS_PER_PAGE } = require('../config/config');
 
 module.exports = {

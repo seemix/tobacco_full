@@ -21,10 +21,10 @@ export const appearanceSlice = createSlice({
             state.showElement = false;
         },
         showSearchBar(state) {
-          state.searchBar = true;
+            state.searchBar = true;
         },
         hideSearchBar(state) {
-          state.searchBar = false;
+            state.searchBar = false;
         },
         setLanguage(state, action) {
             state.language = action.payload;

@@ -27,9 +27,7 @@ module.exports = {
         } catch (e) {
             next(e);
         }
-
     },
-
     logout: async (req, res, next) => {
         try {
             const { refreshToken } = req.cookies;

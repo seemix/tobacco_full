@@ -6,11 +6,12 @@ import {
 
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import './AddEditForm.css';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { hideCategoryEdit } from '../../../../store/appearance';
 import { createCategory, deleteImage, setCategoryForUpdate, updateCategory } from '../../../../store/category';
 import { config } from '../../../../config/config';
+import './AddEditForm.css';
 
 const AddEditForm = () => {
         const dispatch = useDispatch();
@@ -52,7 +53,7 @@ const AddEditForm = () => {
             dispatch(hideCategoryEdit());
         }
 
-    return (
+        return (
             <>
                 <h2>Add/Edit category</h2>
                 <div className={'wrapper'}>

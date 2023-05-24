@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button, Card, CardMedia, Dialog, DialogContent } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 import { Parser } from 'html-to-react'
-
-import './ProductCard.css';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
-import { useDispatch, useSelector } from 'react-redux';
+
+import './ProductCard.css';
 import { setProductForDelete, setProductForUpdate } from '../../../store/product';
 import {
     hideProductDeleteModal,

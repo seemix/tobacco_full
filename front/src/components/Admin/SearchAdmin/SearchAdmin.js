@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { search } from '../../../store/search';
 import ProductCard from '../ProductsAdmin/ProductCard';
 
@@ -21,7 +22,7 @@ const SearchAdmin = () => {
                     results.map(item => <ProductCard key={item._id} product={item}/>)
                 }
                 {results.length === 0 &&
-                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'left'}}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'left' }}>
                         <h3>No results found. Try to modify your request </h3>
                     </div>
                 }

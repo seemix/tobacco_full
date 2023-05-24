@@ -14,12 +14,12 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PersonIcon from '@mui/icons-material/Person';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import { useDispatch } from 'react-redux';
 
 import { config } from '../../../../config/config';
-import './SingleOrder.css';
-import { useDispatch } from 'react-redux';
 import { setCompleted, setOrderForDelete } from '../../../../store/order';
 import { showOrderDeleteModal } from '../../../../store/appearance';
+import './SingleOrder.css';
 
 const SingleOrder = ({ order }) => {
     const [checked, setChecked] = React.useState(order.completed);

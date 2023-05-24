@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createBrand, getAllBrands } from '../../../store/brand';
 import { Button, Table, TableBody, TextField } from '@mui/material';
-import SingleBrand from './SingleBrand';
 import { useForm } from 'react-hook-form';
+
+import { createBrand, getAllBrands } from '../../../store/brand';
+import SingleBrand from './SingleBrand';
 
 const Brands = () => {
     const dispatch = useDispatch();
@@ -26,7 +27,8 @@ const Brands = () => {
                         label={'brand name'}
                         {...register('name')}
                     />
-                    <Button type={'submit'} variant={'contained'} style={{ marginLeft: '10px' }}>+ Add new brand</Button>
+                    <Button type={'submit'} variant={'contained'} style={{ marginLeft: '10px' }}>+ Add new
+                        brand</Button>
                 </form>
             </div>
 
@@ -40,7 +42,6 @@ const Brands = () => {
 
         </div>
     )
-        ;
 };
 
 export default Brands;

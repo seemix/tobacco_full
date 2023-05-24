@@ -1,9 +1,10 @@
+const path = require('path');
+const fs = require('fs');
+
 const Category = require('../models/category.model');
 const Product = require('../models/pruduct.model');
 const status = require('../enums/status.enum');
 const ApiError = require('../errors/api.error');
-const path = require('path');
-const fs = require('fs');
 
 module.exports = {
     createCategory: async (req, res, next) => {

@@ -1,7 +1,8 @@
-const Slider = require('../models/slider.model');
-const status = require('../enums/status.enum');
 const path = require('path');
 const fs = require('fs');
+
+const Slider = require('../models/slider.model');
+const status = require('../enums/status.enum');
 
 module.exports = {
     createSlide: async (req, res, next) => {

@@ -82,7 +82,7 @@ export const authSlice = createSlice({
             })
             .addCase(refresh.fulfilled, (state, action) => {
                 state.status = 'fulfilled';
-               localStorage.setItem('token', action.payload.accessToken);
+                localStorage.setItem('token', action.payload.accessToken);
                 state.user = action.payload.user;
                 state.auth = true;
             })

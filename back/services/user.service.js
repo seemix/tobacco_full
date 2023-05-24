@@ -1,7 +1,8 @@
+const bcrypt = require('bcrypt');
+
 const User = require('../models/user.model');
 const ApiError = require('../errors/api.error');
 const status = require('../enums/status.enum');
-const bcrypt = require('bcrypt');
 const tokenService = require('./token.service');
 const UserDto = require('../dtos/user.dto');
 

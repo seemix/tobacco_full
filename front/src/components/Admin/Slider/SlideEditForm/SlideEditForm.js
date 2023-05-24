@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, DialogActions, TextField } from '@mui/material';
-import { closeSlideEdit, createSlide, setSlideForUpdate, updateSlide } from '../../../../store/slider';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
+
+import { closeSlideEdit, createSlide, setSlideForUpdate, updateSlide } from '../../../../store/slider';
 import { config } from '../../../../config/config';
 
 const SlideEditForm = () => {

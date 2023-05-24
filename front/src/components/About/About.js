@@ -15,7 +15,7 @@ const About = () => {
             </div>
             <div className={'content_container'}>
                 <div className={'content_wrapper'} style={{ marginTop: '50px' }}>
-                    <Card style={{ padding: '20px'}}>
+                    <Card style={{ padding: '20px' }}>
                         <div style={{ maxWidth: '500px' }}>
                             <big>
                                 Quisque volutpat mattis eros. Nullam malesuada erat ut ki diaml ka dhuddu pochu turpis.
@@ -51,8 +51,12 @@ const About = () => {
                             </p>
                         </div>
                     </Card>
-                    <div style={{ width: '500px', backgroundImage: 'url(https://images.immediate.co.uk/production/volatile/sites/7/2019/10/141.GettyImages-509729312-e7567de-e1571218314945.jpg?resize=620,413)',
-                    backgroundSize: 'cover', height: '700px', backgroundPosition: 'center'
+                    <div style={{
+                        width: '500px',
+                        backgroundImage: 'url(https://images.immediate.co.uk/production/volatile/sites/7/2019/10/141.GettyImages-509729312-e7567de-e1571218314945.jpg?resize=620,413)',
+                        backgroundSize: 'cover',
+                        height: '700px',
+                        backgroundPosition: 'center'
                     }}
                     >
                     </div>
