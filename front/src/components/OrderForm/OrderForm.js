@@ -2,15 +2,18 @@ import React, { useState } from 'react';
 import { Button, Card, FormControlLabel, Switch, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import { joiResolver } from '@hookform/resolvers/joi';
+
 import { config } from '../../config/config';
 import { showCart } from '../../store/appearance';
-import { Navigate } from 'react-router-dom';
-import './OrderForm.css';
 import { createOrder } from '../../store/order';
+import './OrderForm.css';
+import { orderFormValidator } from '../../validators/order-form.validator';
 
 const OrderForm = () => {
     const [showAddress, setShowAddress] = useState(false);
-    const { handleSubmit, register, formState: { errors } } = useForm();
+    const { handleSubmit, register, formState: { errors } } = useForm({ resolver: joiResolver(orderFormValidator) });
     const { products, total, status } = useSelector(state => state.orderStore);
     const dispatch = useDispatch();
     const setAddress = () => {
@@ -53,12 +56,7 @@ const OrderForm = () => {
                             <TextField
                                 className={'TextField-without-border-radius'}
                                 label={'name'}
-                                {...register('customerName', {
-                                    required: 'This field is required', pattern: {
-                                        value: /^[A-Z][a-z]{1,20}$/,
-                                        message: 'Bad format'
-                                    }
-                                })}
+                                {...register('customerName')}
                                 error={!!errors.customerName}
                                 helperText={errors?.customerName ? errors.customerName.message : null}
                             />

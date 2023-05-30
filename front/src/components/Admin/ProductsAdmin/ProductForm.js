@@ -95,7 +95,6 @@ const ProductForm = ({ _id }) => {
                     </div>
                     <div style={{ margin: '0 auto' }}>
                         <ReactQuill theme="snow" value={value} onChange={setValue}/>
-
                         <TextField
                             defaultValue={productForUpdate?.oldPrice}
                             name={'oldPrice'}

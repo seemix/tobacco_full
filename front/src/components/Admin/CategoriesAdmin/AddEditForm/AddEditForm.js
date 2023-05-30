@@ -7,8 +7,10 @@ import {
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { joiResolver } from '@hookform/resolvers/joi';
 
 import { hideCategoryEdit } from '../../../../store/appearance';
+import { categoryFormValidator } from '../../../../validators/category-form.validator';
 import { createCategory, deleteImage, setCategoryForUpdate, updateCategory } from '../../../../store/category';
 import { config } from '../../../../config/config';
 import './AddEditForm.css';
@@ -16,7 +18,12 @@ import './AddEditForm.css';
 const AddEditForm = () => {
         const dispatch = useDispatch();
         const { categoryForUpdate } = useSelector(state => state.categoryStore);
-        const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+        const {
+            register,
+            handleSubmit,
+            setValue,
+            formState: { errors }
+        } = useForm({ resolver: joiResolver(categoryFormValidator) });
         const [pastedLink, setPastedLink] = useState(null);
         const [file, setFile] = useState(null);
         const [confirmDelete, setConfirmDelete] = useState(false);
@@ -60,6 +67,7 @@ const AddEditForm = () => {
                     <form onSubmit={handleSubmit(saveForm)}>
                         <div>
                             <TextField
+                                className={'TextField-without-border-radius'}
                                 {...register('categoryName', {
                                     required: 'This field is required',
                                     pattern: {
