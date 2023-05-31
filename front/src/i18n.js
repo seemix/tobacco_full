@@ -7,10 +7,10 @@ import { initReactI18next } from 'react-i18next';
 const i18nOptions = {
     //  fallbackLng: 'ru',
       debug: true,
-    detection: {
-        order: ['queryString', 'cookie'],
-        caches: ['cookie'],
-    },
+    // detection: {
+    //     order: ['queryString', 'cookie'],
+    //     caches: ['cookie'],
+    // },
     interpolation: {
         escapeValue: true,
     },

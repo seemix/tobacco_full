@@ -65,41 +65,31 @@ const OrderForm = () => {
                             <TextField
                                 className={'TextField-without-border-radius'}
                                 label={t('surname')}
-                                {...register('customerSurname', {
-                                    required: 'This field is requered', pattern: {
-                                        value: /^[A-Z][a-z]{1,30}(-[A-Z][a-z]{1,30})?$/,
-                                        message: 'Bad format'
-                                    }
-                                })}
+                                {...register('customerSurname')}
                                 error={!!errors.customerSurname}
                                 helperText={errors?.customerSurname ? errors.customerSurname.message : null}
                             />
                             <TextField
                                 className={'TextField-without-border-radius'}
                                 label={t('phone')}
-                                {...register('customerPhone', {
-                                    required: 'This field is required', pattern: {
-                                        value: /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
-                                        message: 'Bad format!'
-                                    }
-                                })}
+                                {...register('customerPhone')}
                                 error={!!errors.customerPhone}
                                 helperText={errors?.customerPhone ? errors.customerPhone.message : null}
                             />
                             <FormControlLabel control={<Switch
                                checked={showAddress}
                                 onChange={setAddress}
-                            />} label={'ship my order'}/>
+                            />} label={t('shipOrder')}/>
                             {showAddress &&
                                 <TextField
                                     className={'TextField-without-border-radius'}
                                     multiline
                                     rows={4}
-                                    label={'shipping address'}
+                                    label={t('shippingAddress')}
                                     {...register('address')}
                                 />
                             }
-                            <Button type={'submit'} variant={'contained'}>Submit</Button>
+                            <Button type={'submit'} variant={'contained'}>{t('submit')}</Button>
                         </div>
                     </form>
                 </div>

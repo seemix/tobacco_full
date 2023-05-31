@@ -2,19 +2,21 @@ import React from 'react';
 import { Card } from '@mui/material';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import EmailIcon from '@mui/icons-material/Email';
+import { useTranslation } from 'react-i18next';
 import TelegramIcon from '@mui/icons-material/Telegram';
 
 import contactImage from './1.webp';
 import './Contacts.css';
 
 const Contacts = () => {
+    const { t } = useTranslation();
     return (
         <div style={{ marginTop: '70px' }}>
             <div className={'image_container'}
                  style={{backgroundImage: `url(${contactImage})`}}
             >
                 <div className={'image_overlay'}></div>
-                <h2>CONTACTS</h2>
+                <h2 style={{textTransform: 'uppercase'}}>{t('contacts')}</h2>
             </div>
             <div className={'content_container'}>
                 <div className={'content_wrapper'} style={{marginTop: '50px'}}>
@@ -22,7 +24,7 @@ const Contacts = () => {
                     <Card className={'card'}>
                         <div className={'card_inside'}>
                             <div className={'icon_wrapper'}><PhoneAndroidIcon style={{ fontSize: '50px', color: '#4a3d35'}}/></div>
-                            <h2>PHONE</h2>
+                            <h2 style={{textTransform: 'uppercase'}}>{t('phone')}</h2>
                             <big>
                                 <p>Toll-Free: 0803 - 080 - 3081</p>
                                 <p>Fax: 0803 - 080 - 3082</p>

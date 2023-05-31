@@ -21,7 +21,6 @@ const LanguageSelect = () => {
                 variant={'standard'}
                 size={'small'}
                 InputProps={{
-                    //startAdornment: <AccountCircle />, // <== adjusted this
                     disableUnderline: true, // <== added this
                 }}
                 style={{border: '0px solid red'}}

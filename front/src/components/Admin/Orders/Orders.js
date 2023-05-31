@@ -11,9 +11,11 @@ import { hideOrderDeleteModal } from '../../../store/appearance';
 import './Orders.css';
 import { config } from '../../../config/config';
 import sound from './notification.wav';
+import { useSearchParams } from 'react-router-dom';
 
 const socket = io(config.BACKEND_URL);
 const Orders = () => {
+    const [searchParams, setSearchParams] = useSearchParams();
     const dispatch = useDispatch();
     useEffect(() => {
         socket.on('newOrder', (data) => {
@@ -25,13 +27,12 @@ const Orders = () => {
         };
     }, [dispatch]);
     const { orderDeleteModal } = useSelector(state => state.appearanceStore);
-    const [page, setPage] = useState(1);
     const handlePage = (e, selectedPage) => {
-        setPage(selectedPage);
+        setSearchParams({ page: selectedPage });
     }
     useEffect(() => {
-        dispatch(getAllOrders(page));
-    }, [dispatch, page])
+        dispatch(getAllOrders(searchParams.get('page')));
+    }, [dispatch, searchParams])
     const { response } = useSelector(state => state.orderStore);
     return (
         <div className={'orders_wrapper'}>

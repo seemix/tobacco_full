@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
-import { config } from '../../config/config';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { config } from '../../config/config';
 import { Card } from '@mui/material';
 import { setCompeteOrder } from '../../store/order';
 
 const CompleteOrder = () => {
+    const { t } = useTranslation();
     const { createdOrder } = useSelector(state => state.orderStore);
     const dispatch = useDispatch();
     useEffect(() => {
@@ -12,7 +15,7 @@ const CompleteOrder = () => {
     }, []);
     return (
         <div className={'main_container'}>
-            <h2>Dear {createdOrder.customerName}, your order is complete</h2>
+            <h2>{t('dear')} {createdOrder.customerName}, {t('completeOrder')}</h2>
             <Card style={{ margin: '20px', padding: '20px' }}>
                 {
                     createdOrder.products.map(item => <div key={item._id}>
@@ -21,9 +24,9 @@ const CompleteOrder = () => {
                     </div>)
                 }
                 <hr/>
-                <p style={{ textAlign: 'right' }}><big>💰 Total: {createdOrder.total} {config.CURRENCY}</big></p>
+                <p style={{ textAlign: 'right' }}><big>💰 {t('total')}: {createdOrder.total} {config.CURRENCY}</big></p>
             </Card>
-            <h3>If you have any questions, please call +999 222 5522</h3>
+            <h4 style={{textAlign: 'center'}}>{t('phoneDetails')} </h4> <h3>+999 222 5522</h3>
         </div>
     );
 };

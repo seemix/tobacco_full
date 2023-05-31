@@ -15,7 +15,7 @@ import CartIcon from './CartIcon';
 import {
     closeMenu,
     hideSearchBar,
-    openMenu,
+    openMenu, setFilteredLang,
     setLanguage,
     showCart,
     showSearchBar
@@ -26,17 +26,20 @@ import { useOutsideClick } from '../../hooks/outside-click';
 import Loader from '../Loader/Loader';
 
 const Header = () => {
+    const language = localStorage.getItem('i18nextLng') || 'EN';
     const { products } = useSelector(state => state.orderStore);
     const {
         openedMenu,
         cart,
         showElement,
-        language,
         filteredLang,
         searchBar
     } = useSelector(state => state.appearanceStore);
     const { categories, status } = useSelector(state => state.categoryStore);
     const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(setFilteredLang(language));
+    }, [language]);
     const { i18n } = useTranslation();
     useEffect(() => {
         dispatch(getAllCategories());
@@ -52,8 +55,8 @@ const Header = () => {
 
     const { t } = useTranslation();
     const changeLanguage = (language) => {
-        i18n.changeLanguage(language);
         dispatch(setLanguage(language));
+        i18n.changeLanguage(language);
     }
     return (
         <div className={'header_wrapper'}>
@@ -70,7 +73,7 @@ const Header = () => {
                 }
             </div>
             <div>
-                <img src={logo} alt='logo' className={'logo'}/>
+                <img src={logo} alt="logo" className={'logo'}/>
             </div>
             <nav className={!openedMenu ? 'menu_wrapper' : 'menu_wrapper show_menu'}>
                 <ul ref={menuRef}>

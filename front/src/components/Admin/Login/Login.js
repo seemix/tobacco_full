@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import LockPersonIcon from '@mui/icons-material/LockPerson';
 import { Alert } from '@mui/material';
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,7 +24,6 @@ const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     return (
         <div>
-
             <Container maxWidth="xs">
                 <Box
                     sx={{
@@ -83,9 +82,9 @@ const Login = () => {
                                 {/*    Forgot password?*/}
                                 {/*</Link>*/}
                             </Grid>
-                            <Grid item>
-                                <Link to={'/admin/register'}> <Button variant={'text'}>register</Button> </Link>
-                            </Grid>
+                            {/*<Grid item>*/}
+                            {/*    <Link to={'/admin/register'}> <Button variant={'text'}>register</Button> </Link>*/}
+                            {/*</Grid>*/}
                         </Grid>
                     </Box>
                     {status === 'error' && error ? <Alert severity="error">{error}</Alert> : ''}

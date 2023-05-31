@@ -4,9 +4,9 @@ export const appearanceSlice = createSlice({
     initialState: {
         openedMenu: false,
         showElement: false,
-        language: 'EN',
-        filteredLang: ['DK', 'RU'],
+        language: localStorage.getItem('i18nextLng'),
         languages: ['EN', 'DK', 'RU'],
+        filteredLang: [],
         searchBar: false,
         cart: false,
         categoryEditModal: false,
@@ -70,6 +70,9 @@ export const appearanceSlice = createSlice({
         },
         hideOrderDeleteModal(state) {
             state.orderDeleteModal = false
+        },
+        setFilteredLang(state, action) {
+            state.filteredLang = state.languages.filter(item => item!== action.payload);
         }
     }
 });
@@ -90,7 +93,8 @@ export const {
     showSearchBar,
     hideSearchBar,
     showOrderDeleteModal,
-    hideOrderDeleteModal
+    hideOrderDeleteModal,
+    setFilteredLang
 } = appearanceSlice.actions;
 export const appearanceStore = appearanceSlice.reducer;
 export default appearanceStore;

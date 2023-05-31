@@ -1,17 +1,19 @@
 import React from 'react';
+import { Card } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import './About.css';
-import { Card } from '@mui/material';
 import aboutImage from './2.webp'
 
 const About = () => {
+    const { t } = useTranslation();
     return (
         <div style={{ marginTop: '70px' }}>
             <div className={'image_container'}
                  style={{ backgroundImage: `url(${aboutImage})` }}
             >
                 <div className={'image_overlay'}></div>
-                <h2>ABOUT US</h2>
+                <h2 style={{textTransform: 'uppercase'}}>{t('aboutUs')}</h2>
             </div>
             <div className={'content_container'}>
                 <div className={'content_wrapper'} style={{ marginTop: '50px' }}>
