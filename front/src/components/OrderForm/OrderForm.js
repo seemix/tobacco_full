@@ -3,6 +3,7 @@ import { Button, Card, FormControlLabel, Switch, TextField } from '@mui/material
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { joiResolver } from '@hookform/resolvers/joi';
 
 import { config } from '../../config/config';
@@ -12,6 +13,7 @@ import './OrderForm.css';
 import { orderFormValidator } from '../../validators/order-form.validator';
 
 const OrderForm = () => {
+    const { t } = useTranslation();
     const [showAddress, setShowAddress] = useState(false);
     const { handleSubmit, register, formState: { errors } } = useForm({ resolver: joiResolver(orderFormValidator) });
     const { products, total, status } = useSelector(state => state.orderStore);
@@ -30,12 +32,12 @@ const OrderForm = () => {
     return (
         <div className={'main_container'}>
             {status === 'fulfilled' && <Navigate to={'../completed'}/>}
-            <h2>Checkout your order</h2>
+            <h2>{t('checkoutYourOrder')}</h2>
             <div className={'checkout_wrap'}>
                 {/*{products.length === 0 && <Navigate to={'/'}/>}*/}
                 <div>
                     <Card className={'checkout_card'}>
-                        <h3>Your order</h3>
+                        <h3>{t('yourOrder')}</h3>
                         {
                             products.map(item => <div key={item._id}>
                                 <div><i>{item.name} x {item.count}</i></div>
@@ -43,26 +45,26 @@ const OrderForm = () => {
                             </div>)
                         }
                         <div style={{ borderTop: '1px solid gray' }}>
-                            <p style={{ textAlign: 'center' }}><big><b>Total: {total} {config.CURRENCY}</b></big>
+                            <p style={{ textAlign: 'center' }}><big><b>{t('total')}: {total} {config.CURRENCY}</b></big>
                             </p>
                         </div>
                     </Card>
-                    <Button fullWidth onClick={() => dispatch(showCart())}>Edit order</Button>
+                    <Button fullWidth onClick={() => dispatch(showCart())}>{t('editOrder')}</Button>
                 </div>
-                <div>
-                    <h3 style={{ marginBottom: '20px' }}>Fill the form to finish yor order</h3>
+                <div style={{maxWidth: '300px'}}>
+                    <h3 style={{ marginBottom: '20px' }}>{t('fillFormToFinish')}</h3>
                     <form onSubmit={handleSubmit(handleForm)}>
                         <div className={'checkout_form_wrapper'}>
                             <TextField
                                 className={'TextField-without-border-radius'}
-                                label={'name'}
+                                label={t('name')}
                                 {...register('customerName')}
                                 error={!!errors.customerName}
                                 helperText={errors?.customerName ? errors.customerName.message : null}
                             />
                             <TextField
                                 className={'TextField-without-border-radius'}
-                                label={'surname'}
+                                label={t('surname')}
                                 {...register('customerSurname', {
                                     required: 'This field is requered', pattern: {
                                         value: /^[A-Z][a-z]{1,30}(-[A-Z][a-z]{1,30})?$/,
@@ -74,7 +76,7 @@ const OrderForm = () => {
                             />
                             <TextField
                                 className={'TextField-without-border-radius'}
-                                label={'phone number'}
+                                label={t('phone')}
                                 {...register('customerPhone', {
                                     required: 'This field is required', pattern: {
                                         value: /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,

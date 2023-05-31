@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-
 export const appearanceSlice = createSlice({
     name: 'appearanceSlice',
     initialState: {
@@ -77,7 +76,6 @@ export const appearanceSlice = createSlice({
 export const {
     openMenu,
     closeMenu,
-    showHideItem,
     setLanguage,
     showCart,
     hideCart,

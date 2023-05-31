@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Card, CardMedia } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useTranslation } from 'react-i18next';
 
 import './ItemCard.css';
 import { showPicture } from '../../services/show-picture.service';
@@ -12,6 +13,7 @@ import { showCart } from '../../store/appearance';
 import { config } from '../../config/config';
 
 const ItemCard = ({ product }) => {
+    const { t } = useTranslation();
     const [showButton, setShowButton] = useState(false);
     const dispatch = useDispatch();
     const { products } = useSelector(state => state.orderStore);
@@ -53,16 +55,16 @@ const ItemCard = ({ product }) => {
                         </span>
                     </div>
                     <Link to={`/product/${product._id}`}>
-                        <Button variant={'outlined'} fullWidth>Read more</Button>
+                        <Button variant={'outlined'} fullWidth>{t('readMore')}</Button>
                     </Link>
                     {!showButton && <>
                         <Button variant={'contained'}
                                 onClick={() => dispatch(addProductToCart({ count: 1, ...product }))}>
-                            <ShoppingCartIcon/> Add to cart</Button>
+                            <ShoppingCartIcon/> {t('addToCart')}</Button>
                     </>}
                     {showButton &&
                         <Button fullWidth onClick={() => dispatch(showCart())}><ShoppingCartCheckoutIcon/>
-                            Already in cart</Button>}
+                            {t('alreadyInCart')}</Button>}
                 </div>
             </Card>
         </div>

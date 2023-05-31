@@ -5,6 +5,7 @@ import Badge from '@mui/material/Badge';
 import { useDispatch, useSelector } from 'react-redux';
 import { Backdrop } from '@mui/material';
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import './Header.css';
 import logo from './tob2.png'
@@ -26,9 +27,17 @@ import Loader from '../Loader/Loader';
 
 const Header = () => {
     const { products } = useSelector(state => state.orderStore);
-    const { openedMenu, cart, showElement, language, filteredLang, searchBar } = useSelector(state => state.appearanceStore);
+    const {
+        openedMenu,
+        cart,
+        showElement,
+        language,
+        filteredLang,
+        searchBar
+    } = useSelector(state => state.appearanceStore);
     const { categories, status } = useSelector(state => state.categoryStore);
     const dispatch = useDispatch();
+    const { i18n } = useTranslation();
     useEffect(() => {
         dispatch(getAllCategories());
     }, [dispatch]);
@@ -36,11 +45,17 @@ const Header = () => {
         dispatch(closeMenu());
     }
     const searchOutside = () => {
-        if(searchBar) dispatch(hideSearchBar());
+        if (searchBar) dispatch(hideSearchBar());
     }
     const menuRef = useOutsideClick(handleClickOutside);
     const searchRef = useOutsideClick(searchOutside);
-       return (
+
+    const { t } = useTranslation();
+    const changeLanguage = (language) => {
+        i18n.changeLanguage(language);
+        dispatch(setLanguage(language));
+    }
+    return (
         <div className={'header_wrapper'}>
             {status === 'loading' && <Loader/>}
             <Backdrop open={cart} onClick={() => dispatch(showCart())}/>
@@ -55,14 +70,14 @@ const Header = () => {
                 }
             </div>
             <div>
-                <img src={logo} alt="logo" className={'logo'}/>
+                <img src={logo} alt='logo' className={'logo'}/>
             </div>
-            <nav className={!openedMenu ? 'menu_wrapper' : 'menu_wrapper show_menu'} >
+            <nav className={!openedMenu ? 'menu_wrapper' : 'menu_wrapper show_menu'}>
                 <ul ref={menuRef}>
-                    <li><NavLink to={'/'} onClick={() => dispatch(closeMenu())}>Home</NavLink></li>
-                    <li><NavLink to={'/about'} onClick={() => dispatch(closeMenu())}>About us</NavLink></li>
-                    <li><NavLink to={'/contacts'} onClick={() => dispatch(closeMenu())}>Contacts</NavLink></li>
-                    <li><a href="#" className={'menu_parent'}>Products <i className={'arrow_right'}></i> </a>
+                    <li><NavLink to={'/'} onClick={() => dispatch(closeMenu())}>{t('home')}</NavLink></li>
+                    <li><NavLink to={'/about'} onClick={() => dispatch(closeMenu())}>{t('aboutUs')}</NavLink></li>
+                    <li><NavLink to={'/contacts'} onClick={() => dispatch(closeMenu())}>{t('contacts')}</NavLink></li>
+                    <li><a href="#" className={'menu_parent'}>{t('products')} <i className={'arrow_right'}></i> </a>
                         <ul>
                             {categories &&
                                 categories.map(cat => <div key={cat._id}>
@@ -70,7 +85,6 @@ const Header = () => {
                                         to={`category/${cat._id}`}>{cat.name}</NavLink></li>
                                 </div>)
                             }
-
                         </ul>
                     </li>
                 </ul>
@@ -78,11 +92,11 @@ const Header = () => {
             <nav id={'lang'} className={'menu_wrapper'} style={{ minWidth: '70px' }}>
                 <ul>
                     <li>
-                        <a href="#" className={'menu_parent'}>{language} <i className={'arrow_right'}></i></a>
+                        <a href="#" className={'menu_parent'}>{i18n.language} <i className={'arrow_right'}></i></a>
                         <ul style={{ width: '80px' }}>
                             {
                                 filteredLang.map(item => <li style={{ borderBottom: 0 }} key={item}>
-                                    <a href="#" onClick={() => dispatch(setLanguage(item))}>{item}</a>
+                                    <a href="#" onClick={() => changeLanguage(item)}>{item}</a>
                                 </li>)
                             }
                         </ul>
@@ -95,8 +109,9 @@ const Header = () => {
                         <CartIcon size={2}/>
                     </Badge>
                 </div>
-                <div  className={searchBar ? 'show_element' : 'hide_element'} ref={searchRef}><SearchBar setShow={showElement}/></div>
-                <div onClick={() => dispatch(showSearchBar())} className={!searchBar ? 'show_element' : 'hide_element'} >
+                <div className={searchBar ? 'show_element' : 'hide_element'} ref={searchRef}><SearchBar
+                    setShow={showElement}/></div>
+                <div onClick={() => dispatch(showSearchBar())} className={!searchBar ? 'show_element' : 'hide_element'}>
                     <SearchIcon/>
                 </div>
             </div>

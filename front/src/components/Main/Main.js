@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+
 import './Main.css';
 import Slider from '../Slider/Slider';
-import { useDispatch, useSelector } from 'react-redux';
 import { getNewProducts } from '../../store/product';
 import ItemCard from '../ItemCard/ItemCard';
 
 const Main = () => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getNewProducts());
@@ -19,12 +22,7 @@ const Main = () => {
             <Slider/>
             <div className={'content_container'}>
                 <div>
-                    <h2>The newest products</h2>
-                    {/*<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus architecto atque, deserunt*/}
-                    {/*    doloribus*/}
-                    {/*    eaque, earum eum facilis illum in laudantium minus mollitia nulla rem repudiandae similique unde*/}
-                    {/*    vel*/}
-                    {/*    veritatis voluptates!</p>*/}
+                    <h2>{t('newestProducts')}</h2>
                 </div>
                 <div className={'items_slider'}>
                     <Swiper

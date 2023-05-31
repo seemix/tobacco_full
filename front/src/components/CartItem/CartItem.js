@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Card, TextField } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
 import './CartItem.css';
@@ -8,6 +9,7 @@ import { showPicture } from '../../services/show-picture.service';
 import { incrementCount, reduceCount, removeItem } from '../../store/order';
 
 const CartItem = ({ product }) => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     let img;
     if (product) img = showPicture(product);
@@ -31,7 +33,7 @@ const CartItem = ({ product }) => {
                             <Button onClick={() => dispatch(incrementCount(product))}><big>+</big></Button>
                         </div>
                         <div style={{ marginLeft: 'auto' }}>
-                            <Button fullWidth onClick={() => dispatch(removeItem(product))}>remove</Button>
+                            <Button fullWidth onClick={() => dispatch(removeItem(product))}>{t('remove')}</Button>
                         </div>
                     </div>
                 </div>
