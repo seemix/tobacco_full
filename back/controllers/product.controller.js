@@ -130,7 +130,7 @@ module.exports = {
             const { productId } = req.query;
             const productForUpdate = await Product.findById(productId);
             const updatedPictures = [...productForUpdate.pictures, req.fileName];
-            const updateProduct = await Product.updateOne({ _id: productId }, { pictures: updatedPictures });
+            await Product.updateOne({ _id: productId }, { pictures: updatedPictures });
             res.json({ productId, pictures: updatedPictures }).status(status.created);
         } catch (e) {
             next(e);
@@ -141,7 +141,7 @@ module.exports = {
             const { productId, imageToUpdate } = req.query;
             const productForUpdate = await Product.findById(productId);
             const updatedPictures = productForUpdate.pictures.map(item => (item === imageToUpdate ? req.fileName : item));
-            const updatedProduct = await Product.updateOne({ _id: productId }, { pictures: updatedPictures });
+            await Product.updateOne({ _id: productId }, { pictures: updatedPictures });
             fs.unlinkSync(path.join(__dirname, '..', 'uploads', 'products', imageToUpdate));
             res.json({ productId, pictures: updatedPictures }).status(status.ok);
         } catch (e) {
@@ -153,7 +153,7 @@ module.exports = {
             const { productId, image } = req.query;
             const productForUpdate = await Product.findById(productId);
             const updatedPictures = productForUpdate.pictures.filter(item => item !== image);
-            const updatedProduct = await Product.updateOne({ _id: productId }, { pictures: updatedPictures });
+            await Product.updateOne({ _id: productId }, { pictures: updatedPictures });
             fs.unlinkSync(path.join(__dirname, '..', 'uploads', 'products', image));
             res.json(updatedPictures).status(status.ok);
         } catch (e) {

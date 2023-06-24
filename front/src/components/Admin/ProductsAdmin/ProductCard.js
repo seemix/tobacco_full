@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Button, Card, CardMedia } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Parser } from 'html-to-react'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useNavigate } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 
 import './ProductCard.css';
-import { deleteProduct, setProductForDelete, setProductForUpdate } from '../../../store/product';
+import { deleteProduct, setProductForUpdate } from '../../../store/product';
 import { config } from '../../../config/config';
 
 const ProductCard = ({ product }) => {

@@ -34,7 +34,6 @@ const OrderForm = () => {
             {status === 'fulfilled' && <Navigate to={'../completed'}/>}
             <h2>{t('checkoutYourOrder')}</h2>
             <div className={'checkout_wrap'}>
-                {/*{products.length === 0 && <Navigate to={'/'}/>}*/}
                 <div>
                     <Card className={'checkout_card'}>
                         <h3>{t('yourOrder')}</h3>
@@ -87,6 +86,8 @@ const OrderForm = () => {
                                     rows={4}
                                     label={t('shippingAddress')}
                                     {...register('address')}
+                                    error={!!errors.address}
+                                    helperText={errors?.address ? errors.address.message : null}
                                 />
                             }
                             <Button type={'submit'} variant={'contained'}>{t('submit')}</Button>

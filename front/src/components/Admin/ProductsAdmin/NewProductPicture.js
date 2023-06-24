@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, CardMedia } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { changePicture, removeNewPicture } from '../../../store/product';
 
 const NewProductPicture = ({ picture, index }) => {
