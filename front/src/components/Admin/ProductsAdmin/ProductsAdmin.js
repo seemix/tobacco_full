@@ -1,19 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { Button, Dialog, DialogContent } from '@mui/material';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 import ProductCard from './ProductCard';
 import { getProductsByCategory, setPage } from '../../../store/product';
-import { hideProductForm, showProductForm } from '../../../store/appearance';
-import ProductForm from './ProductForm';
 import { getCategoryById } from '../../../store/category';
 import Pagination from '@mui/material/Pagination';
 
 const ProductsAdmin = () => {
     const dispatch = useDispatch();
-
-    const { productFormModal } = useSelector(state => state.appearanceStore);
+    const navigate = useNavigate();
     const { id } = useParams();
     let params = { categoryId: id, page: 1 }
 
@@ -22,7 +19,6 @@ const ProductsAdmin = () => {
     useEffect(() => {
         dispatch(getCategoryById(id));
         dispatch(getProductsByCategory({ ...params, page: selectedPage }));
-        //dispatch(setPage(1));
     }, [dispatch, id, selectedPage]);
     const { currentCategory } = useSelector(state => state.categoryStore);
     const { products, pages, page } = useSelector(state => state.productStore).products;
@@ -33,17 +29,8 @@ const ProductsAdmin = () => {
     return (
         <div>
             <h2>{currentCategory?.name}
-                <Button onClick={() => dispatch(showProductForm())}>+ Add new product </Button>
+                <Button onClick={() => navigate(window.location.pathname+'/new')}>+ Add new product </Button>
             </h2>
-            <Dialog
-                maxWidth={'md'}
-                open={productFormModal}
-                onClose={() => dispatch(hideProductForm())}
-            >
-                <DialogContent style={{ borderRadius: 0 }}>
-                    <ProductForm _id={currentCategory?._id}/>
-                </DialogContent>
-            </Dialog>
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
                 {products &&
                     products.map(item => <ProductCard key={item._id} product={item}/>)

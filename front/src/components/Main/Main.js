@@ -16,7 +16,6 @@ const Main = () => {
         dispatch(getNewProducts());
     }, [dispatch]);
     const { newProducts } = useSelector(state => state.productStore);
-
     return (
         <>
             <Slider/>

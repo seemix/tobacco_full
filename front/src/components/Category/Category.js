@@ -43,11 +43,11 @@ const Category = () => {
             </div>
             {brands.length > 0 && <BrandSelector/>}
             <div className={'items_wrapper'}>
-                {products &&
+                {products && products.length > 0 &&
                     products.map(item => <ItemCard key={item._id} product={item}/>)}
             </div>
             <div className={'pagination_wrapper'}>
-                {pages && pages > 1 &&
+                {pages!==0 && pages > 1 &&
                     <Pagination shape={'rounded'} count={pages || 1} onChange={(event, page) => setPag(page)}
                                 page={Number(page) || 1}/>
                 }

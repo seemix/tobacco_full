@@ -21,6 +21,7 @@ import Search from './components/Search/Search';
 import SliderAdmin from './components/Admin/Slider/Slider';
 import Brands from './components/Admin/Brands/Brands';
 import SearchAdmin from './components/Admin/SearchAdmin/SearchAdmin';
+import ProductEditForm from './components/Admin/ProductsAdmin/ProductEditForm';
 
 const Layout = React.lazy(() => import('./components/Layout/Layout'));
 const AdminLayout = React.lazy(() => import('./components/Admin/AdminLayout'));
@@ -50,6 +51,8 @@ function App() {
                             <Route path={'orders'} element={<Orders/>}/>
                             <Route path={'categories'} element={<CategoriesAdmin/>}/>
                             <Route path={'category/:id'} element={<ProductsAdmin/>}/>
+                            <Route path={'category/:id/new'} element={<ProductEditForm/>}/>
+                            <Route path={'product/:id/'} element={<ProductEditForm/>}/>
                             <Route path={'slider'} element={<SliderAdmin/>}/>
                             <Route path={'brands'} element={<Brands/>}/>
                             <Route path={'search'} element={<SearchAdmin/>}/>

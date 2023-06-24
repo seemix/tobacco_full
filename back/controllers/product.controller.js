@@ -8,11 +8,12 @@ const { PRODUCTS_PER_PAGE } = require('../config/config');
 
 module.exports = {
     createProduct: async (req, res, next) => {
+        // const dataToSave = req.filenames.map(item => {
+        //     return { filename: item }
+        // });
+        //const uploadedImages = await ProductImage.create(dataToSave);
         try {
-            const { category, name, description, oldPrice, price, pictureLink, brand } = req.body;
-            const newProd = await Product.create({
-                name, description, oldPrice, price, pictureLink, category, brand, picture: req.fileName
-            });
+            const newProd = await Product.create(req.body);
             res.json(newProd).status(status.created);
         } catch (e) {
             next(new ApiError('Error creating product', status.serverError));
@@ -35,6 +36,11 @@ module.exports = {
                     path: 'brand',
                     select: 'name',
                     strictPopulate: false
+                })
+                .populate({
+                    path: 'pictures',
+                    select: 'filename',
+                    strictPopulate: false
                 });
             res.json({ page, pages, products });
         } catch (e) {
@@ -47,18 +53,23 @@ module.exports = {
                 .find()
                 .sort({ updatedAt: 1 })
                 .limit(5)
-                .select(['name', 'pictureLink', 'oldPrice', 'price', 'picture']);
+                .select(['name', 'pictureLink', 'oldPrice', 'price'])
+                .populate({
+                    path: 'pictures',
+                    select: 'filename',
+                    strictPopulate: false
+                });
             res.status(status.ok).json(newProducts);
         } catch (e) {
             next(e);
         }
-
     },
     getProductById: async (req, res, next) => {
         try {
             const { id } = req.params;
             const product = await Product.findOne({ _id: id })
                 .populate({ path: 'category', select: 'name' })
+                .populate({ path: 'pictures', select: 'filename' })
             res.status(status.ok).json(product);
         } catch (e) {
             next(e);
@@ -79,23 +90,23 @@ module.exports = {
             next(e);
         }
     },
-    deleteImage: async (req, res, next) => {
-        try {
-            const { filename } = req.params;
-            if (filename) res.status(status.badRequest);
-            fs.unlinkSync(path.join(__dirname, '..', 'uploads', 'products', filename));
-            await Product.updateOne({ picture: filename }, { picture: null });
-            res.status(status.ok).json(filename);
-        } catch (e) {
-            next(e);
-        }
-    },
+    // deleteImage: async (req, res, next) => {
+    //     try {
+    //         const { filename } = req.params;
+    //         if (filename) res.status(status.badRequest);
+    //         fs.unlinkSync(path.join(__dirname, '..', 'uploads', 'products', filename));
+    //         await Product.updateOne({ picture: filename }, { picture: null });
+    //         res.status(status.ok).json(filename);
+    //     } catch (e) {
+    //         next(e);
+    //     }
+    // },
     updateProduct: async (req, res, next) => {
         try {
-            const { id } = req.body;
-            if (!id) next(new ApiError('Incorrect ID', status.badRequest));
-            await Product.updateOne({ _id: id }, { ...req.body });
-            const updatedProduct = await Product.findById(id).populate({ path: 'brand' });
+            const { _id } = req.body;
+            if (!_id) next(new ApiError('Incorrect ID', status.badRequest));
+            await Product.updateOne({ _id }, { ...req.body });
+            const updatedProduct = await Product.findById(_id).populate({ path: 'brand' });
             res.status(status.ok).json(updatedProduct);
         } catch (e) {
             next(e);
@@ -103,12 +114,48 @@ module.exports = {
     },
     deleteProduct: async (req, res, next) => {
         try {
-            const { id, fileName } = req.query;
-            if (fileName !== 'undefined') {
-                fs.unlinkSync(path.join(__dirname, '..', 'uploads', 'products', fileName));
+            const { id } = req.query;
+            const productForDelete = await Product.findOne({ _id: id });
+            for (const picture of productForDelete.pictures) {
+                     fs.unlinkSync(path.join(__dirname, '..', 'uploads', 'products', picture));
             }
             const deletedItem = await Product.deleteOne({ _id: id });
-            res.status(status.ok).json(deletedItem);
+            res.status(status.ok).json(id);
+        } catch (e) {
+            next(e);
+        }
+    },
+    addImage: async (req, res, next) => {
+        try {
+            const { productId } = req.query;
+            const productForUpdate = await Product.findById(productId);
+            const updatedPictures = [...productForUpdate.pictures, req.fileName];
+            const updateProduct = await Product.updateOne({ _id: productId }, { pictures: updatedPictures });
+            res.json({ productId, pictures: updatedPictures }).status(status.created);
+        } catch (e) {
+            next(e);
+        }
+    },
+    replaceImage: async (req, res, next) => {
+        try {
+            const { productId, imageToUpdate } = req.query;
+            const productForUpdate = await Product.findById(productId);
+            const updatedPictures = productForUpdate.pictures.map(item => (item === imageToUpdate ? req.fileName : item));
+            const updatedProduct = await Product.updateOne({ _id: productId }, { pictures: updatedPictures });
+            fs.unlinkSync(path.join(__dirname, '..', 'uploads', 'products', imageToUpdate));
+            res.json({ productId, pictures: updatedPictures }).status(status.ok);
+        } catch (e) {
+            next(e);
+        }
+    },
+    deleteImage: async (req, res, next) => {
+        try {
+            const { productId, image } = req.query;
+            const productForUpdate = await Product.findById(productId);
+            const updatedPictures = productForUpdate.pictures.filter(item => item !== image);
+            const updatedProduct = await Product.updateOne({ _id: productId }, { pictures: updatedPictures });
+            fs.unlinkSync(path.join(__dirname, '..', 'uploads', 'products', image));
+            res.json(updatedPictures).status(status.ok);
         } catch (e) {
             next(e);
         }

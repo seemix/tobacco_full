@@ -11,8 +11,6 @@ import { incrementCount, reduceCount, removeItem } from '../../store/order';
 const CartItem = ({ product }) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
-    let img;
-    if (product) img = showPicture(product);
     return (
         <div>
             <Card className={'cart_card'}>
@@ -21,7 +19,7 @@ const CartItem = ({ product }) => {
                 </div>
                 <div className={'cart_item_wrapper'}>
                     <div>
-                        <div className={'cart_item_wrapper_im'}  style={{ backgroundImage: `url(${img})`}}></div>
+                        <div className={'cart_item_wrapper_im'}  style={{ backgroundImage: `url(${config.BACKEND_URL}/product/image/${product.pictures[0]})`}}></div>
                     </div>
                     <div className={'price_count_wrapper'}>
                         <div className={'center_text'}>

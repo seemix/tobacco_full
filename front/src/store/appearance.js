@@ -10,7 +10,7 @@ export const appearanceSlice = createSlice({
         searchBar: false,
         cart: false,
         categoryEditModal: false,
-        productFormModal: false,
+        // productFormModal: false,
         productDeleteModal: false,
         categoryDeleteModal: false,
         orderDeleteModal: false

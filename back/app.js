@@ -21,6 +21,7 @@ const io = socketIO(server, {
 });
 io.on('connection', (socket) => {
     socket.on('disconnect', () => {
+       // console.log('user disconnected');
     })
 })
 app.set('io', io);
@@ -29,6 +30,7 @@ app.use(cors({
     credentials: true,
     origin: FRONTEND_URL
 }));
+// app.use(cors());
 
 app.use(express.json());
 

@@ -5,7 +5,6 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useTranslation } from 'react-i18next';
 
 import './ItemCard.css';
-import { showPicture } from '../../services/show-picture.service';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProductToCart } from '../../store/order';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
@@ -13,6 +12,7 @@ import { showCart } from '../../store/appearance';
 import { config } from '../../config/config';
 
 const ItemCard = ({ product }) => {
+    console.log(product);
     const { t } = useTranslation();
     const [showButton, setShowButton] = useState(false);
     const dispatch = useDispatch();
@@ -25,14 +25,14 @@ const ItemCard = ({ product }) => {
             setShowButton(false);
         }
     }, [products, product._id]);
-    const img = showPicture(product);
+    const img = `${config.BACKEND_URL}/product/image/${product.pictures[0]}`;
     return (
         <div className={'card_wrapper'}>
             <Card style={{ height: '410px', position: 'relative' }}>
                 <CardMedia
                     className={'gray_scale'}
                     component={'img'}
-                    alt={product.picture}
+                    alt={'picture'}
                     width="300"
                     height={'180'}
                     image={img}

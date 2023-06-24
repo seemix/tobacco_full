@@ -1,44 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Card, CardMedia, Dialog, DialogContent } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Parser } from 'html-to-react'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { useNavigate } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 
 import './ProductCard.css';
-import { setProductForDelete, setProductForUpdate } from '../../../store/product';
+import { deleteProduct, setProductForDelete, setProductForUpdate } from '../../../store/product';
 import {
     hideProductDeleteModal,
     showProductDeleteModal,
     showProductForm
 } from '../../../store/appearance';
 import ConfirmDeleteProduct from './ConfirmDeleteProduct';
-import { showPicture } from '../../../services/show-picture.service';
+
 import { config } from '../../../config/config';
 
 const ProductCard = ({ product }) => {
+    const navigate = useNavigate();
+    const [confirmDelete, setConfirmDelete] = useState(false);
     const dispatch = useDispatch();
-    const img = showPicture(product);
-    const deleteProduct = () => {
-        dispatch(setProductForDelete(product));
-        dispatch(showProductDeleteModal());
+    const img = `${config.BACKEND_URL}/product/image/${product.pictures[0]}`;
+    const confirmedDelete = () => {
+        dispatch(deleteProduct(product._id));
     }
     const editProduct = () => {
         dispatch(setProductForUpdate(product));
-        dispatch(showProductForm(product.category));
+        navigate(`../product/${product._id}`)
     }
-    const { productDeleteModal } = useSelector(state => state.appearanceStore);
+    // const { productDeleteModal } = useSelector(state => state.appearanceStore);
     return (
         <div className={'product_card_wrapper'}>
-            <Dialog
-                maxWidth={'xs'}
-                open={productDeleteModal}
-                onClose={() => dispatch(hideProductDeleteModal())}
-            >
-                <DialogContent style={{ borderRadius: 0 }}>
-                    <ConfirmDeleteProduct/>
-                </DialogContent>
-            </Dialog>
+            {/*<Dialog*/}
+            {/*    maxWidth={'xs'}*/}
+            {/*    open={productDeleteModal}*/}
+            {/*    onClose={() => dispatch(hideProductDeleteModal())}*/}
+            {/*>*/}
+            {/*    <DialogContent style={{ borderRadius: 0 }}>*/}
+            {/*        <ConfirmDeleteProduct/>*/}
+            {/*    </DialogContent>*/}
+            {/*</Dialog>*/}
             <Card>
                 <CardMedia
                     className={'gray_scale'}
@@ -56,8 +58,14 @@ const ProductCard = ({ product }) => {
                         {Parser().parse(product.description)}
                     </small>
                     <div style={{ display: 'flex', justifyContent: 'right' }}>
-                        <Button onClick={editProduct}><EditIcon/></Button>
-                        <Button onClick={deleteProduct}><DeleteForeverIcon/></Button>
+                        {!confirmDelete && <>
+                            <Button onClick={editProduct}><EditIcon/></Button>
+                            <Button onClick={() => setConfirmDelete(true)}><DeleteForeverIcon/></Button>
+                        </>}
+                        {confirmDelete && <>
+                            <Button onClick={() => setConfirmDelete(false)}>Cancel</Button>
+                            <Button onClick={confirmedDelete}>Delete</Button>
+                        </>}
                     </div>
                 </div>
             </Card>
