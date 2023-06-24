@@ -119,7 +119,7 @@ module.exports = {
             for (const picture of productForDelete.pictures) {
                      fs.unlinkSync(path.join(__dirname, '..', 'uploads', 'products', picture));
             }
-            const deletedItem = await Product.deleteOne({ _id: id });
+            await Product.deleteOne({ _id: id });
             res.status(status.ok).json(id);
         } catch (e) {
             next(e);

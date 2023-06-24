@@ -8,7 +8,6 @@ const NewProductPicture = ({ picture, index }) => {
     const [file, setFile] = useState();
     const [img, setImg] = useState(URL.createObjectURL(picture));
     const dispatch = useDispatch();
-    const { newPictures } = useSelector(state => state.productStore);
     useEffect(() => {
         if (file) setFile(file);
     }, [file]);

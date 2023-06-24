@@ -4,7 +4,6 @@ import { Parser } from 'html-to-react'
 import { Button, Card } from '@mui/material';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -20,7 +19,6 @@ import 'swiper/css/thumbs';
 import { FreeMode, Navigation, Thumbs } from 'swiper';
 
 import { getProductById } from '../../store/product';
-import { showPicture } from '../../services/show-picture.service';
 import { showCart } from '../../store/appearance';
 import { addProductToCart } from '../../store/order';
 import { config } from '../../config/config';

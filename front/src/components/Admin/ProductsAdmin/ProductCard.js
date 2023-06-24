@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Card, CardMedia, Dialog, DialogContent } from '@mui/material';
+import { Button, Card, CardMedia } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Parser } from 'html-to-react'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -8,13 +8,6 @@ import EditIcon from '@mui/icons-material/Edit';
 
 import './ProductCard.css';
 import { deleteProduct, setProductForDelete, setProductForUpdate } from '../../../store/product';
-import {
-    hideProductDeleteModal,
-    showProductDeleteModal,
-    showProductForm
-} from '../../../store/appearance';
-import ConfirmDeleteProduct from './ConfirmDeleteProduct';
-
 import { config } from '../../../config/config';
 
 const ProductCard = ({ product }) => {
@@ -29,18 +22,8 @@ const ProductCard = ({ product }) => {
         dispatch(setProductForUpdate(product));
         navigate(`../product/${product._id}`)
     }
-    // const { productDeleteModal } = useSelector(state => state.appearanceStore);
     return (
         <div className={'product_card_wrapper'}>
-            {/*<Dialog*/}
-            {/*    maxWidth={'xs'}*/}
-            {/*    open={productDeleteModal}*/}
-            {/*    onClose={() => dispatch(hideProductDeleteModal())}*/}
-            {/*>*/}
-            {/*    <DialogContent style={{ borderRadius: 0 }}>*/}
-            {/*        <ConfirmDeleteProduct/>*/}
-            {/*    </DialogContent>*/}
-            {/*</Dialog>*/}
             <Card>
                 <CardMedia
                     className={'gray_scale'}
