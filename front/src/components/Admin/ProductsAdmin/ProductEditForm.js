@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllBrands } from '../../../store/brand';
 import { productFormValidator } from '../../../validators/product-form.validator';
 import { hideProductForm, showProductForm } from '../../../store/appearance';
-import { createProduct, resetPictures, setProductForUpdate, updateProduct } from '../../../store/product';
+import { createProduct, setProductForUpdate, updateProduct } from '../../../store/product';
 import { useNavigate } from 'react-router-dom';
 import ProductPictures from './ProductPictures';
 import { config } from '../../../config/config';
@@ -31,11 +31,7 @@ const ProductEditForm = () => {
 
     const { allBrands } = useSelector(state => state.brandStore);
     const { productFormModal } = useSelector(state => state.appearanceStore);
-    const handleCancel = () => {
-        dispatch(resetPictures());
-        dispatch(hideProductForm());
-        dispatch(setProductForUpdate(null));
-    }
+
     const [formChange, setFormChange] = useState(false);
     const {
         handleSubmit,
@@ -65,8 +61,8 @@ const ProductEditForm = () => {
     }
     return (
         <>
-            <Button style={{ margin: '0 auto' }} onClick={handleBack}>Back to category</Button>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button style={{ margin: '0 auto' }} onClick={handleBack}>Back to category</Button>
                 <form onSubmit={handleSubmit(saveForm)}>
                     <div style={{ display: 'flex', columnGap: '20px', marginTop: '20px' }}>
                         <div>
@@ -146,7 +142,7 @@ const ProductEditForm = () => {
                             </Dialog>
                         </div>
                     </div>
-                    <Button onClick={handleCancel}>Back</Button>
+                    <Button onClick={handleBack}>Back</Button>
                     {formChange && <Button type={'submit'}>Save</Button>}
                 </form>
             </div>

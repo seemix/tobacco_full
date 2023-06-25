@@ -3,10 +3,9 @@ import Backend from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 
-
 const i18nOptions = {
-    //  fallbackLng: 'ru',
-      debug: false,
+    fallbackLng: 'EN',
+    debug: false,
     detection: {
         order: ['queryString', 'cookie'],
         caches: ['cookie'],
