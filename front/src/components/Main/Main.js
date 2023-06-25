@@ -23,7 +23,7 @@ const Main = () => {
                 <div>
                     <h2>{t('newestProducts')}</h2>
                 </div>
-                <div className={'items_slider'}>
+                <div className={'items_slider'} style={{ width: '100%' }}>
                     <Swiper
                         autoHeight={true}
                         slidesPerView={4}
@@ -57,8 +57,9 @@ const Main = () => {
                         className={'item_slider'}
                     >
                         {newProducts &&
-                            newProducts.map((product, index) => <SwiperSlide key={index}><ItemCard
-                                product={product}/></SwiperSlide>)
+                            newProducts.map((product, index) => <SwiperSlide key={index}>
+                                <ItemCard product={product}/>
+                            </SwiperSlide>)
                         }
                     </Swiper>
                 </div>

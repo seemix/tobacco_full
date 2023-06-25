@@ -12,7 +12,6 @@ import { showCart } from '../../store/appearance';
 import { config } from '../../config/config';
 
 const ItemCard = ({ product }) => {
-    console.log(product);
     const { t } = useTranslation();
     const [showButton, setShowButton] = useState(false);
     const dispatch = useDispatch();

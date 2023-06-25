@@ -4,16 +4,15 @@ import { config } from '../../../../config/config';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 
-    deletePicture, deleteProductImage,
-    resetConfirmDelete,
-    resetConfirmDialog, setConfirmDelete,
+     deleteProductImage,
+    resetConfirmDialog,
     setConfirmDialog,
     updateImage
 } from '../../../../store/product';
 import DeleteIcon from '@mui/icons-material/Delete';
 import './ProductPicture.css';
 
-const ProductPicture = ({ picture, index }) => {
+const ProductPicture = ({ picture }) => {
     const { confirmDialog, newFile, productForUpdate } = useSelector(state => state.productStore);
     const [file, setFile] = useState();
     const [img, setImg] = useState(`${config.BACKEND_URL}/product/image/${picture}`);
@@ -42,11 +41,7 @@ const ProductPicture = ({ picture, index }) => {
         setFile(null);
     }
     const handleDelete = () => {
-        console.log(picture);
-        // const formData = new FormData();
-        // formData.append('image', picture);
-        // formData.append('productId', productForUpdate._id);
-        const data = {
+       const data = {
             image: picture,
             productId: productForUpdate._id
         }

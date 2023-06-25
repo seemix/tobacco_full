@@ -79,7 +79,7 @@ const ItemDetails = () => {
                                 }
                                 {showButton &&
                                     <Button fullWidth onClick={() => dispatch(showCart())}><ShoppingCartCheckoutIcon/>
-                                        Already in cart</Button>
+                                        {t('alreadyInCart')}</Button>
                                 }
                             </div>
                             <Button style={{ marginTop: '20px' }} fullWidth

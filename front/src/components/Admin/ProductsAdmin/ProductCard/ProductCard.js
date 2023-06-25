@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 
 import './ProductCard.css';
-import { deleteProduct, setProductForUpdate } from '../../../store/product';
-import { config } from '../../../config/config';
+import { deleteProduct, setProductForUpdate } from '../../../../store/product';
+import { config } from '../../../../config/config';
 
 const ProductCard = ({ product }) => {
     const navigate = useNavigate();

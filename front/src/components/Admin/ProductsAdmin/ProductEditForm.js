@@ -144,20 +144,6 @@ const ProductEditForm = () => {
                                     <ProductPictures/>
                                 </DialogContent>
                             </Dialog>
-                            {/*{*/}
-                            {/*    productForUpdate && newPictures.map((picture, index) =>*/}
-                            {/*        <>*/}
-                            {/*            <NewProductPicture*/}
-                            {/*                key={picture.name} type={'object'} index={index} picture={picture}/></>)*/}
-                            {/*}*/}
-                            {/*<Button fullWidth component={'label'}>*/}
-                            {/*    <input type={'file'}*/}
-                            {/*           accept={'image/*'}*/}
-                            {/*           hidden*/}
-                            {/*           onChange={handleFileChange}*/}
-                            {/*    />*/}
-                            {/*    Add picture*/}
-                            {/*</Button>*/}
                         </div>
                     </div>
                     <Button onClick={handleCancel}>Back</Button>

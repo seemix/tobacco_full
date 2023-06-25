@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@mui/material';
 
-import ProductCard from './ProductCard';
+import ProductCard from './ProductCard/ProductCard';
 import { getProductsByCategory, setPage } from '../../../store/product';
 import { getCategoryById } from '../../../store/category';
 import Pagination from '@mui/material/Pagination';

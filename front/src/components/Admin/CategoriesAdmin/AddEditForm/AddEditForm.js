@@ -53,6 +53,7 @@ const AddEditForm = () => {
             formData.append('image', file);
             if (categoryForUpdate) {
                 formData.append('_id', categoryForUpdate._id);
+                formData.append('picture', categoryForUpdate.picture);
                 dispatch(updateCategory(formData));
             } else {
                 dispatch(createCategory(formData));
@@ -81,6 +82,7 @@ const AddEditForm = () => {
                                 fullWidth
                             />
                         </div>
+
                         <div>
                             {!categoryForUpdate?.picture &&
                                 <Button fullWidth component="label">
@@ -96,16 +98,27 @@ const AddEditForm = () => {
                             <h4>Recomended image size 1920x270</h4>
                         </div>
                         <div>
-                            {categoryForUpdate && categoryForUpdate?.picture &&
+                            {categoryForUpdate && categoryForUpdate?.picture && !file &&
                                 <img src={`${config.BACKEND_URL}/category/${categoryForUpdate?.picture}`} alt="123"
                                      width={300}/>}
                             {pastedLink && <> <img src={pastedLink} alt={'pasted'} width={300}/>
                             </>}
                         </div>
                         {file &&
-                            <Button fullWidth onClick={() => removeFile()}>remove</Button>
+                            <Button fullWidth onClick={removeFile}>revert</Button>
                         }
-                        {categoryForUpdate && !confirmDelete &&
+                        <div>
+                            <Button fullWidth component="label">
+                                replace
+                                <input type="file"
+                                       accept="image/*"
+                                       hidden
+                                       onChange={handleChange}
+                                />
+                            </Button>
+                        </div>
+
+                        {categoryForUpdate && !confirmDelete && !file &&
                             <Button fullWidth onClick={() => setConfirmDelete(true)}>Delete</Button>
                         }
                         {confirmDelete && <>

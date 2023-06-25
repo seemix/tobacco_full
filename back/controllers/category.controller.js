@@ -20,11 +20,15 @@ module.exports = {
     },
     updateCategory: async (req, res, next) => {
         try {
-            const { _id, name } = req.body;
+            const { _id, name, picture } = req.body;
             if (!_id) next(new ApiError('Incorrect ID', status.badRequest));
             let objToUpdate = { name };
             if (req.fileName) {
-                objToUpdate = { ...objToUpdate, picture: req.fileName }
+                objToUpdate = { ...objToUpdate, picture: req.fileName };
+                const oldFile = path.join(__dirname, '..', 'uploads', 'category', picture);
+                if (fs.existsSync(oldFile)) {
+                    fs.unlinkSync(oldFile);
+                }
             }
             await Category.updateOne({ _id }, { ...objToUpdate });
             const updatedCategory = await Category.findById(_id);

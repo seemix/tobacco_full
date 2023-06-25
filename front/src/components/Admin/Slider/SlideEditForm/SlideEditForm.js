@@ -34,9 +34,14 @@ const SlideEditForm = () => {
         if (file) formData.append('image', file);
         if (slideForUpdate) {
             formData.append('_id', slideForUpdate._id);
+            if (file) {
+               formData.append('picture', slideForUpdate.slide);
+            }
+            console.log(formData);
             dispatch(updateSlide(formData));
         } else {
-            dispatch(createSlide(formData));
+            console.log(formData);
+             dispatch(createSlide(formData));
         }
         dispatch(closeSlideEdit());
     }
@@ -64,14 +69,24 @@ const SlideEditForm = () => {
                         </Button>
                     }</div>
                     <div>
-                        {slideForUpdate && slideForUpdate?.slide &&
+                        {slideForUpdate && slideForUpdate?.slide && !file &&
                             <img src={`${config.BACKEND_URL}/slider/${slideForUpdate?.slide}`} alt="slide"
                                  width={300}/>}
                         {pastedLink && <> <img src={pastedLink} alt={'pasted'} width={300}/>
                         </>}
+                        <div>
+                            <Button fullWidth component="label">
+                                replace
+                                <input type="file"
+                                       accept="image/*"
+                                       hidden
+                                       onChange={handleChange}
+                                />
+                            </Button>
+                        </div>
                     </div>
                     {file &&
-                        <Button fullWidth onClick={removeFile}>remove</Button>
+                        <Button fullWidth onClick={removeFile}>revert</Button>
                     }
                     <DialogActions>
                         <Button variant={'contained'} onClick={closeEdit}>Cancel

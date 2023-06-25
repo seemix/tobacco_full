@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { search } from '../../../store/search';
-import ProductCard from '../ProductsAdmin/ProductCard';
+import ProductCard from '../ProductsAdmin/ProductCard/ProductCard';
 
 const SearchAdmin = () => {
     const [searchParams, setSearchParams] = useSearchParams();
