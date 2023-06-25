@@ -60,9 +60,9 @@ const ProductEditForm = () => {
         }
     }
     return (
-        <>
+        <div>
+            <Button style={{ marginLeft: '50px' }} onClick={handleBack}>Back to category</Button>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button style={{ margin: '0 auto' }} onClick={handleBack}>Back to category</Button>
                 <form onSubmit={handleSubmit(saveForm)}>
                     <div style={{ display: 'flex', columnGap: '20px', marginTop: '20px' }}>
                         <div>
@@ -146,7 +146,7 @@ const ProductEditForm = () => {
                     {formChange && <Button type={'submit'}>Save</Button>}
                 </form>
             </div>
-        </>
+        </div>
     );
 };
 
