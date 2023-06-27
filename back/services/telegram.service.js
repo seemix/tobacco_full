@@ -14,7 +14,7 @@ const sendTgMessage = async (order) => {
     for (const product of products) {
         message += product.item
     }
-    message += `\n\n<b><i>💰Total price is: </i><u>${order.total} DKK</u></b>\n`
+    message += `\n\n<b><i>💰Total price is: </i><u>${!order.freeShipping ? order.total + 40 : order.total} DKK</u></b>\n`
     if(order.shipping) message += `\n🚚 <b>Shipping address: </b>${order.address}`
     await axios.post(url, {
         chat_id: TG_CHAT_ID,

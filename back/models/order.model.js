@@ -13,6 +13,7 @@ const orderSchema = new Schema({
     ],
     total: { type: Number },
     shipping: { type: Boolean, default: false },
+    freeShipping: { type: Boolean, default: false },
     completed: { type: Boolean, default: false }
 }, { timestamps: true });
 

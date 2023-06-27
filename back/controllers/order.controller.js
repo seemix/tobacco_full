@@ -18,7 +18,7 @@ module.exports = {
             const io = req.app.get('io');
             io.emit('newOrder', order);
             //Send new order to Telegram Bot
-            // await sendTgMessage(order);
+             await sendTgMessage(order);
             res.status(status.ok).json(newOrder);
         } catch (e) {
             next(e);

@@ -104,6 +104,11 @@
     font-size: 20px;
 }
 
+.over_lined {
+    text-decoration: line-through;
+    font-style: italic;
+}
+
 @media screen and (max-width: 460px) {
     .cart_wrapper {
         width: 100%;

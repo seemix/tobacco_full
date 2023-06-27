@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { orderService } from '../services/order.service';
+import { config } from '../config/config';
 
 export const createOrder = createAsyncThunk(
     'orderSlice/CreateOrder',
@@ -51,6 +52,7 @@ export const orderSlice = createSlice({
         status: null,
         error: null,
         total: 0,
+        freeShipping: false,
         products: [],
         customerName: null,
         customerSurname: null,
@@ -63,14 +65,17 @@ export const orderSlice = createSlice({
         addProductToCart(state, action) {
             state.products.push(action.payload);
             state.total = state.total + action.payload.price * action.payload.count;
+            state.freeShipping = state.total >= config.FREE_SHIPPING_COST;
         },
         removeItem(state, action) {
             state.total -= action.payload.price * action.payload.count;
             state.products = state.products.filter(item => item._id !== action.payload._id);
+            state.freeShipping = state.total >= config.FREE_SHIPPING_COST;
         },
         removeAllItems(state) {
             state.products = [];
             state.total = 0;
+            state.freeShipping = false;
         },
         reduceCount(state, action) {
             const index = state.products.findIndex(obj => obj._id === action.payload._id);
@@ -78,11 +83,14 @@ export const orderSlice = createSlice({
                 state.products[index].count -= 1;
                 state.total -= state.products[index].price;
             }
+            state.freeShipping = state.total >= config.FREE_SHIPPING_COST;
+
         },
         incrementCount(state, action) {
             const index = state.products.findIndex(obj => obj._id === action.payload._id);
             state.products[index].count += 1;
             state.total += state.products[index].price;
+            state.freeShipping = state.total >= config.FREE_SHIPPING_COST;
         },
         setOrderForDelete(state, action) {
             state.orderForDelete = action.payload;
