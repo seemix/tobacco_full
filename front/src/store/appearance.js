@@ -1,11 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import i18n from 'i18next';
 export const appearanceSlice = createSlice({
     name: 'appearanceSlice',
     initialState: {
         openedMenu: false,
         showElement: false,
-        language: i18n.language || localStorage.getItem('i18nextLng') || 'EN',
         languages: ['EN', 'DK', 'RU'],
         filteredLang: [],
         searchBar: false,

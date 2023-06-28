@@ -26,7 +26,7 @@ import { useOutsideClick } from '../../hooks/outside-click';
 import Loader from '../Loader/Loader';
 
 const Header = () => {
-    const language = localStorage.getItem('i18nextLng') || 'EN';
+
     const { products } = useSelector(state => state.orderStore);
     const {
         openedMenu,
@@ -37,10 +37,10 @@ const Header = () => {
     } = useSelector(state => state.appearanceStore);
     const { categories, status } = useSelector(state => state.categoryStore);
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(setFilteredLang(language));
-    }, [language]);
     const { i18n } = useTranslation();
+    useEffect(() => {
+        dispatch(setFilteredLang(i18n.language));
+    }, [i18n.language]);
     useEffect(() => {
         dispatch(getAllCategories());
     }, [dispatch]);
