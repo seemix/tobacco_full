@@ -15,9 +15,9 @@ export const createOrder = createAsyncThunk(
 
 export const getAllOrders = createAsyncThunk(
     'orderSlice/GetAll',
-    async (page, thunkAPI) => {
+    async (data, thunkAPI) => {
         try {
-            return orderService.getAllOrders(page);
+            return orderService.getAllOrders(data);
         } catch (e) {
             return thunkAPI.rejectWithValue(e);
         }

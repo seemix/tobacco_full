@@ -18,7 +18,7 @@ module.exports = {
             const io = req.app.get('io');
             io.emit('newOrder', order);
             //Send new order to Telegram Bot
-             await sendTgMessage(order);
+            await sendTgMessage(order);
             res.status(status.ok).json(newOrder);
         } catch (e) {
             next(e);
@@ -27,11 +27,32 @@ module.exports = {
     getAllOrders: async (req, res, next) => {
         try {
             const pages = Math.ceil(await Order.find().count() / ORDERS_PER_PAGE);
-            const { page = 1 } = req.query;
+            const { page = 1, status, sort } = req.query;
+            const filter = {};
+            const sorting = {};
+            if (status === 'completed') filter.completed = true;
+            if (status === 'uncompleted') filter.completed = false;
+            switch (sort) {
+                case 'dateasc':
+                    sorting.createdAt = -1;
+                    break;
+                case 'datedesc':
+                    sorting.createdAt = 1;
+                    break;
+                case 'sumasc':
+                    sorting.total = 1;
+                    break;
+                case 'sumdesc':
+                    sorting.total = -1;
+                    break;
+                default:
+                     break;
+            }
+
             let { limit } = req.query;
             if (!limit) limit = ORDERS_PER_PAGE;
-            const orders = await Order.find()
-                .sort({ createdAt: -1 })
+            const orders = await Order.find(filter)
+                .sort(sorting)
                 .limit(limit)
                 .skip((page - 1) * ORDERS_PER_PAGE)
                 .populate({

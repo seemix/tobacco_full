@@ -17,12 +17,15 @@ module.exports = {
     },
     updateSlide: async (req, res, next) => {
         try {
-            const slide = req.file.filename;
+            let slide = '';
+            if (req.file) slide = req.file.filename;
             const { text, _id, picture } = req.body;
-            await Slider.updateOne({ _id }, { text, slide });
-            if(picture) {
+            const objToUpdate = { text };
+            if (slide) objToUpdate.slide = slide;
+            await Slider.updateOne({ _id }, objToUpdate);
+            if (picture) {
                 const oldFile = path.join(__dirname, '..', 'uploads', 'slider', picture);
-                if(fs.existsSync(oldFile)) fs.unlinkSync(oldFile);
+                if (fs.existsSync(oldFile)) fs.unlinkSync(oldFile);
             }
             const updatedSlide = await Slider.findOne({ _id });
             res.status(status.ok).json(updatedSlide);

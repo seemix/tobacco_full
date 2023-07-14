@@ -22,6 +22,7 @@ import SliderAdmin from './components/Admin/Slider/Slider';
 import Brands from './components/Admin/Brands/Brands';
 import SearchAdmin from './components/Admin/SearchAdmin/SearchAdmin';
 import ProductEditForm from './components/Admin/ProductsAdmin/ProductEditForm';
+import NoMatch from './components/NoMatch/NoMatch';
 
 const Layout = React.lazy(() => import('./components/Layout/Layout'));
 const AdminLayout = React.lazy(() => import('./components/Admin/AdminLayout'));
@@ -42,6 +43,7 @@ function App() {
                         <Route path={'checkout'} element={<OrderForm/>}/>
                         <Route path={'completed'} element={<CompleteOrder/>}/>
                         <Route path={'search'} element={<Search/>}/>
+                        <Route path={'*'} element={<NoMatch/>}/>
                     </Route>
                     <Route element={<React.Suspense fallback={<Loader/>}>
                         <AdminLayout/>
@@ -56,6 +58,7 @@ function App() {
                             <Route path={'slider'} element={<SliderAdmin/>}/>
                             <Route path={'brands'} element={<Brands/>}/>
                             <Route path={'search'} element={<SearchAdmin/>}/>
+                            <Route path={'*'} element={<NoMatch/>}/>
                         </Route>
                     </Route>
                     <Route path={'/login'} element={<Login/>}/>

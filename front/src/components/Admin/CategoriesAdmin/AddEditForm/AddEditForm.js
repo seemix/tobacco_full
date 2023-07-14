@@ -29,7 +29,7 @@ const AddEditForm = () => {
         const [confirmDelete, setConfirmDelete] = useState(false);
         useEffect(() => {
             if (categoryForUpdate) setValue('categoryName', categoryForUpdate.name);
-        }, []);
+        }, [categoryForUpdate]);
         const handleClose = () => {
             dispatch(hideCategoryEdit());
             dispatch(setCategoryForUpdate(null));
@@ -48,6 +48,7 @@ const AddEditForm = () => {
             setConfirmDelete(false);
         }
         const saveForm = (data) => {
+            console.log(data);
             const formData = new FormData();
             formData.append('name', data.categoryName);
             formData.append('image', file);
@@ -84,13 +85,12 @@ const AddEditForm = () => {
                         </div>
 
                         <div>
-                            {!categoryForUpdate?.picture &&
+                            {!categoryForUpdate?.picture && !file &&
                                 <Button fullWidth component="label">
                                     Upload File
                                     <input type="file"
                                            accept="image/*"
                                            hidden
-                                           {...register('image')}
                                            onChange={handleChange}
                                     />
                                 </Button>
@@ -108,16 +108,17 @@ const AddEditForm = () => {
                             <Button fullWidth onClick={removeFile}>revert</Button>
                         }
                         <div>
-                            <Button fullWidth component="label">
-                                replace
-                                <input type="file"
-                                       accept="image/*"
-                                       hidden
-                                       onChange={handleChange}
-                                />
-                            </Button>
+                            {categoryForUpdate?.picture &&
+                                <Button fullWidth component="label">
+                                    replace
+                                    <input type="file"
+                                           accept="image/*"
+                                           hidden
+                                           onChange={handleChange}
+                                    />
+                                </Button>
+                            }
                         </div>
-
                         {categoryForUpdate && !confirmDelete && !file &&
                             <Button fullWidth onClick={() => setConfirmDelete(true)}>Delete</Button>
                         }
@@ -135,7 +136,6 @@ const AddEditForm = () => {
                         </div>
                     </form>
                 </div>
-
             </>
         )
     }
