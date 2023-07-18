@@ -49,7 +49,7 @@ module.exports = {
             });
             return res.json(userData);
         } catch (e) {
-            next(new ApiError('Error refresh', 500));
+            next(new ApiError('Error refresh', 403));
         }
     },
     checkAuth: async (req, res, next) => {

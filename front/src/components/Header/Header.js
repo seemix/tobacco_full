@@ -95,11 +95,11 @@ const Header = () => {
             <nav id={'lang'} className={'menu_wrapper'} style={{ minWidth: '70px' }}>
                 <ul>
                     <li>
-                        <a href="#" className={'menu_parent'}>{i18n.language} <i className={'arrow_right'}></i></a>
+                        <a href="javascript:void(0)" className={'menu_parent'}>{i18n.language} <i className={'arrow_right'}></i></a>
                         <ul style={{ width: '80px' }}>
                             {
                                 filteredLang.map(item => <li style={{ borderBottom: 0 }} key={item}>
-                                    <a href="#" onClick={() => changeLanguage(item)}>{item}</a>
+                                    <a href="javascript:void(0)" onClick={() => changeLanguage(item)}>{item}</a>
                                 </li>)
                             }
                         </ul>

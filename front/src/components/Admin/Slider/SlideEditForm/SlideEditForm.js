@@ -37,10 +37,8 @@ const SlideEditForm = () => {
             if (file) {
                formData.append('picture', slideForUpdate.slide);
             }
-            console.log(formData);
             dispatch(updateSlide(formData));
         } else {
-            console.log(formData);
              dispatch(createSlide(formData));
         }
         dispatch(closeSlideEdit());
@@ -75,6 +73,7 @@ const SlideEditForm = () => {
                         {pastedLink && <> <img src={pastedLink} alt={'pasted'} width={300}/>
                         </>}
                         <div>
+                            {(file || slideForUpdate) &&
                             <Button fullWidth component="label">
                                 replace
                                 <input type="file"
@@ -83,6 +82,7 @@ const SlideEditForm = () => {
                                        onChange={handleChange}
                                 />
                             </Button>
+                            }
                         </div>
                     </div>
                     {file &&

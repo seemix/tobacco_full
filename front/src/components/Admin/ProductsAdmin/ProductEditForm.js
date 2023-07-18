@@ -133,7 +133,7 @@ const ProductEditForm = () => {
                             }
                             <Dialog
                                 maxWidth={'md'}
-                                open={productFormModal}
+                                open={productFormModal || false}
                                 onClose={() => dispatch(hideProductForm())}
                             >
                                 <DialogContent style={{ borderRadius: 0 }}>

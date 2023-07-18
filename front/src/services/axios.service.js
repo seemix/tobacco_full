@@ -12,10 +12,11 @@ axiosService.interceptors.response.use((config) => {
     },
     async (error) => {
         const originalRequest = error.config;
-        if (error.response.status === 401 && error.config && error.config._isRetry) {
+        if (error.response.status === 401 && error.config && !originalRequest._isRetry) {
             originalRequest._isRetry = true;
             try {
                 const response = await axiosService.get('/auth/refresh', { withCredentials: true });
+                if(!response.data.accessToken) return;
                 localStorage.setItem('token', response.data.accessToken);
                 return axiosService.request(originalRequest);
             } catch (e) {

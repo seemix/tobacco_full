@@ -32,6 +32,7 @@ module.exports = {
             const sorting = {};
             if (status === 'completed') filter.completed = true;
             if (status === 'uncompleted') filter.completed = false;
+
             switch (sort) {
                 case 'dateasc':
                     sorting.createdAt = -1;
@@ -85,5 +86,19 @@ module.exports = {
         } catch (e) {
             next(e);
         }
-    }
+    },
+    getSum: async (req, res, next) => {
+        const result = await Order.aggregate([
+            {
+                $group: {
+                    _id: null,
+                    totalSum: { $sum: '$total' },
+                    completedSum: { $sum: { $cond: ['$completed', '$total', 0] } },
+                    uncompletedSum: { $sum: { $cond: ['$completed', 0, '$total'] } },
+                },
+            },
+        ]);
+       res.json(result[0]);
+    },
+
 }

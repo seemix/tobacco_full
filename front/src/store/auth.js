@@ -87,15 +87,16 @@ export const authSlice = createSlice({
                 state.auth = true;
             })
             .addCase(refresh.rejected, state => {
+                state.auth = false;
                 state.status = 'error';
                 state.auth = false;
             })
             .addCase(logout.pending, state => {
+                state.auth = false;
                 state.status = 'loading';
                 state.error = null;
             })
             .addCase(logout.fulfilled, state => {
-                state.auth = false;
                 state.user = null;
                 state.status = 'logout';
                 localStorage.removeItem('token');

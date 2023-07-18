@@ -14,8 +14,9 @@ const ProductCard = ({ product }) => {
     const navigate = useNavigate();
     const [confirmDelete, setConfirmDelete] = useState(false);
     const dispatch = useDispatch();
-    const img = `${config.BACKEND_URL}/product/image/${product.pictures[0]}`;
-    const confirmedDelete = () => {
+
+   const img = `${config.BACKEND_URL}/product/image/${product.pictures[0]}`
+      const confirmedDelete = () => {
         dispatch(deleteProduct(product._id));
     }
     const editProduct = () => {
@@ -32,6 +33,7 @@ const ProductCard = ({ product }) => {
                     width="150"
                     height={'120'}
                     image={img}
+                    onError={e => e.target.src = config.NO_IMAGE}
                 />
                 <div className={'card_content'}>
                     <h4>{product.name}</h4>

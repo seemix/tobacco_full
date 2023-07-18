@@ -2,7 +2,6 @@ import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import LockPersonIcon from '@mui/icons-material/LockPerson';
@@ -76,16 +75,6 @@ const Login = () => {
                             >Login
                             </Button>
                         </form>
-                        <Grid container>
-                            <Grid item xs>
-                                {/*<Link href="#" variant="body2">*/}
-                                {/*    Forgot password?*/}
-                                {/*</Link>*/}
-                            </Grid>
-                            {/*<Grid item>*/}
-                            {/*    <Link to={'/admin/register'}> <Button variant={'text'}>register</Button> </Link>*/}
-                            {/*</Grid>*/}
-                        </Grid>
                     </Box>
                     {status === 'error' && error ? <Alert severity="error">{error}</Alert> : ''}
                     {auth ?

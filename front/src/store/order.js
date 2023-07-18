@@ -45,6 +45,17 @@ export const deleteOrderById = createAsyncThunk(
         }
     }
 );
+
+export const getSums = createAsyncThunk(
+    'orderSlice/getSums',
+    async (_, thunkAPI) => {
+        try {
+            return orderService.getSums();
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e);
+        }
+    }
+);
 export const orderSlice = createSlice({
     name: 'orderSlice',
     initialState: {
@@ -59,7 +70,8 @@ export const orderSlice = createSlice({
         customerPhone: null,
         address: null,
         orderForDelete: null,
-        response: null
+        response: null,
+        sums: null
     },
     reducers: {
         addProductToCart(state, action) {
@@ -133,6 +145,11 @@ export const orderSlice = createSlice({
             .addCase(deleteOrderById.fulfilled, state => {
                 state.status = 'fulfilled';
                 state.response.orders = state.response.orders.filter(item => item._id !== state.orderForDelete._id);
+            })
+            .addCase(getSums.fulfilled, (state, action) => {
+                state.sums = action.payload;
+                state.status = 'fulfilled';
+                state.error = null;
             })
     }
 });
