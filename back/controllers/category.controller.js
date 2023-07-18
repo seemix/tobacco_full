@@ -61,7 +61,8 @@ module.exports = {
             const currentProduct = await Product.find({ category: id });
             for (const currentProductElement of currentProduct) {
                 if (currentProduct.picture) {
-                    fs.unlinkSync(path.join(__dirname, '..', 'uploads', 'products', currentProductElement.picture));
+                    const filePath = path.join(__dirname, '..', 'uploads', 'products', currentProductElement.picture);
+                    if(fs.existsSync(filePath)) fs.unlinkSync(filePath);
                 }
             }
             await Product.deleteMany({ category: id });
@@ -77,7 +78,8 @@ module.exports = {
         try {
             const { fileName } = req.params;
             if (fileName) res.status(status.badRequest);
-            fs.unlinkSync(path.join(__dirname, '..', 'uploads', 'category', fileName));
+            const filePath = path.join(__dirname, '..', 'uploads', 'category', fileName);
+            if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
             await Category.updateOne({ picture: fileName }, { picture: null });
             res.status(status.ok).json(fileName);
         } catch (e) {

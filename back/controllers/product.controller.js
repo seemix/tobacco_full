@@ -8,10 +8,6 @@ const { PRODUCTS_PER_PAGE } = require('../config/config');
 
 module.exports = {
     createProduct: async (req, res, next) => {
-        // const dataToSave = req.filenames.map(item => {
-        //     return { filename: item }
-        // });
-        //const uploadedImages = await ProductImage.create(dataToSave);
         try {
             const newProd = await Product.create(req.body);
             res.json(newProd).status(status.created);
@@ -116,8 +112,11 @@ module.exports = {
         try {
             const { id } = req.query;
             const productForDelete = await Product.findOne({ _id: id });
+
             for (const picture of productForDelete.pictures) {
-                     fs.unlinkSync(path.join(__dirname, '..', 'uploads', 'products', picture));
+                const imagePath = path.join(__dirname, 'uploads', 'products', picture);
+                if (fs.existsSync(imagePath))
+                    fs.unlinkSync(imagePath);
             }
             await Product.deleteOne({ _id: id });
             res.status(status.ok).json(id);

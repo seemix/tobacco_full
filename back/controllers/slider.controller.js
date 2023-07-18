@@ -64,7 +64,7 @@ module.exports = {
             const { _id } = req.params;
             if (!_id) res.status(status.notFound);
             const slide = await Slider.findOne({ _id });
-            const imagePath = path.join(__dirname, '../uploads/slider', slide.slide);
+            const imagePath = path.join(__dirname, '..', 'uploads', 'slider', slide.slide);
             if (fs.existsSync(imagePath)) {
                 fs.unlinkSync(imagePath);
                 await Slider.deleteOne({ _id })
