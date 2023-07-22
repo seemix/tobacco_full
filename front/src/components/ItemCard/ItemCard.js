@@ -24,7 +24,7 @@ const ItemCard = ({ product }) => {
             setShowButton(false);
         }
     }, [products, product._id]);
-    const img = `${config.BACKEND_URL}/product/image/${product.pictures[0]}`;
+    const img = `${config.BACKEND_URL}/product/image/${product.picture}`;
     return (
         <div className={'card_wrapper'}>
             <Card style={{ height: '410px', position: 'relative' }}>

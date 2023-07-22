@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, Card, CardMedia, Dialog, DialogContent, NativeSelect, TextField } from '@mui/material';
+import { Button, NativeSelect, TextField } from '@mui/material';
 import ReactQuill from 'react-quill';
 import { joiResolver } from '@hookform/resolvers/joi';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBrands } from '../../../store/brand';
 import { productFormValidator } from '../../../validators/product-form.validator';
-import { hideProductForm, showProductForm } from '../../../store/appearance';
 import { createProduct, setProductForUpdate, updateProduct } from '../../../store/product';
 import { useNavigate } from 'react-router-dom';
-import ProductPictures from './ProductPictures';
 import { config } from '../../../config/config';
 import 'react-quill/dist/quill.snow.css';
 
 const ProductEditForm = () => {
+    const [file, setFile] = useState(null);
+    const [pastedLink, setPastedLink] = useState(null);
+    const [confirmDelete, setConfirmDelete] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     useEffect(() => {
@@ -30,8 +31,6 @@ const ProductEditForm = () => {
     }, [productForUpdate]);
 
     const { allBrands } = useSelector(state => state.brandStore);
-    const { productFormModal } = useSelector(state => state.appearanceStore);
-
     const [formChange, setFormChange] = useState(false);
     const {
         handleSubmit,
@@ -43,20 +42,37 @@ const ProductEditForm = () => {
     useEffect(() => {
         setFormChange(true);
     }, [watchedFields]);
+    const removeImage = () => {
+        //   dispatch(deleteImage(categoryForUpdate.picture));
+        setFile(null);
+        setConfirmDelete(false);
+    }
     const handleBack = () => {
         dispatch(setProductForUpdate(null));
         navigate(-1);
     }
+    const removeFile = () => {
+        setPastedLink(null);
+        setFile(null);
+    }
+    const handleChange = (event) => {
+        setFile(event.target.files[0]);
+        setPastedLink(URL.createObjectURL(event.target.files[0]));
+    }
     const saveForm = (data) => {
+        const formData = new FormData();
+        formData.append('name', data.name);
+        formData.append('oldPrice', data.oldPrice);
+        formData.append('price', data.price);
+        formData.append('description', value);
+        formData.append('brand', data.brand);
+        formData.append('category', currentCategory._id);
+        if (file) formData.append('image', file);
         if (productForUpdate) {
-            dispatch(updateProduct({
-                ...data,
-                _id: productForUpdate._id,
-                description: value,
-                pictures: productForUpdate.pictures
-            }));
+            formData.append('_id', productForUpdate._id);
+            dispatch(updateProduct(formData));
         } else {
-            dispatch(createProduct({ ...data, category: currentCategory._id }));
+            dispatch(createProduct(formData));
         }
     }
     return (
@@ -115,31 +131,65 @@ const ProductEditForm = () => {
                             </div>
                         </div>
                         <div>
-                            {
-                                productForUpdate && productForUpdate.pictures.map((picture, index) =>
-                                    <div key={index}>
-                                        <Card style={{ margin: '10px' }}>
-                                            <CardMedia
-                                                component={'img'}
-                                                alt={picture}
-                                                width={'150'}
-                                                height={'90'}
-                                                image={`${config.BACKEND_URL}/product/image/${picture}`}/>
-                                        </Card>
-                                    </div>)
+
+                            {/*{*/}
+                            {/*    productForUpdate && productForUpdate.pictures.map((picture, index) =>*/}
+                            {/*        <div key={index}>*/}
+                            {/*            <Card style={{ margin: '10px' }}>*/}
+                            {/*                <CardMedia*/}
+                            {/*                    component={'img'}*/}
+                            {/*                    alt={picture}*/}
+                            {/*                    width={'150'}*/}
+                            {/*                    height={'90'}*/}
+                            {/*                    image={`${config.BACKEND_URL}/product/image/${picture}`}/>*/}
+                            {/*            </Card>*/}
+                            {/*        </div>)*/}
+                            {/*}*/}
+
+                            <div>
+                                {!productForUpdate?.picture && !file &&
+                                    <Button fullWidth component="label">
+                                        Upload File
+                                        <input type="file"
+                                               accept="image/*"
+                                               hidden
+                                               onChange={handleChange}
+                                        />
+                                    </Button>
+                                }
+
+                            </div>
+                            <div>
+                                {productForUpdate && !file &&
+                                    <img src={`${config.BACKEND_URL}/product/image/${productForUpdate.picture}`}
+                                         alt="product_picture"
+                                         width={300}/>}
+                                {pastedLink && <> <img src={pastedLink} alt={'pasted'} width={300}/>
+                                </>}
+                            </div>
+                            {file &&
+                                <Button fullWidth onClick={removeFile}>revert</Button>
                             }
-                            {productForUpdate &&
-                                <Button fullWidth onClick={() => dispatch(showProductForm())}>Edit pictures</Button>
+                            <div>
+                                {productForUpdate?.picture &&
+                                    <Button fullWidth component="label">
+                                        replace
+                                        <input type="file"
+                                               accept="image/*"
+                                               hidden
+                                               onChange={handleChange}
+                                        />
+                                    </Button>
+                                }
+                            </div>
+                            {productForUpdate && !confirmDelete && !file &&
+                                <Button fullWidth onClick={() => setConfirmDelete(true)}>Delete</Button>
                             }
-                            <Dialog
-                                maxWidth={'md'}
-                                open={productFormModal || false}
-                                onClose={() => dispatch(hideProductForm())}
-                            >
-                                <DialogContent style={{ borderRadius: 0 }}>
-                                    <ProductPictures/>
-                                </DialogContent>
-                            </Dialog>
+                            {confirmDelete && <>
+                                Confirm deleting picture:
+                                <Button onClick={() => setConfirmDelete(false)}>Cancel</Button>
+                                <Button onClick={removeImage}> Confirm </Button></>
+                            }
                         </div>
                     </div>
                     <Button onClick={handleBack}>Back</Button>

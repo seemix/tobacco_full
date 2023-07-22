@@ -8,8 +8,12 @@ const { PRODUCTS_PER_PAGE } = require('../config/config');
 
 module.exports = {
     createProduct: async (req, res, next) => {
+        const { name, description, oldPrice, price, category, brand } = req.body;
         try {
-            const newProd = await Product.create(req.body);
+            const newProd = await Product.create({
+                name, description, oldPrice, price, category, brand,
+                picture: req.fileName
+            });
             res.json(newProd).status(status.created);
         } catch (e) {
             next(new ApiError('Error creating product', status.serverError));
@@ -49,12 +53,7 @@ module.exports = {
                 .find()
                 .sort({ updatedAt: 1 })
                 .limit(5)
-                .select(['name', 'pictureLink', 'oldPrice', 'price'])
-                .populate({
-                    path: 'pictures',
-                    select: 'filename',
-                    strictPopulate: false
-                });
+                .select(['name', 'picture', 'oldPrice', 'price']);
             res.status(status.ok).json(newProducts);
         } catch (e) {
             next(e);
@@ -64,8 +63,7 @@ module.exports = {
         try {
             const { id } = req.params;
             const product = await Product.findOne({ _id: id })
-                .populate({ path: 'category', select: 'name' })
-                .populate({ path: 'pictures', select: 'filename' })
+                .populate({ path: 'category', select: 'name' });
             res.status(status.ok).json(product);
         } catch (e) {
             next(e);
@@ -101,6 +99,7 @@ module.exports = {
         try {
             const { _id } = req.body;
             if (!_id) next(new ApiError('Incorrect ID', status.badRequest));
+
             await Product.updateOne({ _id }, { ...req.body });
             const updatedProduct = await Product.findById(_id).populate({ path: 'brand' });
             res.status(status.ok).json(updatedProduct);

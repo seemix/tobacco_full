@@ -48,7 +48,6 @@ const AddEditForm = () => {
             setConfirmDelete(false);
         }
         const saveForm = (data) => {
-            console.log(data);
             const formData = new FormData();
             formData.append('name', data.categoryName);
             formData.append('image', file);
@@ -83,7 +82,6 @@ const AddEditForm = () => {
                                 fullWidth
                             />
                         </div>
-
                         <div>
                             {!categoryForUpdate?.picture && !file &&
                                 <Button fullWidth component="label">
@@ -99,7 +97,7 @@ const AddEditForm = () => {
                         </div>
                         <div>
                             {categoryForUpdate && categoryForUpdate?.picture && !file &&
-                                <img src={`${config.BACKEND_URL}/category/${categoryForUpdate?.picture}`} alt="123"
+                                <img src={`${config.BACKEND_URL}/category/${categoryForUpdate?.picture}`} alt="category_picture"
                                      width={300}/>}
                             {pastedLink && <> <img src={pastedLink} alt={'pasted'} width={300}/>
                             </>}

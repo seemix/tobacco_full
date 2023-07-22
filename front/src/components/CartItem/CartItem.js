@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 
 import './CartItem.css';
 import { config } from '../../config/config';
-import { showPicture } from '../../services/show-picture.service';
 import { incrementCount, reduceCount, removeItem } from '../../store/order';
 
 const CartItem = ({ product }) => {
@@ -19,7 +18,9 @@ const CartItem = ({ product }) => {
                 </div>
                 <div className={'cart_item_wrapper'}>
                     <div>
-                        <div className={'cart_item_wrapper_im'}  style={{ backgroundImage: `url(${config.BACKEND_URL}/product/image/${product.pictures[0]})`}}></div>
+                        <div className={'cart_item_wrapper_im'}
+                             style={{ backgroundImage: `url(${config.BACKEND_URL}/product/image/${product.picture})` }}>
+                        </div>
                     </div>
                     <div className={'price_count_wrapper'}>
                         <div className={'center_text'}>

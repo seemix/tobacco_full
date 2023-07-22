@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Parser } from 'html-to-react'
-import { Button, Card } from '@mui/material';
+import { Button, Card, Dialog } from '@mui/material';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useDispatch, useSelector } from 'react-redux';
 import 'react-image-gallery/styles/css/image-gallery.css';
-
-import ImageGallery from 'react-image-gallery';
 
 import { getProductById } from '../../store/product';
 import { showCart } from '../../store/appearance';
@@ -15,9 +13,10 @@ import { addProductToCart } from '../../store/order';
 import { config } from '../../config/config';
 import './ItemDetails.css';
 import { useTranslation } from 'react-i18next';
+import ShowPicture from './ShowPicture';
 
 const ItemDetails = () => {
-
+    const [bigPicture, setBigPicture] = useState(false);
     const { t } = useTranslation();
     const [showButton, setShowButton] = useState(false);
     const { id } = useParams();
@@ -37,6 +36,9 @@ const ItemDetails = () => {
         }
     }, [products, singleProduct]);
 
+    const handleClose = (value) => {
+        setBigPicture(value);
+    };
     return (
         <div className={'main_container'}>
             {singleProduct &&
@@ -48,12 +50,22 @@ const ItemDetails = () => {
                     </div>
                     <Card className={'card_details'}>
                         <div style={{ maxWidth: '1000px' }}>
-                            <ImageGallery items={singleProduct.pictures.map(item => {
-                                return {
-                                    original: `${config.BACKEND_URL}/product/image/${item}`,
-                                    thumbnail: `${config.BACKEND_URL}/product/image/${item}`
-                                }
-                            })}/>
+                            <Dialog open={bigPicture} onClose={() => setBigPicture(false)}>
+                                <ShowPicture openWindow={handleClose} picture={singleProduct.picture}/>
+                            </Dialog>
+                            {singleProduct.picture &&
+                                <div style={{cursor: 'pointer'}} onClick={() => setBigPicture(true)}>
+                                <img width={400}
+                                     src={`${config.BACKEND_URL}/product/image/${singleProduct.picture}`}
+                                     alt="picture"/>
+                                </div>
+                            }
+                            {/*<ImageGallery items={singleProduct.pictures.map(item => {*/}
+                            {/*    return {*/}
+                            {/*        original: `${config.BACKEND_URL}/product/image/${item}`,*/}
+                            {/*        thumbnail: `${config.BACKEND_URL}/product/image/${item}`*/}
+                            {/*    }*/}
+                            {/*})}/>*/}
                         </div>
                         <div style={{ width: '360px', padding: '20px' }}>
                             <h3>

@@ -4,7 +4,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Badge from '@mui/material/Badge';
 import { useDispatch, useSelector } from 'react-redux';
 import { Backdrop } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import './Header.css';
@@ -40,7 +40,7 @@ const Header = () => {
     const { i18n } = useTranslation();
     useEffect(() => {
         dispatch(setFilteredLang(i18n.language));
-    }, [i18n.language]);
+    }, [i18n.language, dispatch]);
     useEffect(() => {
         dispatch(getAllCategories());
     }, [dispatch]);
@@ -80,7 +80,7 @@ const Header = () => {
                     <li><NavLink to={'/'} onClick={() => dispatch(closeMenu())}>{t('home')}</NavLink></li>
                     <li><NavLink to={'/about'} onClick={() => dispatch(closeMenu())}>{t('aboutUs')}</NavLink></li>
                     <li><NavLink to={'/contacts'} onClick={() => dispatch(closeMenu())}>{t('contacts')}</NavLink></li>
-                    <li><a href="#" className={'menu_parent'}>{t('products')} <i className={'arrow_right'}></i> </a>
+                    <li><Link to={''} className={'menu_parent'}>{t('products')} <i className={'arrow_right'}></i> </Link>
                         <ul>
                             {categories &&
                                 categories.map(cat => <div key={cat._id}>
@@ -95,11 +95,11 @@ const Header = () => {
             <nav id={'lang'} className={'menu_wrapper'} style={{ minWidth: '70px' }}>
                 <ul>
                     <li>
-                        <a href="javascript:void(0)" className={'menu_parent'}>{i18n.language} <i className={'arrow_right'}></i></a>
+                        <Link to={''} className={'menu_parent'}>{i18n.language} <i className={'arrow_right'}></i></Link>
                         <ul style={{ width: '80px' }}>
                             {
                                 filteredLang.map(item => <li style={{ borderBottom: 0 }} key={item}>
-                                    <a href="javascript:void(0)" onClick={() => changeLanguage(item)}>{item}</a>
+                                    <Link to={''} onClick={() => changeLanguage(item)}>{item}</Link>
                                 </li>)
                             }
                         </ul>
