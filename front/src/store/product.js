@@ -216,7 +216,6 @@ export const productSlice = createSlice({
                 }
             })
             .addCase(deleteProduct.fulfilled, (state, action) => {
-                console.log(action.payload);
                 state.products.products = state.products.products.filter(item => item._id !== action.payload);
             })
             .addCase(getProductById.fulfilled, (state, action) => {
@@ -228,14 +227,16 @@ export const productSlice = createSlice({
                 state.newProducts = action.payload;
             })
             .addCase(addImage.fulfilled, (state, action) => {
-                state.productForUpdate.pictures = action.payload.pictures;
+                state.productForUpdate.picture = '';
                 state.newFile = null;
             })
             .addCase(updateImage.fulfilled, (state, action) => {
                 state.productForUpdate.pictures = action.payload.pictures;
             })
             .addCase(deleteProductImage.fulfilled, (state, action) => {
-                state.productForUpdate.pictures = action.payload;
+                state.productForUpdate.picture = '';
+                const index = state.products.products.findIndex(obj => obj.picture === action.payload);
+                state.products.products[index].picture = '';
             })
     }
 });

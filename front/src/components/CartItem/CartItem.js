@@ -19,7 +19,7 @@ const CartItem = ({ product }) => {
                 <div className={'cart_item_wrapper'}>
                     <div>
                         <div className={'cart_item_wrapper_im'}
-                             style={{ backgroundImage: `url(${config.BACKEND_URL}/product/image/${product.picture})` }}>
+                             style={{ backgroundImage: `url(${config.BACKEND_URL}/product/image/${product.picture}), url(${config.NO_IMAGE})` }}>
                         </div>
                     </div>
                     <div className={'price_count_wrapper'}>

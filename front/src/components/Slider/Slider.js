@@ -24,10 +24,11 @@ const Slider = () => {
     return (
         <div className={'slider_container'}>
             <Swiper
+                speed={1400}
                 spaceBetween={30}
                 slidesPerView={1}
                 autoplay={{
-                    delay: 3500,
+                    delay: 4500,
                     disableOnInteraction: false,
                 }}
                 effect={'fade'}

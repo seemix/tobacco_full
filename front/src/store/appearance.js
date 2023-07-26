@@ -9,6 +9,7 @@ export const appearanceSlice = createSlice({
         searchBar: false,
         cart: false,
         categoryEditModal: false,
+        productFormModal: false,
         productDeleteModal: false,
         categoryDeleteModal: false,
         orderDeleteModal: false
@@ -50,6 +51,7 @@ export const appearanceSlice = createSlice({
         },
         hideProductForm(state) {
             state.productFormModal = false;
+            state.productForUpdate = null;
         },
         showProductDeleteModal(state) {
             state.productDeleteModal = true;

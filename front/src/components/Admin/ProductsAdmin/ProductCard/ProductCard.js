@@ -3,25 +3,24 @@ import { Button, Card, CardMedia } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { Parser } from 'html-to-react'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { useNavigate } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 
 import './ProductCard.css';
 import { deleteProduct, setProductForUpdate } from '../../../../store/product';
 import { config } from '../../../../config/config';
+import { showProductForm } from '../../../../store/appearance';
 
 const ProductCard = ({ product }) => {
-    const navigate = useNavigate();
     const [confirmDelete, setConfirmDelete] = useState(false);
     const dispatch = useDispatch();
 
    const img = `${config.BACKEND_URL}/product/image/${product.picture}`
       const confirmedDelete = () => {
-        dispatch(deleteProduct(product._id));
+        dispatch(deleteProduct({_id: product._id, picture: product.picture}));
     }
     const editProduct = () => {
         dispatch(setProductForUpdate(product));
-        navigate(`../product/${product._id}`)
+        dispatch(showProductForm());
     }
     return (
         <div className={'product_card_wrapper'}>

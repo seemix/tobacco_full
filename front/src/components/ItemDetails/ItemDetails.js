@@ -5,14 +5,13 @@ import { Button, Card, Dialog } from '@mui/material';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useDispatch, useSelector } from 'react-redux';
-import 'react-image-gallery/styles/css/image-gallery.css';
+import { useTranslation } from 'react-i18next';
 
 import { getProductById } from '../../store/product';
 import { showCart } from '../../store/appearance';
 import { addProductToCart } from '../../store/order';
 import { config } from '../../config/config';
 import './ItemDetails.css';
-import { useTranslation } from 'react-i18next';
 import ShowPicture from './ShowPicture';
 
 const ItemDetails = () => {
@@ -53,19 +52,13 @@ const ItemDetails = () => {
                             <Dialog open={bigPicture} onClose={() => setBigPicture(false)}>
                                 <ShowPicture openWindow={handleClose} picture={singleProduct.picture}/>
                             </Dialog>
-                            {singleProduct.picture &&
                                 <div style={{cursor: 'pointer'}} onClick={() => setBigPicture(true)}>
                                 <img width={400}
+                                     alt={'pict'}
                                      src={`${config.BACKEND_URL}/product/image/${singleProduct.picture}`}
-                                     alt="picture"/>
+                                     onError={e => e.target.src = config.NO_IMAGE}
+                                />
                                 </div>
-                            }
-                            {/*<ImageGallery items={singleProduct.pictures.map(item => {*/}
-                            {/*    return {*/}
-                            {/*        original: `${config.BACKEND_URL}/product/image/${item}`,*/}
-                            {/*        thumbnail: `${config.BACKEND_URL}/product/image/${item}`*/}
-                            {/*    }*/}
-                            {/*})}/>*/}
                         </div>
                         <div style={{ width: '360px', padding: '20px' }}>
                             <h3>

@@ -35,6 +35,8 @@ const ItemCard = ({ product }) => {
                     width="300"
                     height={'180'}
                     image={img}
+                    onError={e => e.target.src = config.NO_IMAGE}
+
                 />
 
                 <div className={'card_content'}>

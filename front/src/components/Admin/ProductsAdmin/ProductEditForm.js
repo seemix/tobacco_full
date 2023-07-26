@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, NativeSelect, TextField } from '@mui/material';
+import { Button, DialogActions, NativeSelect, TextField } from '@mui/material';
 import ReactQuill from 'react-quill';
 import { joiResolver } from '@hookform/resolvers/joi';
-
+import 'react-quill/dist/quill.snow.css';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { getAllBrands } from '../../../store/brand';
 import { productFormValidator } from '../../../validators/product-form.validator';
-import { createProduct, setProductForUpdate, updateProduct } from '../../../store/product';
-import { useNavigate } from 'react-router-dom';
+import { createProduct, deleteProductImage, updateProduct } from '../../../store/product';
 import { config } from '../../../config/config';
-import 'react-quill/dist/quill.snow.css';
+import { hideProductForm } from '../../../store/appearance';
 
 const ProductEditForm = () => {
     const [file, setFile] = useState(null);
     const [pastedLink, setPastedLink] = useState(null);
     const [confirmDelete, setConfirmDelete] = useState(false);
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getAllBrands());
@@ -31,25 +30,19 @@ const ProductEditForm = () => {
     }, [productForUpdate]);
 
     const { allBrands } = useSelector(state => state.brandStore);
-    const [formChange, setFormChange] = useState(false);
     const {
         handleSubmit,
         register,
-        watch,
         formState: { errors }
     } = useForm({ resolver: joiResolver(productFormValidator) });
-    const watchedFields = watch();
-    useEffect(() => {
-        setFormChange(true);
-    }, [watchedFields]);
+
     const removeImage = () => {
-        //   dispatch(deleteImage(categoryForUpdate.picture));
+        dispatch(deleteProductImage(productForUpdate.picture));
         setFile(null);
         setConfirmDelete(false);
     }
-    const handleBack = () => {
-        dispatch(setProductForUpdate(null));
-        navigate(-1);
+    const handleCancel = () => {
+        dispatch(hideProductForm());
     }
     const removeFile = () => {
         setPastedLink(null);
@@ -70,14 +63,15 @@ const ProductEditForm = () => {
         if (file) formData.append('image', file);
         if (productForUpdate) {
             formData.append('_id', productForUpdate._id);
+            if(file) formData.append('oldPicture', productForUpdate.picture);
             dispatch(updateProduct(formData));
         } else {
             dispatch(createProduct(formData));
         }
+        dispatch(hideProductForm());
     }
     return (
-        <div>
-            <Button style={{ marginLeft: '50px' }} onClick={handleBack}>Back to category</Button>
+        <div style={{ padding: '20px' }}>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <form onSubmit={handleSubmit(saveForm)}>
                     <div style={{ display: 'flex', columnGap: '20px', marginTop: '20px' }}>
@@ -122,7 +116,7 @@ const ProductEditForm = () => {
                                                       defaultValue={productForUpdate?.brand?._id}
                                                       {...register('brand')}
                                                       error={!!errors.brand}
-                                                      helpertext={errors?.brand ? errors.brand.message : null}
+                                            //      helpertext={errors?.brand ? errors.brand.message : null}
                                         >
                                             {allBrands.map(brand => <option value={brand._id}
                                                                             key={brand._id}>{brand.name}</option>)}
@@ -131,21 +125,6 @@ const ProductEditForm = () => {
                             </div>
                         </div>
                         <div>
-
-                            {/*{*/}
-                            {/*    productForUpdate && productForUpdate.pictures.map((picture, index) =>*/}
-                            {/*        <div key={index}>*/}
-                            {/*            <Card style={{ margin: '10px' }}>*/}
-                            {/*                <CardMedia*/}
-                            {/*                    component={'img'}*/}
-                            {/*                    alt={picture}*/}
-                            {/*                    width={'150'}*/}
-                            {/*                    height={'90'}*/}
-                            {/*                    image={`${config.BACKEND_URL}/product/image/${picture}`}/>*/}
-                            {/*            </Card>*/}
-                            {/*        </div>)*/}
-                            {/*}*/}
-
                             <div>
                                 {!productForUpdate?.picture && !file &&
                                     <Button fullWidth component="label">
@@ -160,7 +139,7 @@ const ProductEditForm = () => {
 
                             </div>
                             <div>
-                                {productForUpdate && !file &&
+                                {productForUpdate?.picture && !file &&
                                     <img src={`${config.BACKEND_URL}/product/image/${productForUpdate.picture}`}
                                          alt="product_picture"
                                          width={300}/>}
@@ -182,7 +161,7 @@ const ProductEditForm = () => {
                                     </Button>
                                 }
                             </div>
-                            {productForUpdate && !confirmDelete && !file &&
+                            {productForUpdate?.picture && !confirmDelete && !file &&
                                 <Button fullWidth onClick={() => setConfirmDelete(true)}>Delete</Button>
                             }
                             {confirmDelete && <>
@@ -192,8 +171,10 @@ const ProductEditForm = () => {
                             }
                         </div>
                     </div>
-                    <Button onClick={handleBack}>Back</Button>
-                    {formChange && <Button type={'submit'}>Save</Button>}
+                    <DialogActions>
+                        <Button onClick={handleCancel}>Cancel</Button>
+                        <Button type={'submit'}>Save</Button>
+                    </DialogActions>
                 </form>
             </div>
         </div>
