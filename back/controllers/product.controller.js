@@ -102,7 +102,7 @@ module.exports = {
             const { _id, oldPicture } = req.body;
             if (!_id) next(new ApiError('Incorrect ID', status.badRequest));
             const imagePath = path.join(__dirname, '..', 'uploads', 'products', oldPicture);
-            if(oldPicture) {
+            if (oldPicture) {
                 if (fs.existsSync(imagePath))
                     fs.unlinkSync(imagePath);
             }
@@ -116,7 +116,7 @@ module.exports = {
     deleteProduct: async (req, res, next) => {
         try {
             const { _id, picture } = req.query;
-            if(picture){
+            if (picture) {
                 const imagePath = path.join(__dirname, '..', 'uploads', 'products', picture);
                 if (fs.existsSync(imagePath)) fs.unlinkSync(imagePath);
             }

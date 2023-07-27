@@ -21,7 +21,7 @@ import Search from './components/Search/Search';
 import SliderAdmin from './components/Admin/Slider/Slider';
 import Brands from './components/Admin/Brands/Brands';
 import SearchAdmin from './components/Admin/SearchAdmin/SearchAdmin';
-import ProductEditForm from './components/Admin/ProductsAdmin/ProductEditForm';
+import ProductEditForm from './components/Admin/ProductsAdmin/ProductEditForm/ProductEditForm';
 import NoMatch from './components/NoMatch/NoMatch';
 
 const Layout = React.lazy(() => import('./components/Layout/Layout'));

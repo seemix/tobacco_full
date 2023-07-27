@@ -7,7 +7,7 @@ import Pagination from '@mui/material/Pagination';
 import ProductCard from './ProductCard/ProductCard';
 import { getProductsByCategory, setPage, setProductForUpdate } from '../../../store/product';
 import { getCategoryById } from '../../../store/category';
-import ProductEditForm from './ProductEditForm';
+import ProductEditForm from './ProductEditForm/ProductEditForm';
 import { showProductForm } from '../../../store/appearance';
 
 const ProductsAdmin = () => {

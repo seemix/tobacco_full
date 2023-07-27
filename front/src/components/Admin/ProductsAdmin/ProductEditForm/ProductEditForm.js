@@ -6,11 +6,12 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import 'react-quill/dist/quill.snow.css';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getAllBrands } from '../../../store/brand';
-import { productFormValidator } from '../../../validators/product-form.validator';
-import { createProduct, deleteProductImage, updateProduct } from '../../../store/product';
-import { config } from '../../../config/config';
-import { hideProductForm } from '../../../store/appearance';
+import { getAllBrands } from '../../../../store/brand';
+import { productFormValidator } from '../../../../validators/product-form.validator';
+import { createProduct, deleteProductImage, updateProduct } from '../../../../store/product';
+import { config } from '../../../../config/config';
+import { hideProductForm } from '../../../../store/appearance';
+import './ProductEditForm.css';
 
 const ProductEditForm = () => {
     const [file, setFile] = useState(null);
@@ -71,12 +72,12 @@ const ProductEditForm = () => {
         dispatch(hideProductForm());
     }
     return (
-        <div style={{ padding: '20px' }}>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div className={'form_wrapper'}>
+            <div className={'inside_wrapper'}>
                 <form onSubmit={handleSubmit(saveForm)}>
-                    <div style={{ display: 'flex', columnGap: '20px', marginTop: '20px' }}>
+                    <div className={'inside_form_wrapper'}>
                         <div>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                            <div className={'fields_wrapper'}>
                                 <div style={{ display: 'flex' }}>
                                     <TextField
                                         defaultValue={productForUpdate?.name}
