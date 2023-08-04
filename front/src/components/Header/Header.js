@@ -26,8 +26,10 @@ import { useOutsideClick } from '../../hooks/outside-click';
 import Loader from '../Loader/Loader';
 
 const Header = () => {
-
     const { products } = useSelector(state => state.orderStore);
+    useEffect(() => {
+        localStorage.setItem('products', JSON.stringify(products));
+    }, [products]);
     const {
         openedMenu,
         cart,
@@ -80,7 +82,8 @@ const Header = () => {
                     <li><NavLink to={'/'} onClick={() => dispatch(closeMenu())}>{t('home')}</NavLink></li>
                     <li><NavLink to={'/about'} onClick={() => dispatch(closeMenu())}>{t('aboutUs')}</NavLink></li>
                     <li><NavLink to={'/contacts'} onClick={() => dispatch(closeMenu())}>{t('contacts')}</NavLink></li>
-                    <li><Link to={''} className={'menu_parent'}>{t('products')} <i className={'arrow_right'}></i> </Link>
+                    <li><Link to={''} className={'menu_parent'}>{t('products')} <i className={'arrow_right'}></i>
+                    </Link>
                         <ul>
                             {categories &&
                                 categories.map(cat => <div key={cat._id}>

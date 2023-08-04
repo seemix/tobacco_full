@@ -26,7 +26,7 @@ export const createCategory = createAsyncThunk(
     'categorySlice/Create',
     async (data, thunkAPI) => {
         try {
-            return categoryService.createCategory(data);
+            return await categoryService.createCategory(data);
         } catch (e) {
             return thunkAPI.rejectWithValue(e);
         }
@@ -37,7 +37,7 @@ export const updateCategory = createAsyncThunk(
     'categorySlice/Update',
     async (data, thunkAPI) => {
         try {
-            return categoryService.updateCategory(data);
+            return await categoryService.updateCategory(data);
         } catch (e) {
             return thunkAPI.rejectWithValue(e);
         }
@@ -86,6 +86,7 @@ export const categorySlice = createSlice({
         showReorderButton: false,
         currentCategory: null,
         categoryForDelete: null,
+        categoryEditModal: false
     },
     reducers: {
         categoriesReorder(state, action) {
@@ -98,6 +99,15 @@ export const categorySlice = createSlice({
         },
         setCategoryForDelete(state, action) {
             state.categoryForDelete = action.payload;
+        },
+        showCategoryEdit(state) {
+            state.error = null;
+            state.status = '';
+            state.categoryEditModal = true;
+        },
+        hideCategoryEdit(state) {
+            state.categoryEditModal = false;
+
         }
     },
     extraReducers: builder => {
@@ -125,7 +135,7 @@ export const categorySlice = createSlice({
                 state.categories.push(action.payload);
             })
             .addCase(createCategory.rejected, (state, action) => {
-                state.status = 'error';
+                state.status = 'rejected';
                 state.error = action.payload.response.data.message;
             })
             .addCase(saveCategoriesOrder.fulfilled, state => {
@@ -160,6 +170,10 @@ export const categorySlice = createSlice({
                 });
                 state.categoryForUpdate = null;
             })
+            .addCase(updateCategory.rejected, (state, action) => {
+                state.status = 'rejected';
+                state.error = action.payload.response.data.message;
+            })
             .addCase(getCategoryById.fulfilled, (state, action) => {
                 state.status = 'fulfilled';
                 state.error = null;
@@ -171,6 +185,6 @@ export const categorySlice = createSlice({
     }
 });
 
-export const { setCategoryForUpdate, categoriesReorder, setCategoryForDelete } = categorySlice.actions;
+export const { setCategoryForUpdate, showCategoryEdit, hideCategoryEdit, categoriesReorder, setCategoryForDelete } = categorySlice.actions;
 const categoryStore = categorySlice.reducer;
 export default categoryStore;

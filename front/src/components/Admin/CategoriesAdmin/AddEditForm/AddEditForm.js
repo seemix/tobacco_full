@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import {
     TextField,
     Button,
-    DialogActions
+    DialogActions, Alert
 
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { joiResolver } from '@hookform/resolvers/joi';
 
-import { hideCategoryEdit } from '../../../../store/appearance';
+import { hideCategoryEdit } from '../../../../store/category';
 import { categoryFormValidator } from '../../../../validators/category-form.validator';
 import { createCategory, deleteImage, setCategoryForUpdate, updateCategory } from '../../../../store/category';
 import { config } from '../../../../config/config';
@@ -17,8 +17,8 @@ import './AddEditForm.css';
 
 const AddEditForm = () => {
         const dispatch = useDispatch();
-        const { categoryForUpdate } = useSelector(state => state.categoryStore);
-        const {
+        const { categoryForUpdate, error, status } = useSelector(state => state.categoryStore);
+    const {
             register,
             handleSubmit,
             setValue,
@@ -31,8 +31,8 @@ const AddEditForm = () => {
             if (categoryForUpdate) setValue('categoryName', categoryForUpdate.name);
         }, [categoryForUpdate]);
         const handleClose = () => {
-            dispatch(hideCategoryEdit());
-            dispatch(setCategoryForUpdate(null));
+                dispatch(hideCategoryEdit());
+                dispatch(setCategoryForUpdate(null));
         };
         const handleChange = (event) => {
             setFile(event.target.files[0]);
@@ -58,10 +58,9 @@ const AddEditForm = () => {
             } else {
                 dispatch(createCategory(formData));
             }
-            dispatch(hideCategoryEdit());
+            if(!error && status === 'fulfilled') dispatch(hideCategoryEdit());
         }
-
-        return (
+    return (
             <>
                 <h2>Add/Edit category</h2>
                 <div className={'wrapper'}>
@@ -97,7 +96,8 @@ const AddEditForm = () => {
                         </div>
                         <div>
                             {categoryForUpdate && categoryForUpdate?.picture && !file &&
-                                <img src={`${config.BACKEND_URL}/category/${categoryForUpdate?.picture}`} alt="category_picture"
+                                <img src={`${config.BACKEND_URL}/category/${categoryForUpdate?.picture}`}
+                                     alt="category_picture"
                                      width={300}/>}
                             {pastedLink && <> <img src={pastedLink} alt={'pasted'} width={300}/>
                             </>}
@@ -133,6 +133,7 @@ const AddEditForm = () => {
                             </DialogActions>
                         </div>
                     </form>
+                    {error && <Alert severity="error">{error}</Alert>}
                 </div>
             </>
         )

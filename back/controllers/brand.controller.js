@@ -1,6 +1,7 @@
 const Brand = require('../models/brand.model');
 const Product = require('../models/pruduct.model');
 const status = require('../enums/status.enum');
+const ApiError = require('../errors/api.error');
 
 module.exports = {
     createBrand: async (req, res, next) => {
@@ -8,7 +9,7 @@ module.exports = {
             const createdBrand = await Brand.create(req.body);
             res.status(status.created).json(createdBrand);
         } catch (e) {
-            next(e);
+            next(new ApiError('Error creating brand', 400));
         }
     },
     getAll: async (req, res, next) => {

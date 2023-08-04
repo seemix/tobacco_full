@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 export const appearanceSlice = createSlice({
     name: 'appearanceSlice',
     initialState: {
@@ -8,7 +9,6 @@ export const appearanceSlice = createSlice({
         filteredLang: [],
         searchBar: false,
         cart: false,
-        categoryEditModal: false,
         productFormModal: false,
         productDeleteModal: false,
         categoryDeleteModal: false,
@@ -40,12 +40,7 @@ export const appearanceSlice = createSlice({
         hideCart(state) {
             state.cart = false;
         },
-        showCategoryEdit(state) {
-            state.categoryEditModal = true;
-        },
-        hideCategoryEdit(state) {
-            state.categoryEditModal = false;
-        },
+
         showProductForm(state) {
             state.productFormModal = true;
         },
@@ -72,7 +67,7 @@ export const appearanceSlice = createSlice({
             state.orderDeleteModal = false
         },
         setFilteredLang(state, action) {
-            state.filteredLang = state.languages.filter(item => item!== action.payload);
+            state.filteredLang = state.languages.filter(item => item !== action.payload);
         }
     }
 });
@@ -82,8 +77,7 @@ export const {
     setLanguage,
     showCart,
     hideCart,
-    showCategoryEdit,
-    hideCategoryEdit,
+    // hideCategoryEdit,
     showProductForm,
     hideProductForm,
     showProductDeleteModal,

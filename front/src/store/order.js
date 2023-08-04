@@ -64,7 +64,7 @@ export const orderSlice = createSlice({
         error: null,
         total: 0,
         freeShipping: false,
-        products: [],
+        products: JSON.parse(localStorage.getItem('products')) || [],
         customerName: null,
         customerSurname: null,
         customerPhone: null,

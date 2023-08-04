@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form';
 
 import { createBrand, getAllBrands } from '../../../store/brand';
 import SingleBrand from './SingleBrand';
+import { joiResolver } from '@hookform/resolvers/joi';
+import { brandFormValidator } from '../../../validators/brand-form.validator';
 
 const Brands = () => {
     const dispatch = useDispatch();
@@ -12,7 +14,11 @@ const Brands = () => {
         dispatch(getAllBrands());
     }, []);
     const { allBrands } = useSelector(state => state.brandStore);
-    const { register, handleSubmit } = useForm();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({ resolver: joiResolver(brandFormValidator) });
     const formSubmit = (data) => {
         dispatch(createBrand(data));
     }
@@ -25,13 +31,16 @@ const Brands = () => {
                         size={'small'}
                         className={'TextField-without-border-radius'}
                         label={'brand name'}
-                        {...register('name')}
+                        {...register('name',{
+                            required: 'This field is required'
+                        })}
+                        error={!!errors.name}
+                        helperText={errors?.name ? errors.name.message : null}
                     />
-                    <Button type={'submit'} variant={'contained'} style={{ marginLeft: '10px' }}>+ Add new
-                        brand</Button>
+                    <Button type={'submit'} variant={'contained'} style={{ marginLeft: '10px' }}>
+                        + Add new brand</Button>
                 </form>
             </div>
-
             <Table sx={{ width: 420 }}>
                 <TableBody>
                     {allBrands &&
@@ -39,7 +48,6 @@ const Brands = () => {
                     }
                 </TableBody>
             </Table>
-
         </div>
     )
 };

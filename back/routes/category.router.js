@@ -3,7 +3,7 @@ const categoryController = require('../controllers/category.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
 const fileUploadMiddleware = require('../middlewares/file-upload.middleware');
 
-categoryRouter.post('/', authMiddleware, fileUploadMiddleware('category'), categoryController.createCategory);
+categoryRouter.post('/',   fileUploadMiddleware('category'), categoryController.createCategory);
 categoryRouter.get('/', categoryController.getAllCategories);
 categoryRouter.get('/:id', categoryController.getCategoryById);
 categoryRouter.delete('/:id', authMiddleware, categoryController.deleteById);

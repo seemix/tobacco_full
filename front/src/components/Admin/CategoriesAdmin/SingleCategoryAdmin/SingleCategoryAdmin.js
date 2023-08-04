@@ -6,11 +6,8 @@ import { useDispatch } from 'react-redux';
 
 import './SingleCategoryAdmin.css';
 import { config } from '../../../../config/config';
-import {
-    showCategoryDeleteModal,
-    showCategoryEdit
-} from '../../../../store/appearance';
-import { setCategoryForDelete, setCategoryForUpdate } from '../../../../store/category';
+import { showCategoryDeleteModal } from '../../../../store/appearance';
+import { setCategoryForDelete, setCategoryForUpdate, showCategoryEdit } from '../../../../store/category';
 
 const SingleCategoryAdmin = ({ category }) => {
     const dispatch = useDispatch();

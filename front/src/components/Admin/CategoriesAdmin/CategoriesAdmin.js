@@ -3,10 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Reorder } from 'framer-motion';
 import { Button, Dialog, DialogContent } from '@mui/material';
 
-import { categoriesReorder, getAllCategories, saveCategoriesOrder } from '../../../store/category';
+import {
+    categoriesReorder,
+    getAllCategories,
+    hideCategoryEdit,
+    saveCategoriesOrder,
+    showCategoryEdit
+} from '../../../store/category';
 import SingleCategoryAdmin from './SingleCategoryAdmin/SingleCategoryAdmin';
 import AddEditForm from './AddEditForm/AddEditForm';
-import { hideCategoryDeleteModal, hideCategoryEdit, showCategoryEdit } from '../../../store/appearance';
+import { hideCategoryDeleteModal } from '../../../store/appearance';
 import ConfirmDeleteCategory from './ConfirmDeleteCategory';
 
 const CategoriesAdmin = () => {
@@ -14,11 +20,11 @@ const CategoriesAdmin = () => {
         dispatch(categoriesReorder(newOrder));
     };
     const dispatch = useDispatch();
-    const { categoryEditModal, categoryDeleteModal } = useSelector(state => state.appearanceStore);
+    const { categoryDeleteModal } = useSelector(state => state.appearanceStore);
     useEffect(() => {
         dispatch(getAllCategories());
     }, [dispatch])
-    const { categories, showReorderButton } = useSelector(state => state.categoryStore);
+    const { categories, showReorderButton, categoryEditModal } = useSelector(state => state.categoryStore);
     return (
         <div>
             <h2>
