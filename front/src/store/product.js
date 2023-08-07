@@ -36,13 +36,12 @@ export const createProduct = createAsyncThunk(
     'productSlice/CreateProduct',
     async (data, thunkAPI) => {
         try {
-            return productService.createProduct(data);
+            return await productService.createProduct(data);
         } catch (e) {
             return thunkAPI.rejectWithValue(e);
         }
     }
 );
-
 
 export const updateProduct = createAsyncThunk(
     'productSlice/UpdateProduct',
@@ -108,14 +107,14 @@ export const productSlice = createSlice({
         singleProduct: null,
         productForUpdate: null,
         productForDelete: null,
-        selectedPage: null,
         brand: null,
         updatePictures: [],
         newPictures: [],
         newFile: null,
         delPictures: [],
         confirmDialog: false,
-        confirmDelete: false
+        confirmDelete: false,
+        productFormModal: false
     },
     reducers: {
         setNewFile(state, action) {
@@ -130,37 +129,26 @@ export const productSlice = createSlice({
         setProductForDelete(state, action) {
             state.productForDelete = action.payload;
         },
-        setPictureForUpdate(state, action) {
-            const existingPictureForUpdate = state.updatePictures.findIndex(item => item.index === action.payload.index);
-            if (existingPictureForUpdate === -1) {
-                state.updatePictures = [...state.updatePictures, action.payload]
 
-            } else {
-                state.updatePictures[action.payload.index] = action.payload;
-            }
+        showProductForm(state) {
+            state.productFormModal = true;
+        },
+        hideProductForm(state) {
+            state.productFormModal = false;
+            state.error = null;
+            state.productForUpdate = null;
         },
         addPicture(state, action) {
             state.newPictures = [...state.newPictures, action.payload];
         },
-        deletePicture(state, action) {
-            state.productForUpdate.pictures = state.productForUpdate.pictures.filter(item => item.filename !== action.payload);
-            state.updatePictures = state.updatePictures.filter(item => item.filename !== action.payload);
-            state.delPictures = [...state.delPictures, action.payload];
-        },
+
         changePicture(state, action) {
             state.newPictures[action.payload.index] = action.payload.picture;
         },
         removeNewPicture(state, action) {
             state.newPictures.splice(action.payload, 1);
         },
-        resetPictures(state, action) {
-            state.newPictures = [];
-            state.updatePictures = [];
-            state.delPictures = [];
-        },
-        setPage(state, action) {
-            state.selectedPage = action.payload;
-        },
+
         setBrand(state, action) {
             state.brand = action.payload;
         },
@@ -214,6 +202,11 @@ export const productSlice = createSlice({
                 if (index !== -1) {
                     state.products.products[index] = { ...action.payload };
                 }
+                state.productFormModal = false;
+            })
+            .addCase(updateProduct.rejected, (state, action) => {
+                state.status = 'rejected';
+                state.error = action.payload.response.data.message;
             })
             .addCase(deleteProduct.fulfilled, (state, action) => {
                 state.products.products = state.products.products.filter(item => item._id !== action.payload);
@@ -226,7 +219,7 @@ export const productSlice = createSlice({
                 state.error = null;
                 state.newProducts = action.payload;
             })
-            .addCase(addImage.fulfilled, (state, action) => {
+            .addCase(addImage.fulfilled, state => {
                 state.productForUpdate.picture = '';
                 state.newFile = null;
             })
@@ -242,21 +235,19 @@ export const productSlice = createSlice({
 });
 export const {
     setProductForUpdate,
-    setPage,
     setBrand,
     setProductForDelete,
-    setPictureForUpdate,
     addPicture,
     removeNewPicture,
     changePicture,
-    deletePicture,
-    resetPictures,
     setConfirmDialog,
     resetConfirmDialog,
     setNewFile,
     resetNewFile,
     setConfirmDelete,
-    resetConfirmDelete
+    resetConfirmDelete,
+    showProductForm,
+    hideProductForm
 } = productSlice.actions;
 const productStore = productSlice.reducer;
 export default productStore;

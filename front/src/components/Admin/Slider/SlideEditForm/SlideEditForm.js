@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, DialogActions, TextField } from '@mui/material';
+import { Alert, Button, DialogActions, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
-import { closeSlideEdit, createSlide, setSlideForUpdate, updateSlide } from '../../../../store/slider';
+import { closeSlideEdit, createSlide, updateSlide } from '../../../../store/slider';
 import { config } from '../../../../config/config';
 
 const SlideEditForm = () => {
@@ -12,6 +12,7 @@ const SlideEditForm = () => {
     const dispatch = useDispatch();
     const [pastedLink, setPastedLink] = useState(null);
     const [file, setFile] = useState(null);
+    const { error } = useSelector(state => state.sliderStore);
     useEffect(() => {
         if (slideForUpdate) setValue('text', slideForUpdate.text);
     }, []);
@@ -25,7 +26,6 @@ const SlideEditForm = () => {
         setPastedLink(null);
     }
     const closeEdit = () => {
-        dispatch(setSlideForUpdate(null));
         dispatch(closeSlideEdit());
     }
     const saveForm = (data) => {
@@ -41,7 +41,6 @@ const SlideEditForm = () => {
         } else {
              dispatch(createSlide(formData));
         }
-        dispatch(closeSlideEdit());
     }
     return (
         <>
@@ -88,6 +87,8 @@ const SlideEditForm = () => {
                     {file &&
                         <Button fullWidth onClick={removeFile}>revert</Button>
                     }
+                    {error && <Alert severity="error">{error}</Alert>}
+
                     <DialogActions>
                         <Button variant={'contained'} onClick={closeEdit}>Cancel
                         </Button>

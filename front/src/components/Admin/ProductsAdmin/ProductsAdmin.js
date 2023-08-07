@@ -1,32 +1,31 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { Button, Dialog } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 
 import ProductCard from './ProductCard/ProductCard';
-import { getProductsByCategory, setPage, setProductForUpdate } from '../../../store/product';
+import { getProductsByCategory, setProductForUpdate } from '../../../store/product';
 import { getCategoryById } from '../../../store/category';
 import ProductEditForm from './ProductEditForm/ProductEditForm';
-import { showProductForm } from '../../../store/appearance';
+import { showProductForm } from '../../../store/product';
 
 const ProductsAdmin = () => {
+    const [searchParams, setSearchParams] = useSearchParams();
     const dispatch = useDispatch();
     const { id } = useParams();
-    let params = { categoryId: id, page: 1 }
-
-    const { selectedPage } = useSelector(state => state.productStore);
+    let params = { categoryId: id }
 
     useEffect(() => {
         dispatch(getCategoryById(id));
-        dispatch(getProductsByCategory({ ...params, page: selectedPage }));
-    }, [dispatch, id, selectedPage]);
-    const { productFormModal } = useSelector(state => state.appearanceStore);
+        dispatch(getProductsByCategory({ ...params, page: searchParams.get('page') || 1 }));
+    }, [dispatch, id, searchParams]);
+    const { productFormModal } = useSelector(state => state.productStore);
     const { currentCategory } = useSelector(state => state.categoryStore);
     const { products, pages, page } = useSelector(state => state.productStore).products;
     const handlePage = (e, selectedPage) => {
-        params.page = selectedPage;
-        dispatch(setPage(selectedPage));
+        searchParams.set('page', selectedPage);
+        setSearchParams(searchParams);
     }
     const addNewProduct = () => {
         dispatch(setProductForUpdate(null));

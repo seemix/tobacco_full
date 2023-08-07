@@ -5,7 +5,7 @@ export const getAllSlides = createAsyncThunk(
     'sliderStore/GetAllSlides',
     async (_, thunkAPI) => {
         try {
-            return sliderService.getAllSlides();
+            return await sliderService.getAllSlides();
         } catch (e) {
             return thunkAPI.rejectWithValue(e);
         }
@@ -16,7 +16,7 @@ export const createSlide = createAsyncThunk(
     'sliderStore/CreateSlide',
     async (data, thunkAPI) => {
         try {
-            return sliderService.createSlide(data);
+            return await sliderService.createSlide(data);
         } catch (e) {
             return thunkAPI.rejectWithValue(e);
         }
@@ -27,7 +27,7 @@ export const saveSlidesOrder = createAsyncThunk(
     'sliderStore/SaveSlidesOrder',
     async (data, thunkAPI) => {
         try {
-            return sliderService.saveOrder(data);
+            return await sliderService.saveOrder(data);
         } catch (e) {
             return thunkAPI.rejectWithValue(e);
         }
@@ -38,7 +38,7 @@ export const deleteSlide = createAsyncThunk(
     'sliderStore/DeleteSlide',
     async (_id, thunkAPI) => {
         try {
-            return sliderService.deleteSlide(_id);
+            return await sliderService.deleteSlide(_id);
         } catch (e) {
             return thunkAPI.rejectWithValue(e);
         }
@@ -49,7 +49,7 @@ export const updateSlide = createAsyncThunk(
     'sliderStore/UpdateSlide',
     async (data, thunkAPI) => {
         try {
-            return sliderService.updateSlide(data);
+            return await sliderService.updateSlide(data);
         } catch (e) {
             return thunkAPI.rejectWithValue(e);
         }
@@ -84,13 +84,14 @@ export const sliderSlice = createSlice({
             state.slideDeleteModal = false;
         },
         closeSlideEdit(state) {
+            state.error = null;
+            state.slideForUpdate = null;
             state.slideEditModal = false;
         },
         setSlideForUpdate(state, action) {
             state.slideForUpdate = action.payload;
         },
         setSlideForDelete(state, action) {
-            console.log(action.payload);
             state.slideForDelete = action.payload;
         }
     },
@@ -114,6 +115,11 @@ export const sliderSlice = createSlice({
                 state.status = 'fulfilled';
                 state.error = null;
                 state.slides.push(action.payload);
+                state.slideEditModal = false;
+            })
+            .addCase(createSlide.rejected, (state, action) => {
+                state.status = 'rejected';
+                state.error = action.payload.response.data.message;
             })
             .addCase(updateSlide.fulfilled, (state, action) => {
                 state.status = 'fulfilled';
@@ -125,6 +131,11 @@ export const sliderSlice = createSlice({
                     }
                 });
                 state.slideForUpdate = null;
+                state.slideEditModal = false;
+            })
+            .addCase(updateSlide.rejected, (state, action) => {
+                state.status = 'rejected';
+                state.error = action.payload.response.data.message;
             })
     }
 });

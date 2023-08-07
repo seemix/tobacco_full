@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, DialogActions, NativeSelect, TextField } from '@mui/material';
+import { Alert, Button, DialogActions, NativeSelect, TextField } from '@mui/material';
 import ReactQuill from 'react-quill';
 import { joiResolver } from '@hookform/resolvers/joi';
 import 'react-quill/dist/quill.snow.css';
@@ -10,7 +10,7 @@ import { getAllBrands } from '../../../../store/brand';
 import { productFormValidator } from '../../../../validators/product-form.validator';
 import { createProduct, deleteProductImage, updateProduct } from '../../../../store/product';
 import { config } from '../../../../config/config';
-import { hideProductForm } from '../../../../store/appearance';
+import { hideProductForm } from '../../../../store/product';
 import './ProductEditForm.css';
 
 const ProductEditForm = () => {
@@ -22,7 +22,7 @@ const ProductEditForm = () => {
         dispatch(getAllBrands());
     }, [dispatch]);
     const { currentCategory } = useSelector(state => state.categoryStore);
-    const { productForUpdate } = useSelector(state => state.productStore);
+    const { productForUpdate, error } = useSelector(state => state.productStore);
     const [value, setValue] = useState('');
     useEffect(() => {
         if (productForUpdate?.description) {
@@ -69,7 +69,6 @@ const ProductEditForm = () => {
         } else {
             dispatch(createProduct(formData));
         }
-        dispatch(hideProductForm());
     }
     return (
         <div className={'form_wrapper'}>
@@ -117,7 +116,6 @@ const ProductEditForm = () => {
                                                       defaultValue={productForUpdate?.brand?._id}
                                                       {...register('brand')}
                                                       error={!!errors.brand}
-                                            //      helpertext={errors?.brand ? errors.brand.message : null}
                                         >
                                             {allBrands.map(brand => <option value={brand._id}
                                                                             key={brand._id}>{brand.name}</option>)}
@@ -172,6 +170,7 @@ const ProductEditForm = () => {
                             }
                         </div>
                     </div>
+                    {error && <Alert severity="error">{error}</Alert>}
                     <DialogActions>
                         <Button onClick={handleCancel}>Cancel</Button>
                         <Button type={'submit'}>Save</Button>

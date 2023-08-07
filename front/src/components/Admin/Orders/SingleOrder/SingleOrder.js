@@ -63,9 +63,9 @@ const SingleOrder = ({ order }) => {
                             {
                                 order.products.map(item =>
                                     <TableRow key={item._id}>
-                                        <TableCell>{item.product.name} </TableCell>
+                                        <TableCell>{item.product?.name || 'deleted product'} </TableCell>
                                         <TableCell>x{item.count}</TableCell>
-                                        <TableCell>{item.product.price} {config.CURRENCY}</TableCell>
+                                        <TableCell>{item.product?.price || 0} {config.CURRENCY}</TableCell>
                                     </TableRow>)
                             }
                             <TableRow>

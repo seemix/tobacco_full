@@ -16,6 +16,7 @@ import { hideCategoryDeleteModal } from '../../../store/appearance';
 import ConfirmDeleteCategory from './ConfirmDeleteCategory';
 
 const CategoriesAdmin = () => {
+
     const reOrder = (newOrder) => {
         dispatch(categoriesReorder(newOrder));
     };

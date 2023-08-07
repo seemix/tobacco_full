@@ -41,13 +41,7 @@ export const appearanceSlice = createSlice({
             state.cart = false;
         },
 
-        showProductForm(state) {
-            state.productFormModal = true;
-        },
-        hideProductForm(state) {
-            state.productFormModal = false;
-            state.productForUpdate = null;
-        },
+
         showProductDeleteModal(state) {
             state.productDeleteModal = true;
         },

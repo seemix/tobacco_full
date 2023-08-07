@@ -8,7 +8,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import './ProductCard.css';
 import { deleteProduct, setProductForUpdate } from '../../../../store/product';
 import { config } from '../../../../config/config';
-import { showProductForm } from '../../../../store/appearance';
+import { showProductForm } from '../../../../store/product';
 
 const ProductCard = ({ product }) => {
     const [confirmDelete, setConfirmDelete] = useState(false);

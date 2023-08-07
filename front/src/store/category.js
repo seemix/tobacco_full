@@ -169,6 +169,7 @@ export const categorySlice = createSlice({
                     }
                 });
                 state.categoryForUpdate = null;
+                state.categoryEditModal = false;
             })
             .addCase(updateCategory.rejected, (state, action) => {
                 state.status = 'rejected';

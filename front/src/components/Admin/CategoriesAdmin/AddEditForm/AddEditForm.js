@@ -17,7 +17,7 @@ import './AddEditForm.css';
 
 const AddEditForm = () => {
         const dispatch = useDispatch();
-        const { categoryForUpdate, error, status } = useSelector(state => state.categoryStore);
+        const { categoryForUpdate, error } = useSelector(state => state.categoryStore);
     const {
             register,
             handleSubmit,
@@ -58,7 +58,7 @@ const AddEditForm = () => {
             } else {
                 dispatch(createCategory(formData));
             }
-            if(!error && status === 'fulfilled') dispatch(hideCategoryEdit());
+          //  if(!error && status === 'fulfilled') dispatch(hideCategoryEdit());
         }
     return (
             <>
