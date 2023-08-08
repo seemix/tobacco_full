@@ -4,11 +4,13 @@ const config = require('../config/config');
 const Token = require('../models/token.model');
 
 module.exports = {
+
     generateTokens: (payload) => {
         const accessToken = jwt.sign({ payload }, config.JWT_ACCESS_SECRET, { expiresIn: '10s' });
         const refreshToken = jwt.sign({ payload }, config.JWT_REFRESH_SECRET, { expiresIn: '30d' });
         return { accessToken, refreshToken };
     },
+
     saveToken: async (userId, refreshToken) => {
         const tokenData = await Token.findOne({ where: { userId } });
         if (tokenData) {
@@ -17,9 +19,11 @@ module.exports = {
         }
         return Token.create({ userId, refreshToken });
     },
+
     removeToken: async (refreshToken) => {
         return Token.deleteOne({ refreshToken });
     },
+
     validateAccessToken: async (accessToken) => {
         try {
             return jwt.verify(accessToken, config.JWT_ACCESS_SECRET);
@@ -27,6 +31,7 @@ module.exports = {
             return null;
         }
     },
+
     validateRefreshToken: async (refreshToken) => {
         try {
             return jwt.verify(refreshToken, config.JWT_REFRESH_SECRET);
@@ -34,6 +39,7 @@ module.exports = {
             return null;
         }
     },
+
     findToken: async (refreshToken) => {
         return Token.findOne({ refreshToken });
     }

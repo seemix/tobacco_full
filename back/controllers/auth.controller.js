@@ -4,15 +4,17 @@ const status = require('../enums/status.enum');
 const ApiError = require('../errors/api.error');
 
 module.exports = {
+
     register: async (req, res, next) => {
         try {
             const { login, password } = req.body;
             const userData = await userService.register(login, password);
-            res.status(status.created).json({ login: userData.login, id: userData.id });
+            res.status(status.CREATED).json({ login: userData.login, id: userData.id });
         } catch (e) {
-            next(new ApiError('Error while registering user', status.serverError));
+            next(new ApiError('Error while registering user', status.SERVER_ERROR));
         }
     },
+
     login: async (req, res, next) => {
         const { login, password } = req.body;
         try {
@@ -22,22 +24,24 @@ module.exports = {
                 httpOnly: true,
                 sameSite: true
             })
-                .status(status.ok)
+                .status(status.OK)
                 .json(userData);
         } catch (e) {
             next(e);
         }
     },
+
     logout: async (req, res, next) => {
         try {
             const { refreshToken } = req.cookies;
             const token = userService.logout(refreshToken);
             res.clearCookie('refreshToken');
-            res.status(status.ok).json(token);
+            res.status(status.OK).json(token);
         } catch (e) {
             next(e)
         }
     },
+
     refresh: async (req, res, next) => {
         try {
             const { refreshToken } = req.cookies;
@@ -49,15 +53,16 @@ module.exports = {
             });
             return res.json(userData);
         } catch (e) {
-            next(new ApiError('Error refresh', 403));
+            next(new ApiError('Error refresh', 401));
         }
     },
+
     checkAuth: async (req, res, next) => {
         try {
             const accessToken = req.headers.authorization.split(' ')[1];
-            if (!accessToken) res.status(status.authError);
+            if (!accessToken) res.status(status.AUTH_ERROR);
             const userData = tokenService.validateAccessToken(accessToken);
-            res.status(status.ok).json(userData);
+            res.status(status.OK).json(userData);
         } catch (e) {
             next(e);
         }

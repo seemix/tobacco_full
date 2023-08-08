@@ -2,17 +2,18 @@ const status = require('../enums/status.enum');
 const Product = require('../models/pruduct.model');
 
 module.exports = {
+
     search: async (req, res, next) => {
-        const { q } = req.query;
-        if (!q || q.length < 3) res.status(status.badRequest);
+        const { searchQuery } = req.query;
+        if (!searchQuery || searchQuery.length < 3) res.status(status.BAD_REQUEST);
         try {
             const results = await Product.find({
                 '$or': [
-                    { name: { $regex: q, $options: 'i' } },
-                    { description: { $regex: q, $options: 'i' } }
+                    { name: { $regex: searchQuery, $options: 'i' } },
+                    { description: { $regex: searchQuery, $options: 'i' } }
                 ]
             });
-            res.status(status.ok).json(results);
+            res.status(status.OK).json(results);
         } catch (e) {
             next(e);
         }

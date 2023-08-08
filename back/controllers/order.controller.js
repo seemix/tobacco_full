@@ -2,8 +2,10 @@ const Order = require('../models/order.model');
 const status = require('../enums/status.enum');
 const { ORDERS_PER_PAGE } = require('../config/config');
 const sendTgMessage = require('../services/telegram.service');
+const sumService = require('../services/sum.service');
 
 module.exports = {
+
     createOrder: async (req, res, next) => {
         try {
             const newOrder = await Order.create(req.body);
@@ -19,11 +21,12 @@ module.exports = {
             io.emit('newOrder', order);
             //Send new order to Telegram Bot
             await sendTgMessage(order);
-            res.status(status.ok).json(newOrder);
+            res.status(status.OK).json(newOrder);
         } catch (e) {
             next(e);
         }
     },
+
     getAllOrders: async (req, res, next) => {
         try {
             const pages = Math.ceil(await Order.find().count() / ORDERS_PER_PAGE);
@@ -47,7 +50,7 @@ module.exports = {
                     sorting.total = -1;
                     break;
                 default:
-                     break;
+                    break;
             }
 
             let { limit } = req.query;
@@ -69,36 +72,33 @@ module.exports = {
             next(e);
         }
     },
+
     setCompleteOrder: async (req, res, next) => {
         try {
             const { _id, completed } = req.body;
             await Order.updateOne({ _id }, { completed });
-            res.status(status.ok).json({ _id, completed });
+            res.status(status.OK).json({ _id, completed });
         } catch (e) {
             next(e);
         }
     },
+
     deleteOrderById: async (req, res, next) => {
         try {
             const { _id } = req.params;
             const deletedOrder = await Order.deleteOne({ _id });
-            res.status(status.ok).json(deletedOrder);
+            res.status(status.OK).json(deletedOrder);
         } catch (e) {
             next(e);
         }
     },
-    getSum: async (req, res, next) => {
-        const result = await Order.aggregate([
-            {
-                $group: {
-                    _id: null,
-                    totalSum: { $sum: '$total' },
-                    completedSum: { $sum: { $cond: ['$completed', '$total', 0] } },
-                    uncompletedSum: { $sum: { $cond: ['$completed', 0, '$total'] } },
-                },
-            },
-        ]);
-       res.json(result[0]);
-    },
 
+    getSum: async (req, res, next) => {
+        try {
+            const result = await Order.aggregate([sumService]);
+            res.json(result[0]);
+        } catch (e) {
+            next(e);
+        }
+    }
 }

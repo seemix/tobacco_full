@@ -66,7 +66,7 @@ export const authSlice = createSlice({
             .addCase(login.fulfilled, (state, action) => {
                 state.status = 'fulfilled';
                 state.error = null;
-                localStorage.setItem('token', action.payload.accessToken);
+              //  localStorage.setItem('token', action.payload.accessToken);
                 state.user = action.payload.user;
                 state.auth = true;
             })
@@ -89,7 +89,6 @@ export const authSlice = createSlice({
             .addCase(refresh.rejected, state => {
                 state.auth = false;
                 state.status = 'error';
-                state.auth = false;
             })
             .addCase(logout.pending, state => {
                 state.auth = false;

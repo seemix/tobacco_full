@@ -27,7 +27,7 @@ const ItemDetails = () => {
     const { singleProduct } = useSelector(state => state.productStore);
     const { products } = useSelector(state => state.orderStore);
     useEffect(() => {
-        const inCart = products.findIndex(obj => obj.id === singleProduct.id);
+        const inCart = products.findIndex(obj => obj.id === singleProduct?.id);
         if (inCart !== -1) {
             setShowButton(true);
         } else {

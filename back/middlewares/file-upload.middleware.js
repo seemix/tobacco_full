@@ -1,5 +1,6 @@
 const multer = require('multer');
 
+const status = require('../enums/status.enum');
 const ApiError = require('../errors/api.error');
 const allowedFileTypes = ['image/jpeg', 'image/png', 'image/webp'];
 const maxFileSizeInBytes = 2 * 1024 * 1024;
@@ -16,9 +17,9 @@ const storage = (folderName) => multer.diskStorage({
 
 const fileFilter = (req, file, cb) => {
     if (allowedFileTypes.includes(file.mimetype)) {
-        cb(null, true); // Accept file
+        cb(null, true);
     } else {
-        cb(new ApiError('Invalid file type. Only JPEG PNG and Webp files are allowed.', 400), false);
+        cb(new ApiError('Invalid file type. Only JPEG PNG and Webp files are allowed.', status.BAD_REQUEST), false);
     }
 };
 const upload = (folderName) => multer({
@@ -33,7 +34,6 @@ const saveImage = (folderName) => (req, res, next) => {
     const uploader = upload(folderName);
     uploader(req, res, function (err) {
         if (err) {
-          //  return res.status(400).json( err.message );
             return next(err);
         } else {
             if (!req.file) return next();

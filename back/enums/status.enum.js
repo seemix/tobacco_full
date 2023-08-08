@@ -1,11 +1,11 @@
 module.exports = {
-    ok: 200,
-    created: 201,
-    accepted: 202,
-    noContent: 204,
-    badRequest: 400,
-    forbidden: 403,
-    notFound: 404,
-    authError: 401,
-    serverError: 500
+    OK: 200,
+    CREATED: 201,
+    ACCEPTED: 202,
+    NO_CONTENT: 204,
+    BAD_REQUEST: 400,
+    FORBIDDEN: 403,
+    NOT_FOUND: 404,
+    AUTH_ERROR: 401,
+    SERVER_ERROR: 500
 }

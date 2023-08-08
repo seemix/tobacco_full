@@ -3,9 +3,9 @@ import { searchService } from '../services/search.service';
 
 export const search = createAsyncThunk(
     'searchSlice/SearchAdmin',
-    async (q, thunkAPI) => {
+    async (searchQuery, thunkAPI) => {
         try {
-            return searchService.search(q);
+            return searchService.search(searchQuery);
         } catch (e) {
             return thunkAPI.rejectWithValue(e);
         }

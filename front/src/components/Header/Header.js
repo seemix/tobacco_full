@@ -115,8 +115,9 @@ const Header = () => {
                         <CartIcon size={2}/>
                     </Badge>
                 </div>
-                <div className={searchBar ? 'show_element' : 'hide_element'} ref={searchRef}><SearchBar
-                    setShow={showElement}/></div>
+                <div className={searchBar ? 'show_element' : 'hide_element'} ref={searchRef}>
+                    <SearchBar setShow={showElement}/>
+                </div>
                 <div onClick={() => dispatch(showSearchBar())} className={!searchBar ? 'show_element' : 'hide_element'}>
                     <SearchIcon/>
                 </div>

@@ -7,6 +7,7 @@ const ApiError = require('../errors/api.error');
 const { PRODUCTS_PER_PAGE } = require('../config/config');
 
 module.exports = {
+
     createProduct: async (req, res, next) => {
         const { name, description, oldPrice, price, category, brand } = req.body;
         try {
@@ -14,15 +15,16 @@ module.exports = {
                 name, description, oldPrice, price, category, brand,
                 picture: req.fileName
             });
-            res.json(newProd).status(status.created);
+            res.json(newProd).status(status.CREATED);
         } catch (e) {
-            next(new ApiError('Error creating product', status.serverError));
+            next(new ApiError('Error creating product', status.BAD_REQUEST));
         }
     },
+
     getProductsByCategory: async (req, res, next) => {
         try {
             const { category, brand } = req.query;
-            let query = { category };
+            const query = { category };
             if (brand && brand !== 'null' && brand !== 'all' && brand !== 'undefined') query.brand = brand;
             const pages = Math.ceil(await Product.find(query).count() / PRODUCTS_PER_PAGE);
             const { page = 1 } = req.query;
@@ -47,6 +49,7 @@ module.exports = {
             next(e)
         }
     },
+
     getNewProducts: async (req, res, next) => {
         try {
             const newProducts = await Product
@@ -54,17 +57,18 @@ module.exports = {
                 .sort({ updatedAt: 1 })
                 .limit(5)
                 .select(['name', 'picture', 'oldPrice', 'price']);
-            res.status(status.ok).json(newProducts);
+            res.status(status.OK).json(newProducts);
         } catch (e) {
             next(e);
         }
     },
+
     getProductById: async (req, res, next) => {
         try {
             const { id } = req.params;
             const product = await Product.findOne({ _id: id })
                 .populate({ path: 'category', select: 'name' });
-            res.status(status.ok).json(product);
+            res.status(status.OK).json(product);
         } catch (e) {
             next(e);
         }
@@ -73,34 +77,36 @@ module.exports = {
     getImage: async (req, res, next) => {
         try {
             const { filename } = req.params;
-            if (!filename) res.status(status.notFound);
+            if (!filename) res.status(status.NOT_FOUND);
             const imagePath = path.join(__dirname, '../uploads/products', filename);
             if (fs.existsSync(imagePath)) {
-                res.status(status.ok).sendFile(imagePath);
+                res.status(status.OK).sendFile(imagePath);
             } else {
-                res.status(status.notFound).json('File not found')
+                res.status(status.NOT_FOUND).json('File not found')
             }
         } catch (e) {
             next(e);
         }
     },
+
     deleteImage: async (req, res, next) => {
         try {
             const { filename } = req.params;
-            if (filename) res.status(status.badRequest);
+            if (filename) res.status(status.BAD_REQUEST);
             const imagePath = path.join(__dirname, '..', 'uploads', 'products', filename);
             if (fs.existsSync(imagePath))
                 fs.unlinkSync(imagePath);
             await Product.updateOne({ picture: filename }, { picture: '' });
-            res.status(status.ok).json(filename);
+            res.status(status.OK).json(filename);
         } catch (e) {
             next(e);
         }
     },
+
     updateProduct: async (req, res, next) => {
         try {
             const { _id, oldPicture } = req.body;
-            if (!_id) next(new ApiError('Incorrect ID', status.badRequest));
+            if (!_id) next(new ApiError('Incorrect ID', status.BAD_REQUEST));
             const imagePath = path.join(__dirname, '..', 'uploads', 'products', oldPicture);
             if (oldPicture) {
                 if (fs.existsSync(imagePath))
@@ -108,11 +114,12 @@ module.exports = {
             }
             await Product.updateOne({ _id }, { ...req.body, picture: req.fileName });
             const updatedProduct = await Product.findById(_id).populate({ path: 'brand' });
-            res.status(status.ok).json(updatedProduct);
+            res.status(status.OK).json(updatedProduct);
         } catch (e) {
             next(e);
         }
     },
+
     deleteProduct: async (req, res, next) => {
         try {
             const { _id, picture } = req.query;
@@ -122,22 +129,24 @@ module.exports = {
             }
 
             await Product.deleteOne({ _id });
-            res.status(status.ok).json(_id);
+            res.status(status.OK).json(_id);
         } catch (e) {
             next(e);
         }
     },
+
     addImage: async (req, res, next) => {
         try {
             const { productId } = req.query;
             const productForUpdate = await Product.findById(productId);
             const updatedPictures = [...productForUpdate.pictures, req.fileName];
             await Product.updateOne({ _id: productId }, { pictures: updatedPictures });
-            res.json({ productId, pictures: updatedPictures }).status(status.created);
+            res.json({ productId, pictures: updatedPictures }).status(status.CREATED);
         } catch (e) {
             next(e);
         }
     },
+
     replaceImage: async (req, res, next) => {
         try {
             const { productId, imageToUpdate } = req.query;
@@ -145,7 +154,7 @@ module.exports = {
             const updatedPictures = productForUpdate.pictures.map(item => (item === imageToUpdate ? req.fileName : item));
             await Product.updateOne({ _id: productId }, { pictures: updatedPictures });
             fs.unlinkSync(path.join(__dirname, '..', 'uploads', 'products', imageToUpdate));
-            res.json({ productId, pictures: updatedPictures }).status(status.ok);
+            res.json({ productId, pictures: updatedPictures }).status(status.OK);
         } catch (e) {
             next(e);
         }

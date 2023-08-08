@@ -20,6 +20,7 @@ const Login = () => {
     const sendForm = (data) => {
         dispatch(login(data));
     };
+    console.log(error);
     const { register, handleSubmit, formState: { errors } } = useForm();
     return (
         <div>
