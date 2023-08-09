@@ -15,3 +15,7 @@
     flex-direction: column;
     gap: 30px;
 }
+.complete_order_card {
+    margin: 20px;
+    padding: 20px;
+}

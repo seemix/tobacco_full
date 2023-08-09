@@ -9,12 +9,14 @@ import Loader from '../Loader/Loader';
 const AdminLayout = () => {
     const { auth, status } = useSelector(state => state.authStore);
     const dispatch = useDispatch();
+    const token = localStorage.getItem('token');
+
     useEffect(() => {
-        const token = localStorage.getItem('token');
         if (token && !auth) {
             dispatch(refresh());
         }
-    }, [dispatch, auth])
+    }, [token]);
+
     return (
         <div style={{ marginTop: '80px' }}>
             {status === 'loading' && <Loader/>}

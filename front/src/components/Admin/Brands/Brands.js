@@ -1,18 +1,20 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Table, TableBody, TextField } from '@mui/material';
+import { joiResolver } from '@hookform/resolvers/joi';
 import { useForm } from 'react-hook-form';
 
 import { createBrand, getAllBrands } from '../../../store/brand';
 import SingleBrand from './SingleBrand';
-import { joiResolver } from '@hookform/resolvers/joi';
 import { brandFormValidator } from '../../../validators/brand-form.validator';
-
+import './Brands.css';
 const Brands = () => {
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(getAllBrands());
     }, []);
+
     const { allBrands } = useSelector(state => state.brandStore);
     const {
         register,
@@ -23,9 +25,9 @@ const Brands = () => {
         dispatch(createBrand(data));
     }
     return (
-        <div style={{ width: '100%', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+        <div className={'brands_wrapper'}>
             <h2>Brands</h2>
-            <div style={{ dspalay: 'flex' }}>
+            <div className={'brands_form_wrapper'}>
                 <form onSubmit={handleSubmit(formSubmit)}>
                     <TextField
                         size={'small'}
@@ -38,7 +40,8 @@ const Brands = () => {
                         helperText={errors?.name ? errors.name.message : null}
                     />
                     <Button type={'submit'} variant={'contained'} style={{ marginLeft: '10px' }}>
-                        + Add new brand</Button>
+                        + Add new brand
+                    </Button>
                 </form>
             </div>
             <Table sx={{ width: 420 }}>

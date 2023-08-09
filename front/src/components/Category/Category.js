@@ -17,9 +17,11 @@ const Category = () => {
     const setPag = (page) => {
         setSearchParams({ page });
     }
+
     useEffect(() => {
         dispatch(getBrandsByCategory(id));
     }, [id]);
+
     const { brands } = useSelector(state => state.brandStore);
 
     useEffect(() => {

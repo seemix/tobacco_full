@@ -66,8 +66,8 @@ export const authSlice = createSlice({
             .addCase(login.fulfilled, (state, action) => {
                 state.status = 'fulfilled';
                 state.error = null;
-              //  localStorage.setItem('token', action.payload.accessToken);
-                state.user = action.payload.user;
+                localStorage.setItem('token', action.payload?.accessToken);
+                state.user = action.payload?.user;
                 state.auth = true;
             })
             .addCase(login.rejected, (state, action) => {

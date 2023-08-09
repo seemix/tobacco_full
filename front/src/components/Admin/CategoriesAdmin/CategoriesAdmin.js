@@ -16,16 +16,18 @@ import { hideCategoryDeleteModal } from '../../../store/appearance';
 import ConfirmDeleteCategory from './ConfirmDeleteCategory';
 
 const CategoriesAdmin = () => {
-
     const reOrder = (newOrder) => {
         dispatch(categoriesReorder(newOrder));
     };
     const dispatch = useDispatch();
     const { categoryDeleteModal } = useSelector(state => state.appearanceStore);
+
     useEffect(() => {
         dispatch(getAllCategories());
     }, [dispatch])
+
     const { categories, showReorderButton, categoryEditModal } = useSelector(state => state.categoryStore);
+
     return (
         <div>
             <h2>

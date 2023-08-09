@@ -23,14 +23,15 @@ module.exports = {
 
     getProductsByCategory: async (req, res, next) => {
         try {
-            const { category, brand } = req.query;
-            const query = { category };
+            const { categoryId, brand } = req.query;
             if (brand && brand !== 'null' && brand !== 'all' && brand !== 'undefined') query.brand = brand;
-            const pages = Math.ceil(await Product.find(query).count() / PRODUCTS_PER_PAGE);
+
+            const pages = Math.ceil(await Product.find({category: categoryId}).count() / PRODUCTS_PER_PAGE);
             const { page = 1 } = req.query;
             let { limit } = req.query;
             if (!limit || limit === 'undefined') limit = PRODUCTS_PER_PAGE;
-            const products = await Product.find(query)
+
+            const products = await Product.find({category: categoryId})
                 .sort({ createdAt: -1 })
                 .limit(Number(limit))
                 .skip((page - 1) * PRODUCTS_PER_PAGE)

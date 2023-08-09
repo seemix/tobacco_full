@@ -1,26 +1,25 @@
 import React, { useEffect } from 'react';
+import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
+import { useDispatch, useSelector } from 'react-redux';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import './Slider.css';
-
-// import required modules
-import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper';
-import { useDispatch, useSelector } from 'react-redux';
 import { getAllSlides } from '../../store/slider';
 import { config } from '../../config/config';
+import './Slider.css';
 
 const Slider = () => {
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(getAllSlides());
     }, []);
+
     const { slides } = useSelector(state => state.sliderStore);
+
     return (
         <div className={'slider_container'}>
             <Swiper

@@ -51,9 +51,9 @@ module.exports = {
                 httpOnly: true,
                 sameSite: true
             });
-            return res.json(userData);
+            return res.json(userData).status(status.OK);
         } catch (e) {
-            next(new ApiError('Error refresh', 401));
+            next(new ApiError('Error refresh', status.AUTH_ERROR));
         }
     },
 

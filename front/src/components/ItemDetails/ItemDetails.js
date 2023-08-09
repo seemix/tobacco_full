@@ -11,8 +11,8 @@ import { getProductById } from '../../store/product';
 import { showCart } from '../../store/appearance';
 import { addProductToCart } from '../../store/order';
 import { config } from '../../config/config';
-import './ItemDetails.css';
 import ShowPicture from './ShowPicture';
+import './ItemDetails.css';
 
 const ItemDetails = () => {
     const [bigPicture, setBigPicture] = useState(false);
@@ -21,11 +21,14 @@ const ItemDetails = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     useEffect(() => {
         dispatch(getProductById(id));
     }, [dispatch, id]);
+
     const { singleProduct } = useSelector(state => state.productStore);
     const { products } = useSelector(state => state.orderStore);
+
     useEffect(() => {
         const inCart = products.findIndex(obj => obj.id === singleProduct?.id);
         if (inCart !== -1) {
@@ -60,7 +63,7 @@ const ItemDetails = () => {
                                 />
                                 </div>
                         </div>
-                        <div style={{ width: '360px', padding: '20px' }}>
+                        <div className={'item_details_wrapper'}>
                             <h3>
                                 {singleProduct.name}
                             </h3>

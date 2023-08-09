@@ -18,12 +18,14 @@ const ProductEditForm = () => {
     const [pastedLink, setPastedLink] = useState(null);
     const [confirmDelete, setConfirmDelete] = useState(false);
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(getAllBrands());
     }, [dispatch]);
     const { currentCategory } = useSelector(state => state.categoryStore);
     const { productForUpdate, error } = useSelector(state => state.productStore);
     const [value, setValue] = useState('');
+
     useEffect(() => {
         if (productForUpdate?.description) {
             setValue(productForUpdate?.description);
@@ -98,8 +100,7 @@ const ProductEditForm = () => {
                                             error={!!errors.oldPrice}
                                             helperText={errors?.oldPrice ? errors.oldPrice.message : null}
                                             defaultValue={productForUpdate?.oldPrice}
-                                            style={{ width: '100px', margin: '15px' }}
-                                            className={'TextField-without-border-radius'}
+                                            className={'TextField-without-border-radius product_field'}
                                             label={'old price'}
                                         />
                                         <TextField
@@ -108,8 +109,7 @@ const ProductEditForm = () => {
                                             helperText={errors?.price ? errors.price.message : null}
                                             defaultValue={productForUpdate?.price}
                                             required
-                                            style={{ width: '100px', margin: '15px' }}
-                                            className={'TextField-without-border-radius'}
+                                            className={'TextField-without-border-radius product_field'}
                                             label={'price'}
                                         />
                                         <NativeSelect style={{ marginTop: '20px' }}

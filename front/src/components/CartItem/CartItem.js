@@ -3,13 +3,14 @@ import { Button, Card, TextField } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
-import './CartItem.css';
 import { config } from '../../config/config';
 import { incrementCount, reduceCount, removeItem } from '../../store/order';
+import './CartItem.css';
 
 const CartItem = ({ product }) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
+
     return (
         <div>
             <Card className={'cart_card'}>

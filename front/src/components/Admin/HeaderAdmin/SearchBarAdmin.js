@@ -4,17 +4,17 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from 'react-router-dom';
 
 const SearchBarAdmin = () => {
-    const [q, setQ] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();
 
     const handleEnter = (e) => {
-        if (e.target.value.length >= 3 && e.key === 'Enter') navigate(`search?q=${q}`);
+        if (e.target.value.length >= 3 && e.key === 'Enter') navigate(`search?searchQuery=${searchQuery}`);
     }
     const handleClick = () => {
-        if (q.length >= 3) navigate(`search?q=${q}`);
+        if (searchQuery.length >= 3) navigate(`search?searchQuery=${searchQuery}`);
     }
     const handleChange = (e) => {
-        setQ(e.target.value);
+        setSearchQuery(e.target.value);
     }
     return (
         <div className={'search_wrapper'}>
@@ -25,7 +25,7 @@ const SearchBarAdmin = () => {
                 type="search"
                 label="Search"
                 size={'small'}
-                name={'q'}
+                name={'searchQuery'}
                 onChange={handleChange}
                 onKeyDown={handleEnter}
                 placeholder={'type to search'}

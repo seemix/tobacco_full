@@ -1,22 +1,25 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Card } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { config } from '../../config/config';
-import { Card } from '@mui/material';
 import { setCompeteOrder } from '../../store/order';
+import './OrderForm.css';
 
 const CompleteOrder = () => {
     const { t } = useTranslation();
     const { createdOrder, freeShipping } = useSelector(state => state.orderStore);
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(setCompeteOrder());
     }, []);
+
     return (
         <div className={'main_container'}>
             <h2>{t('dear')} {createdOrder.customerName}, {t('completeOrder')}</h2>
-            <Card style={{ margin: '20px', padding: '20px' }}>
+            <Card className={'complete_order_card'}>
                 {
                     createdOrder.products.map(item => <div key={item._id}>
                         <div><i>🔸 {item.name} x {item.count}</i></div>

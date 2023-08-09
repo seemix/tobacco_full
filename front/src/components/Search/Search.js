@@ -10,12 +10,15 @@ const Search = () => {
     const [searchParams] = useSearchParams();
     const searchQuery = searchParams.get('searchQuery');
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(search(searchQuery));
         dispatch(closeMenu());
         dispatch(hideSearchBar());
     }, [searchQuery, dispatch]);
+
     const { results } = useSelector(state => state.searchStore);
+
     return (
         <div className={'main_container'}>
             <h2>Search results {`"${searchQuery}"`}</h2>

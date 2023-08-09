@@ -6,9 +6,9 @@ module.exports = async (req, res, next) => {
     try {
         const token = req.headers.authorization?.split(' ')[1];
         const userData = await tokenService.validateAccessToken(token);
-        if (!token || !userData) next(new ApiError('Unauthorized', status.authError));
+        if (!token || !userData) next(new ApiError('Unauthorized', status.AUTH_ERROR));
         next();
     } catch (e) {
-        next(e);
+        next(new ApiError('Unauthorized', status.AUTH_ERROR));
     }
 }

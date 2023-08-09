@@ -9,3 +9,15 @@
 .card_sum {
     padding: 10px;
 }
+
+.orders_inner_wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    gap: 10px;
+}
+
+.orders_form_controls {
+    display: flex;
+    justify-content: space-between;
+}

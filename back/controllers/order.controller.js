@@ -30,32 +30,16 @@ module.exports = {
     getAllOrders: async (req, res, next) => {
         try {
             const pages = Math.ceil(await Order.find().count() / ORDERS_PER_PAGE);
-            const { page = 1, status, sort } = req.query;
-            const filter = {};
+            const { page = 1, filter, sort } = req.query;
+            const filtering = {};
             const sorting = {};
-            if (status === 'completed') filter.completed = true;
-            if (status === 'uncompleted') filter.completed = false;
 
-            switch (sort) {
-                case 'dateasc':
-                    sorting.createdAt = -1;
-                    break;
-                case 'datedesc':
-                    sorting.createdAt = 1;
-                    break;
-                case 'sumasc':
-                    sorting.total = 1;
-                    break;
-                case 'sumdesc':
-                    sorting.total = -1;
-                    break;
-                default:
-                    break;
-            }
+            if (sort) sorting[sort.split(':')[0]] = +sort.split(':')[1];
+            if (filter) filtering[filter.split(':')[0]] = Boolean(filter.split(':')[1]);
 
             let { limit } = req.query;
             if (!limit) limit = ORDERS_PER_PAGE;
-            const orders = await Order.find(filter)
+            const orders = await Order.find(filtering)
                 .sort(sorting)
                 .limit(limit)
                 .skip((page - 1) * ORDERS_PER_PAGE)

@@ -31,3 +31,7 @@
     color: white;
     letter-spacing: 1px;
 }
+.item_card {
+    height: 410px;
+    position: relative;
+}

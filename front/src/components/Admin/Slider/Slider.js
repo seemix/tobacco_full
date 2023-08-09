@@ -10,9 +10,11 @@ import ConfirmDeleteSlide from './ConfirmDeleteSlide';
 
 const SliderAdmin = () => {
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(getAllSlides());
     }, []);
+
     const { slides, saveOrderButton, slideEditModal, slideDeleteModal } = useSelector(state => state.sliderStore);
     const reOrder = (newOrder) => {
         dispatch(sliderReorder(newOrder));

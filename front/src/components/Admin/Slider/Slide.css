@@ -6,3 +6,9 @@
     height: 180px;
     background-position: center center;
 }
+
+.slider_card {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}

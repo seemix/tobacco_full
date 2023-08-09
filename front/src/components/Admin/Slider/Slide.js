@@ -20,7 +20,7 @@ const Slide = ({ slide }) => {
     }
     return (
         <div className={'single_cat_wrapper'}>
-            <Card style={{ margin: '10px', display: 'flex', alignItems: 'center' }}>
+            <Card className={'slider_card'}>
                 <div className={'slider_picture'}
                      style={{ backgroundImage: `url(${config.BACKEND_URL}/slider/${slide.slide})` }}>
                 </div>

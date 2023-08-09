@@ -10,6 +10,7 @@ import './Contacts.css';
 
 const Contacts = () => {
     const { t } = useTranslation();
+
     return (
         <div style={{ marginTop: '70px' }}>
             <div className={'image_container'}
@@ -20,7 +21,6 @@ const Contacts = () => {
             </div>
             <div className={'content_container'}>
                 <div className={'content_wrapper'} style={{marginTop: '50px'}}>
-
                     <Card className={'card'}>
                         <div className={'card_inside'}>
                             <div className={'icon_wrapper'}><PhoneAndroidIcon style={{ fontSize: '50px', color: '#4a3d35'}}/></div>

@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { login } from '../../../store/auth';
+import './Login.css';
 
 const Login = () => {
 
@@ -20,19 +21,12 @@ const Login = () => {
     const sendForm = (data) => {
         dispatch(login(data));
     };
-    console.log(error);
     const { register, handleSubmit, formState: { errors } } = useForm();
+
     return (
         <div>
             <Container maxWidth="xs">
-                <Box
-                    sx={{
-                        marginTop: 0,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
+                <Box className={'login_box'}>
                     <Avatar sx={{ m: 1, width: 56, height: 56 }}>
                         <LockPersonIcon/>
                     </Avatar>
@@ -77,7 +71,7 @@ const Login = () => {
                             </Button>
                         </form>
                     </Box>
-                    {status === 'error' && error ? <Alert severity="error">{error}</Alert> : ''}
+                    {status === 'error' && error ? <Alert severity={'error'}>{error}</Alert> : ''}
                     {auth ?
                         <>
                             <Alert severity={'success'}>Login success!!!</Alert>

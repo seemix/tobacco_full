@@ -4,18 +4,21 @@ import { Autoplay, Navigation, Pagination } from 'swiper';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import './Main.css';
 import Slider from '../Slider/Slider';
 import { getNewProducts } from '../../store/product';
 import ItemCard from '../ItemCard/ItemCard';
+import './Main.css';
 
 const Main = () => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(getNewProducts());
     }, [dispatch]);
+
     const { newProducts } = useSelector(state => state.productStore);
+
     return (
         <>
             <Slider/>

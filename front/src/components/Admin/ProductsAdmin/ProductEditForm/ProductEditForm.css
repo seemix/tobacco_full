@@ -17,3 +17,7 @@
     flex-direction: column;
     gap: 20px;
 }
+.product_field {
+    width: 100px;
+    margin: 15px;
+}

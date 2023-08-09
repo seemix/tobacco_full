@@ -1,0 +1,5 @@
+.no_results {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}

@@ -6,12 +6,12 @@ import { Link } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 
-import './Cart.css';
 import { hideCart, showCart } from '../../store/appearance';
 import CartItem from '../CartItem/CartItem';
 import { removeAllItems } from '../../store/order';
 import CartIcon from '../Header/CartIcon';
 import { config } from '../../config/config';
+import './Cart.css';
 
 const Cart = () => {
     const { t } = useTranslation();
@@ -94,7 +94,7 @@ const Cart = () => {
                 </div>
             </div>
         </div>
-    )
+    );
 };
 
 export default Cart;

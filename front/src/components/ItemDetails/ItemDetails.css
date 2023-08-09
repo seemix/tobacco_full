@@ -19,3 +19,21 @@
     width: calc(360px + (600 - 360) * ((100vw - 360px) / (1920 - 360)));
     height: calc(360px + (700 - 360) * ((100vw - 360px) / (1920 - 360)));
 }
+.item_details_wrapper {
+    width: 360px;
+    padding: 20px;
+}
+
+.show_picture_wrapper {
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.show_picture_close {
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}

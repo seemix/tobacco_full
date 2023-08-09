@@ -9,25 +9,21 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { config } from '../../config/config';
 import { showCart } from '../../store/appearance';
 import { createOrder } from '../../store/order';
-import './OrderForm.css';
 import { orderFormValidator } from '../../validators/order-form.validator';
+import './OrderForm.css';
 
 const OrderForm = () => {
     const { t } = useTranslation();
-   // const [showAddress, setShowAddress] = useState(false);
     const { handleSubmit, register, formState: { errors } } = useForm({ resolver: joiResolver(orderFormValidator) });
     const { products, total, status } = useSelector(state => state.orderStore);
+
     const dispatch = useDispatch();
-    // const setAddress = () => {
-    //     setShowAddress(!showAddress);
-    // }
     const { freeShipping } = useSelector(state => state.orderStore);
     const handleForm = (data) => {
         const orderedProducts = products.map(item => {
             return { product: item._id, count: item.count }
         });
         const newOrder = { ...data, products: orderedProducts, total: total, freeShipping }
-       // if (showAddress) newOrder.shipping = true;
         dispatch(createOrder(newOrder));
     }
     return (
@@ -78,21 +74,15 @@ const OrderForm = () => {
                                 error={!!errors.customerPhone}
                                 helperText={errors?.customerPhone ? errors.customerPhone.message : null}
                             />
-                            {/*<FormControlLabel control={<Switch*/}
-                            {/*    checked={showAddress}*/}
-                            {/*    onChange={setAddress}*/}
-                            {/*/>} label={t('shipOrder')}/>*/}
-                            {/*{showAddress &&*/}
-                                <TextField
-                                    className={'TextField-without-border-radius'}
-                                    multiline
-                                    rows={4}
-                                    label={t('shippingAddress')}
-                                    {...register('address')}
-                                    error={!!errors.address}
-                                    helperText={errors?.address ? errors.address.message : null}
-                                />
-
+                            <TextField
+                                className={'TextField-without-border-radius'}
+                                multiline
+                                rows={4}
+                                label={t('shippingAddress')}
+                                {...register('address')}
+                                error={!!errors.address}
+                                helperText={errors?.address ? errors.address.message : null}
+                            />
                             <Button type={'submit'} variant={'contained'}>{t('submit')}</Button>
                         </div>
                     </form>

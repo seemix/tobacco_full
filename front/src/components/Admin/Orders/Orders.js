@@ -3,33 +3,36 @@ import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '@mui/material/Pagination'
 import { Card, Dialog, DialogContent, FormControlLabel, NativeSelect, Radio, RadioGroup } from '@mui/material';
 import io from 'socket.io-client';
+import FormControl from '@mui/material/FormControl';
+import { useSearchParams } from 'react-router-dom';
 
 import SingleOrder from './SingleOrder/SingleOrder';
 import { getAllOrders, getSums, putNewOrder } from '../../../store/order';
 import ConfirmDeleteOrder from './ConfirmDeleteOrder/ConfirmDeleteOrder';
 import { hideOrderDeleteModal } from '../../../store/appearance';
-import './Orders.css';
 import { config } from '../../../config/config';
 import sound from './notification.wav';
-import { useSearchParams } from 'react-router-dom';
-import FormControl from '@mui/material/FormControl';
+import './Orders.css';
 
 const socket = io(config.BACKEND_URL);
 const Orders = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(getAllOrders({
             page: searchParams.get('page') || 1,
-            status: searchParams.get('status') || 'all',
-            sort: searchParams.get('sort') || 'dateasc'
+            filter: searchParams.get('filter') || null,
+            sort: searchParams.get('sort') || null
         }));
     }, [dispatch, searchParams]);
 
     const { response, sums } = useSelector(state => state.orderStore);
+
     useEffect(() => {
         dispatch(getSums());
     }, [dispatch, response]);
+
     useEffect(() => {
         socket.on('newOrder', (data) => {
             dispatch(putNewOrder(data));
@@ -39,14 +42,15 @@ const Orders = () => {
             socket.off('newOrder');
         };
     }, [dispatch]);
+
     const { orderDeleteModal } = useSelector(state => state.appearanceStore);
     const handlePage = (e, selectedPage) => {
         searchParams.set('page', selectedPage);
         setSearchParams(searchParams);
     }
-    const [status, setStatus] = useState('all');
+    const [status, setStatus] = useState('');
     const handleFilter = (e) => {
-        searchParams.set('status', e.target.value);
+        searchParams.set('filter', e.target.value);
         setSearchParams(searchParams);
         setStatus(e.target.value);
     }
@@ -58,7 +62,7 @@ const Orders = () => {
     return (
         <div className={'orders_wrapper'}>
             <div>
-                <div style={{ display: 'flex', justifyContent: 'center', margin: '20px', gap: '10px' }}>
+                <div className={'orders_inner_wrapper'}>
                     <h2>Orders</h2>
                     {sums && <>
                         <Card className={'card_sum'}>completed: {sums?.completedSum} {config.CURRENCY}</Card>
@@ -70,23 +74,23 @@ const Orders = () => {
                     }
 
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div className={'orders_form_controls'}>
                     <div>
                         <FormControl>
-                            <RadioGroup row name={'status'} onChange={handleFilter} value={status}>
-                                <FormControlLabel value="completed" control={<Radio/>} label="Completed"/>
-                                <FormControlLabel value="uncompleted" control={<Radio/>} label="Uncompleted"/>
-                                <FormControlLabel value="all" control={<Radio/>} label="All"/>
+                            <RadioGroup row name={'filter'} onChange={handleFilter} value={status}>
+                                <FormControlLabel value={'completed:1'} control={<Radio/>} label="Completed"/>
+                                <FormControlLabel value={'completed:'} control={<Radio/>} label="Uncompleted"/>
+                                <FormControlLabel value="" control={<Radio/>} label="All"/>
                             </RadioGroup>
                         </FormControl>
                     </div>
                     <div><b>Sort by:&nbsp;</b>
                         <FormControl size={'small'}>
-                            <NativeSelect onChange={handleSort} defaultValue={'dateasc'}>
-                                <option value={'sumasc'}>cheap to expensive</option>
-                                <option value={'sumdesc'}>expensive to cheap</option>
-                                <option value={'dateasc'}>new to old</option>
-                                <option value={'datedesc'}>old to new</option>
+                            <NativeSelect onChange={handleSort} defaultValue={'createdAt:1'}>
+                                <option value={'total:1'}>cheap to expensive</option>
+                                <option value={'total:-1'}>expensive to cheap</option>
+                                <option value={'createdAt:1'}>new to old</option>
+                                <option value={'createdAt:-1'}>old to new</option>
                             </NativeSelect>
                         </FormControl>
                     </div>
@@ -106,7 +110,6 @@ const Orders = () => {
                 </DialogContent>
             </Dialog>
         </div>
-    )
-        ;
+    );
 };
 export default Orders;

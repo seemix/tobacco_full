@@ -18,21 +18,25 @@ import './AddEditForm.css';
 const AddEditForm = () => {
         const dispatch = useDispatch();
         const { categoryForUpdate, error } = useSelector(state => state.categoryStore);
-    const {
+
+        const {
             register,
             handleSubmit,
             setValue,
             formState: { errors }
         } = useForm({ resolver: joiResolver(categoryFormValidator) });
+
         const [pastedLink, setPastedLink] = useState(null);
         const [file, setFile] = useState(null);
         const [confirmDelete, setConfirmDelete] = useState(false);
+
         useEffect(() => {
             if (categoryForUpdate) setValue('categoryName', categoryForUpdate.name);
         }, [categoryForUpdate]);
+
         const handleClose = () => {
-                dispatch(hideCategoryEdit());
-                dispatch(setCategoryForUpdate(null));
+            dispatch(hideCategoryEdit());
+            dispatch(setCategoryForUpdate(null));
         };
         const handleChange = (event) => {
             setFile(event.target.files[0]);
@@ -58,9 +62,8 @@ const AddEditForm = () => {
             } else {
                 dispatch(createCategory(formData));
             }
-          //  if(!error && status === 'fulfilled') dispatch(hideCategoryEdit());
         }
-    return (
+        return (
             <>
                 <h2>Add/Edit category</h2>
                 <div className={'wrapper'}>
@@ -136,7 +139,6 @@ const AddEditForm = () => {
                     {error && <Alert severity="error">{error}</Alert>}
                 </div>
             </>
-        )
-    }
-;
+        );
+    };
 export default AddEditForm;

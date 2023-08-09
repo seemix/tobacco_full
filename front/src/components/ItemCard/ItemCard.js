@@ -3,19 +3,20 @@ import { Button, Card, CardMedia } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useTranslation } from 'react-i18next';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
-import './ItemCard.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProductToCart } from '../../store/order';
-import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import { showCart } from '../../store/appearance';
 import { config } from '../../config/config';
+import './ItemCard.css';
 
 const ItemCard = ({ product }) => {
     const { t } = useTranslation();
     const [showButton, setShowButton] = useState(false);
     const dispatch = useDispatch();
     const { products } = useSelector(state => state.orderStore);
+
     useEffect(() => {
         const inCart = products.findIndex(obj => obj._id === product._id);
         if (inCart !== -1) {
@@ -24,10 +25,12 @@ const ItemCard = ({ product }) => {
             setShowButton(false);
         }
     }, [products, product._id]);
+
     const img = `${config.BACKEND_URL}/product/image/${product.picture}`;
+
     return (
         <div className={'card_wrapper'}>
-            <Card style={{ height: '410px', position: 'relative' }}>
+            <Card className={'item_card'}>
                 <CardMedia
                     className={'gray_scale'}
                     component={'img'}

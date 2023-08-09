@@ -9,14 +9,16 @@ import { config } from '../../../../config/config';
 const SlideEditForm = () => {
     const { slideForUpdate } = useSelector(state => state.sliderStore);
     const { register, handleSubmit, setValue } = useForm();
+
     const dispatch = useDispatch();
+
     const [pastedLink, setPastedLink] = useState(null);
     const [file, setFile] = useState(null);
     const { error } = useSelector(state => state.sliderStore);
+
     useEffect(() => {
         if (slideForUpdate) setValue('text', slideForUpdate.text);
     }, []);
-
     const handleChange = (event) => {
         setFile(event.target.files[0]);
         setPastedLink(URL.createObjectURL(event.target.files[0]));
@@ -88,7 +90,6 @@ const SlideEditForm = () => {
                         <Button fullWidth onClick={removeFile}>revert</Button>
                     }
                     {error && <Alert severity="error">{error}</Alert>}
-
                     <DialogActions>
                         <Button variant={'contained'} onClick={closeEdit}>Cancel
                         </Button>

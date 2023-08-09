@@ -8,14 +8,17 @@ import logo from '../../Header/tob2.png';
 import { logout } from '../../../store/auth';
 import { getAllCategories } from '../../../store/category';
 import SearchBarAdmin from './SearchBarAdmin';
+import './HeaderAdmin.css';
 
 const HeaderAdmin = () => {
     const { user, auth, status } = useSelector(state => state.authStore);
     const dispatch = useDispatch();
     const { categories } = useSelector(state => state.categoryStore);
+
     useEffect(() => {
         dispatch(getAllCategories());
     }, [dispatch]);
+
     return (
         <div className={'header_wrapper'}>
             {
@@ -43,7 +46,7 @@ const HeaderAdmin = () => {
             <div>
                 <SearchBarAdmin/>
             </div>
-            <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+            <div className={'avatar_wrapper'}>
                 <div>{auth ? user : ''}</div>
                 <Avatar>{user[0]}</Avatar>
                 <div style={{ cursor: 'pointer' }}>

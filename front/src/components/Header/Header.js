@@ -27,9 +27,11 @@ import Loader from '../Loader/Loader';
 
 const Header = () => {
     const { products } = useSelector(state => state.orderStore);
+
     useEffect(() => {
         localStorage.setItem('products', JSON.stringify(products));
     }, [products]);
+
     const {
         openedMenu,
         cart,
@@ -37,12 +39,15 @@ const Header = () => {
         filteredLang,
         searchBar
     } = useSelector(state => state.appearanceStore);
+
     const { categories, status } = useSelector(state => state.categoryStore);
     const dispatch = useDispatch();
     const { i18n } = useTranslation();
+
     useEffect(() => {
         dispatch(setFilteredLang(i18n.language));
     }, [i18n.language, dispatch]);
+
     useEffect(() => {
         dispatch(getAllCategories());
     }, [dispatch]);
