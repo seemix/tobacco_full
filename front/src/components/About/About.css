@@ -1,12 +1,4 @@
-.image_container {
-    /*max-width: 100vw;*/
-    /*height: calc(220px + (270 - 220) * ((100vw - 360px) / (1920 - 360)));*/
-    /*background-attachment: fixed;*/
-    /*background-position: center center;*/
-    /*background-size: cover;*/
-    /*position: relative;*/
-    /*background-position-y:10px;*/
-}
+
 .image_container h2 {
     color: rgba(240, 240, 240, 1);
     position: absolute;
@@ -37,3 +29,11 @@
     justify-content: center;
     gap: 20px;
 }
+
+.image_block {
+    width: 500px;
+    background-image: url("https://images.immediate.co.uk/production/volatile/sites/7/2019/10/141.GettyImages-509729312-e7567de-e1571218314945.jpg?resize=620,413)");
+    height: 700px;
+    background-position: center;
+}
+

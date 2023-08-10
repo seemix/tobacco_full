@@ -11,7 +11,7 @@ module.exports = {
             const userData = await userService.register(login, password);
             res.status(status.CREATED).json({ login: userData.login, id: userData.id });
         } catch (e) {
-            next(new ApiError('Error while registering user', status.SERVER_ERROR));
+            next(new ApiError('Error registering user', status.SERVER_ERROR));
         }
     },
 
@@ -53,7 +53,7 @@ module.exports = {
             });
             return res.json(userData).status(status.OK);
         } catch (e) {
-            next(new ApiError('Error refresh', status.AUTH_ERROR));
+            next(e);
         }
     },
 

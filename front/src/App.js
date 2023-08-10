@@ -4,10 +4,11 @@ import { Route, Routes } from 'react-router-dom';
 
 import Main from './components/Main/Main';
 import theme from './themes/theme';
+
+import React from 'react';
 import About from './components/About/About';
 import Contacts from './components/Contacts/Contacts';
 import Category from './components/Category/Category';
-import React from 'react';
 import Loader from './components/Loader/Loader';
 import MainAdmin from './components/Admin/MainAdmin';
 import Login from './components/Admin/Login/Login';

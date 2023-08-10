@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
 
+const ApiError = require('../errors/api.error');
 const config = require('../config/config');
 const Token = require('../models/token.model');
+const status = require('../enums/status.enum');
 
 module.exports = {
 
@@ -28,7 +30,7 @@ module.exports = {
         try {
             return jwt.verify(accessToken, config.JWT_ACCESS_SECRET);
         } catch (e) {
-            return null;
+            throw new ApiError('Access token is invalid', 401);
         }
     },
 
@@ -36,7 +38,7 @@ module.exports = {
         try {
             return jwt.verify(refreshToken, config.JWT_REFRESH_SECRET);
         } catch (e) {
-            return null;
+           throw new ApiError('Error refresh', status.AUTH_ERROR);
         }
     },
 

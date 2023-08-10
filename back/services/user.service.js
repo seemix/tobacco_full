@@ -28,15 +28,15 @@ module.exports = {
         return await tokenService.removeToken(refreshToken);
     },
     refresh: async (refreshToken) => {
-        if (!refreshToken) throw new ApiError('Authorization error', status.AUTH_ERROR);
-        const userData = await tokenService.validateRefreshToken(refreshToken);
-        const tokenFromDb = await tokenService.findToken(refreshToken);
-        if (!userData || !tokenFromDb) {
-            throw new ApiError('Unauthorized', status.AUTH_ERROR);
+        try {
+            const userData = await tokenService.validateRefreshToken(refreshToken);
+            await tokenService.findToken(refreshToken);
+            const { payload } = userData;
+            const tokens = tokenService.generateTokens(payload);
+            await tokenService.saveToken(payload.id, tokens.refreshToken);
+            return { ...tokens, user: userData.payload.login };
+        } catch (e) {
+            throw new ApiError('Error refresh', status.AUTH_ERROR);
         }
-        const { payload } = userData;
-        const tokens = tokenService.generateTokens(payload);
-        await tokenService.saveToken(payload.id, tokens.refreshToken);
-        return { ...tokens, user: userData.payload.login };
     }
 }
