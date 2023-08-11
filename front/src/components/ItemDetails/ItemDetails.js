@@ -11,8 +11,8 @@ import { getProductById } from '../../store/product';
 import { showCart } from '../../store/appearance';
 import { addProductToCart } from '../../store/order';
 import { config } from '../../config/config';
-import ShowPicture from './ShowPicture';
 import './ItemDetails.css';
+import { ShowPicture } from '../index';
 
 const ItemDetails = () => {
     const [bigPicture, setBigPicture] = useState(false);

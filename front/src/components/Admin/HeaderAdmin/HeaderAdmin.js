@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import logo from '../../Header/tob2.png';
 import { logout } from '../../../store/auth';
 import { getAllCategories } from '../../../store/category';
-import SearchBarAdmin from './SearchBarAdmin';
 import './HeaderAdmin.css';
+import { SearchBarAdmin } from '../../index';
 
 const HeaderAdmin = () => {
     const { user, auth, status } = useSelector(state => state.authStore);

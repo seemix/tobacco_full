@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { search } from '../../store/search';
 import { closeMenu, hideSearchBar } from '../../store/appearance';
-import ItemCard from '../ItemCard/ItemCard';
+import { ItemCard } from '../index';
 import './Search.css';
 const Search = () => {
     const [searchParams] = useSearchParams();

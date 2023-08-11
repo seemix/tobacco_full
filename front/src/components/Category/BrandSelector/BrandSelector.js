@@ -1,15 +1,16 @@
 import React from 'react';
 import FormControl from '@mui/material/FormControl';
-import { NativeSelect } from '@mui/material';
-import './BrandSelector.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { setBrand } from '../../../store/product';
-import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { NativeSelect } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
+
+import { setBrand } from '../../../store/product';
+import './BrandSelector.css';
 
 const BrandSelector = () => {
     const { t } = useTranslation();
-    let [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const dispatch = useDispatch();
     const { brands } = useSelector(state => state.brandStore);
     const change = (e) => {

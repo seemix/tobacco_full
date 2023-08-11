@@ -10,10 +10,8 @@ import {
     saveCategoriesOrder,
     showCategoryEdit
 } from '../../../store/category';
-import SingleCategoryAdmin from './SingleCategoryAdmin/SingleCategoryAdmin';
-import AddEditForm from './AddEditForm/AddEditForm';
 import { hideCategoryDeleteModal } from '../../../store/appearance';
-import ConfirmDeleteCategory from './ConfirmDeleteCategory';
+import { AddEditForm, ConfirmDeleteCategory, SingleCategoryAdmin } from '../../index';
 
 const CategoriesAdmin = () => {
     const reOrder = (newOrder) => {
@@ -36,7 +34,8 @@ const CategoriesAdmin = () => {
             <h2><Button onClick={() => dispatch(showCategoryEdit())}> + Add new category</Button>
                 {showReorderButton &&
                     <Button onClick={() => dispatch(saveCategoriesOrder(categories))} color={'success'}>
-                        Save order</Button>}</h2>
+                        Save order</Button>}
+            </h2>
             <Dialog
                 maxWidth={'xs'}
                 open={categoryEditModal}

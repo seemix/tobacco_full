@@ -1,29 +1,23 @@
-import './App.css';
+import React from 'react';
 import { ThemeProvider } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
 
 import Main from './components/Main/Main';
 import theme from './themes/theme';
 
-import React from 'react';
-import About from './components/About/About';
-import Contacts from './components/Contacts/Contacts';
-import Category from './components/Category/Category';
-import Loader from './components/Loader/Loader';
-import MainAdmin from './components/Admin/MainAdmin';
-import Login from './components/Admin/Login/Login';
-import Orders from './components/Admin/Orders/Orders';
-import CategoriesAdmin from './components/Admin/CategoriesAdmin/CategoriesAdmin';
-import ProductsAdmin from './components/Admin/ProductsAdmin/ProductsAdmin';
-import ItemDetails from './components/ItemDetails/ItemDetails';
-import OrderForm from './components/OrderForm/OrderForm';
-import CompleteOrder from './components/OrderForm/CompleteOrder';
-import Search from './components/Search/Search';
-import SliderAdmin from './components/Admin/Slider/Slider';
-import Brands from './components/Admin/Brands/Brands';
-import SearchAdmin from './components/Admin/SearchAdmin/SearchAdmin';
-import ProductEditForm from './components/Admin/ProductsAdmin/ProductEditForm/ProductEditForm';
-import NoMatch from './components/NoMatch/NoMatch';
+import './App.css';
+
+import {
+    About, Brands, CategoriesAdmin,
+    Category,
+    CompleteOrder,
+    Contacts,
+    ItemDetails,
+    Loader, Login, MainAdmin,
+    NoMatch,
+    OrderForm, Orders, ProductEditForm, ProductsAdmin,
+    Search, SearchAdmin, SliderAdmin
+} from './components';
 
 const Layout = React.lazy(() => import('./components/Layout/Layout'));
 const AdminLayout = React.lazy(() => import('./components/Admin/AdminLayout'));

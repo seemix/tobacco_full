@@ -3,10 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Reorder } from 'framer-motion';
 import { Button, Dialog, DialogContent } from '@mui/material';
 
-import Slide from './Slide';
 import { getAllSlides, openSlideEdit, saveSlidesOrder, sliderReorder } from '../../../store/slider';
-import SlideEditForm from './SlideEditForm/SlideEditForm';
-import ConfirmDeleteSlide from './ConfirmDeleteSlide';
+import { ConfirmDeleteSlide, Slide, SlideEditForm } from '../../index';
 
 const SliderAdmin = () => {
     const dispatch = useDispatch();

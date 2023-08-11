@@ -2,9 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-import MainAdmin from './MainAdmin';
 import { refresh } from '../../store/auth';
-import Loader from '../Loader/Loader';
+import { Loader, MainAdmin } from '../index';
 
 const AdminLayout = () => {
     const { auth, status } = useSelector(state => state.authStore);

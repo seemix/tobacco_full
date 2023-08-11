@@ -5,9 +5,10 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { useForm } from 'react-hook-form';
 
 import { createBrand, getAllBrands } from '../../../store/brand';
-import SingleBrand from './SingleBrand';
 import { brandFormValidator } from '../../../validators/brand-form.validator';
+import { SingleBrand } from '../../index';
 import './Brands.css';
+
 const Brands = () => {
     const dispatch = useDispatch();
 

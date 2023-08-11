@@ -9,9 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 import './Header.css';
 import logo from './tob2.png'
-import SearchBar from '../SearchBar/SearchBar';
-import SearchIcon from './SearchIcon';
-import CartIcon from './CartIcon';
+
 import {
     closeMenu,
     hideSearchBar,
@@ -21,9 +19,8 @@ import {
     showSearchBar
 } from '../../store/appearance';
 import { getAllCategories } from '../../store/category';
-import Cart from '../Cart/Cart';
 import { useOutsideClick } from '../../hooks/outside-click';
-import Loader from '../Loader/Loader';
+import { Cart, CartIcon, Loader, SearchBar, SearchIcon } from '../index';
 
 const Header = () => {
     const { products } = useSelector(state => state.orderStore);
@@ -80,8 +77,8 @@ const Header = () => {
                 }
             </div>
             <div>
-                <img src={logo} alt="logo" className={'logo'}/>
-            </div>
+                <img src={logo} alt={'logo'} className={'logo'}/>
+            </div>'
             <nav className={!openedMenu ? 'menu_wrapper' : 'menu_wrapper show_menu'}>
                 <ul ref={menuRef}>
                     <li><NavLink to={'/'} onClick={() => dispatch(closeMenu())}>{t('home')}</NavLink></li>
@@ -92,8 +89,9 @@ const Header = () => {
                         <ul>
                             {categories &&
                                 categories.map(cat => <div key={cat._id}>
-                                    <li><NavLink
-                                        to={`category/${cat._id}`}>{cat.name}</NavLink></li>
+                                    <li>
+                                        <NavLink to={`category/${cat._id}`}>{cat.name}</NavLink>
+                                    </li>
                                 </div>)
                             }
                         </ul>

@@ -4,11 +4,10 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import { Button, Dialog } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 
-import ProductCard from './ProductCard/ProductCard';
 import { getProductsByCategory, setProductForUpdate } from '../../../store/product';
 import { getCategoryById } from '../../../store/category';
-import ProductEditForm from './ProductEditForm/ProductEditForm';
 import { showProductForm } from '../../../store/product';
+import { ProductCard, ProductEditForm } from '../../index';
 
 const ProductsAdmin = () => {
     const [searchParams, setSearchParams] = useSearchParams();

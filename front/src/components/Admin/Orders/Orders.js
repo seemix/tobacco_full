@@ -6,13 +6,12 @@ import io from 'socket.io-client';
 import FormControl from '@mui/material/FormControl';
 import { useSearchParams } from 'react-router-dom';
 
-import SingleOrder from './SingleOrder/SingleOrder';
 import { getAllOrders, getSums, putNewOrder } from '../../../store/order';
-import ConfirmDeleteOrder from './ConfirmDeleteOrder/ConfirmDeleteOrder';
 import { hideOrderDeleteModal } from '../../../store/appearance';
 import { config } from '../../../config/config';
 import sound from './notification.wav';
 import './Orders.css';
+import { ConfirmDeleteOrder, SingleOrder } from '../../index';
 
 const socket = io(config.BACKEND_URL);
 const Orders = () => {

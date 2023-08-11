@@ -5,10 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
 import { getProductsByCategory } from '../../store/product';
-import ItemCard from '../ItemCard/ItemCard';
 import { config } from '../../config/config';
-import BrandSelector from './BrandSelector/BrandSelector';
 import { getBrandsByCategory } from '../../store/brand';
+import { BrandSelector, ItemCard } from '../index';
 
 const Category = () => {
     const [searchParams, setSearchParams] = useSearchParams();

@@ -4,9 +4,8 @@ import { Autoplay, Navigation, Pagination } from 'swiper';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import Slider from '../Slider/Slider';
 import { getNewProducts } from '../../store/product';
-import ItemCard from '../ItemCard/ItemCard';
+import { ItemCard, Slider } from '../index';
 import './Main.css';
 
 const Main = () => {
