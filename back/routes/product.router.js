@@ -1,4 +1,5 @@
 const productRouter = require('express').Router();
+
 const productController = require('../controllers/product.controller');
 const fileUploadMiddleware = require('../middlewares/file-upload.middleware');
 const authMiddleware = require('../middlewares/auth.middleware');

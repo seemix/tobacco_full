@@ -1,4 +1,5 @@
 const sliderRouter = require('express').Router();
+
 const sliderController = require('../controllers/slider.controller');
 const fileUploadMiddleware = require('../middlewares/file-upload.middleware');
 const authMiddleware = require('../middlewares/auth.middleware');

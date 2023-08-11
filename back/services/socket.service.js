@@ -1,5 +1,5 @@
-const http = require('http');
 const express = require('express');
+const http = require('http');
 const socketIo = require('socket.io');
 
 const { FRONTEND_URL } = require('../config/config');

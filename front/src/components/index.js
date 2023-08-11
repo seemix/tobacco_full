@@ -20,7 +20,7 @@ export { default as SlideEditForm } from './Admin/Slider/SlideEditForm/SlideEdit
 export { default as ConfirmDeleteSlide } from './Admin/Slider/ConfirmDeleteSlide';
 export { default as Slide } from './Admin/Slider/Slide';
 export { default as SearchAdmin } from './Admin/SearchAdmin/SearchAdmin';
-export { default as AdminLayout } from './Admin/AdminLayout';
+//export { default as AdminLayout } from './Admin/AdminLayout';
 
 
 export { default as Cart } from './Cart/Cart';
@@ -45,5 +45,3 @@ export { default as SearchIcon } from './Header/SearchIcon';
 export { default as SearchBar } from './SearchBar/SearchBar';
 export { default as Slider } from './Slider/Slider';
 
-export * from './NoMatch/NoMatch';
-export * from './Contacts/Contacts';

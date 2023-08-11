@@ -2,9 +2,7 @@ import React from 'react';
 import { ThemeProvider } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
 
-import Main from './components/Main/Main';
 import theme from './themes/theme';
-
 import './App.css';
 
 import {
@@ -13,7 +11,7 @@ import {
     CompleteOrder,
     Contacts,
     ItemDetails,
-    Loader, Login, MainAdmin,
+    Loader, Login, Main, MainAdmin,
     NoMatch,
     OrderForm, Orders, ProductEditForm, ProductsAdmin,
     Search, SearchAdmin, SliderAdmin
@@ -59,6 +57,7 @@ function App() {
                     <Route path={'/login'} element={<Login/>}/>
                 </Routes>
             </ThemeProvider>
+
         </>
     );
 }

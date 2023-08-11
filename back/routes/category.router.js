@@ -1,4 +1,5 @@
 const categoryRouter = require('express').Router();
+
 const categoryController = require('../controllers/category.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
 const fileUploadMiddleware = require('../middlewares/file-upload.middleware');

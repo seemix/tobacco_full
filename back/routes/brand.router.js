@@ -1,4 +1,5 @@
 const brandRouter = require('express').Router();
+
 const brandController = require('../controllers/brand.controller');
 
 brandRouter.post('/', brandController.createBrand);
