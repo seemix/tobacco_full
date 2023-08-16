@@ -78,7 +78,7 @@ const ProductEditForm = () => {
                 <form onSubmit={handleSubmit(saveForm)}>
                     <div className={'inside_form_wrapper'}>
                         <div>
-                            <div className={'fields_wrapper'}>
+                            <div className={'fields_wrapper'} >
                                 <div style={{ display: 'flex' }}>
                                     <TextField
                                         defaultValue={productForUpdate?.name}
@@ -94,7 +94,7 @@ const ProductEditForm = () => {
                                 </div>
                                 <div style={{ margin: '0 auto' }}>
                                     <ReactQuill theme="snow" value={value} onChange={setValue}/>
-                                    <div>
+                                    <div className={'inside_form_wrapper'}>
                                         <TextField
                                             {...register('oldPrice')}
                                             error={!!errors.oldPrice}

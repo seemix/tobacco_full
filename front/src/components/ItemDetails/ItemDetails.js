@@ -41,6 +41,8 @@ const ItemDetails = () => {
     const handleClose = (value) => {
         setBigPicture(value);
     };
+    let img = config.NO_IMAGE;
+    if(singleProduct.picture) img = `${config.BACKEND_URL}/product/image/${singleProduct.picture}`;
     return (
         <div className={'main_container'}>
             {singleProduct &&
@@ -58,7 +60,7 @@ const ItemDetails = () => {
                                 <div style={{cursor: 'pointer'}} onClick={() => setBigPicture(true)}>
                                 <img width={400}
                                      alt={'pict'}
-                                     src={`${config.BACKEND_URL}/product/image/${singleProduct.picture}`}
+                                     src={img}
                                      onError={e => e.target.src = config.NO_IMAGE}
                                 />
                                 </div>

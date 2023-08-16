@@ -14,7 +14,8 @@ const ProductCard = ({ product }) => {
     const [confirmDelete, setConfirmDelete] = useState(false);
     const dispatch = useDispatch();
 
-   const img = `${config.BACKEND_URL}/product/image/${product.picture}`
+    let img = config.NO_IMAGE;
+    if(product.picture) img = `${config.BACKEND_URL}/product/image/${product.picture}`;
       const confirmedDelete = () => {
         dispatch(deleteProduct({_id: product._id, picture: product.picture}));
     }

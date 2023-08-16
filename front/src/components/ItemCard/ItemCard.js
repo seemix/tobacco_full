@@ -26,7 +26,8 @@ const ItemCard = ({ product }) => {
         }
     }, [products, product._id]);
 
-    const img = `${config.BACKEND_URL}/product/image/${product.picture}`;
+    let img = config.NO_IMAGE;
+    if(product.picture && product.picture!== '') img = `${config.BACKEND_URL}/product/image/${product.picture}`;
 
     return (
         <div className={'card_wrapper'}>

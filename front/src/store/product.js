@@ -189,6 +189,8 @@ export const productSlice = createSlice({
                 state.error = null;
                 state.products.products = [action.payload, ...state.products.products];
                 state.productForUpdate = action.payload;
+                state.productFormModal = false;
+
             })
             .addCase(createProduct.rejected, (state, action) => {
                 state.status = 'error';

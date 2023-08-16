@@ -109,12 +109,14 @@ module.exports = {
         try {
             const { _id, oldPicture } = req.body;
             if (!_id) next(new ApiError('Incorrect ID', status.BAD_REQUEST));
-            const imagePath = path.join(__dirname, '..', 'uploads', 'products', oldPicture);
             if (oldPicture) {
+                const imagePath = path.join(__dirname, '..', 'uploads', 'products', oldPicture);
                 if (fs.existsSync(imagePath))
                     fs.unlinkSync(imagePath);
             }
-            await Product.updateOne({ _id }, { ...req.body, picture: req.fileName });
+            const updObj = req.body;
+            if(req.fileName) updObj.picture = req.fileName;
+            await Product.updateOne({ _id }, updObj);
             const updatedProduct = await Product.findById(_id).populate({ path: 'brand' });
             res.status(status.OK).json(updatedProduct);
         } catch (e) {
