@@ -5,7 +5,7 @@ export const appearanceSlice = createSlice({
     initialState: {
         openedMenu: false,
         showElement: false,
-        languages: ['EN', 'DK', 'RU'],
+        languages: ['EN', 'DK'],
         filteredLang: [],
         searchBar: false,
         cart: false,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, TextField } from '@mui/material';
+import { Button, Card, InputAdornment, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
@@ -16,6 +16,7 @@ const OrderForm = () => {
     const { t } = useTranslation();
     const { handleSubmit, register, formState: { errors } } = useForm({ resolver: joiResolver(orderFormValidator) });
     const { products, total, status } = useSelector(state => state.orderStore);
+    const { PHONE_PREFIX } = config;
 
     const dispatch = useDispatch();
     const { freeShipping } = useSelector(state => state.orderStore);
@@ -67,17 +68,47 @@ const OrderForm = () => {
                                 error={!!errors.customerSurname}
                                 helperText={errors?.customerSurname ? errors.customerSurname.message : null}
                             />
-                            <TextField
-                                className={'TextField-without-border-radius'}
-                                label={t('phone')}
-                                {...register('customerPhone')}
-                                error={!!errors.customerPhone}
-                                helperText={errors?.customerPhone ? errors.customerPhone.message : null}
+                            <TextField className={'TextField-without-border-radius'} label={t('email')}
+                                       {...register('customerEmail')}
+                                       error={!!errors.customerEmail}
+                                       helperText={errors?.customerEmail ? errors.customerEmail.message : null}
                             />
+                            <div style={{ display: 'flex', gap: '15px' }}>
+                                <TextField
+                                    className={'TextField-without-border-radius'}
+                                    label={t('phone')}
+                                    {...register('customerPhone', {
+                                        onChange: (e) => {
+                                            e.target.value = e.target.value.replace(/\D/g, '')
+                                                .slice(0, 8);
+                                        }
+                                    })}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position={'start'}>
+                                                {PHONE_PREFIX}
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    error={!!errors.customerPhone}
+                                    helperText={errors?.customerPhone ? errors.customerPhone.message : null}
+                                />
+                                <TextField className={'TextField-without-border-radius'} style={{ width: '100px' }}
+                                           label={t('zipCode')}
+                                           {...register('zipCode', {
+                                               onChange: (e) => {
+                                                   e.target.value = e.target.value.replace(/\D/g, '')
+                                                       .slice(0, 4);
+                                               }
+                                           })}
+                                           error={!!errors.zipCode}
+                                           helperText={errors?.zipCode ? errors.zipCode.message : null}
+                                />
+                            </div>
                             <TextField
                                 className={'TextField-without-border-radius'}
                                 multiline
-                                rows={4}
+                                rows={3}
                                 label={t('shippingAddress')}
                                 {...register('address')}
                                 error={!!errors.address}

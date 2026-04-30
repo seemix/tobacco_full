@@ -42,7 +42,7 @@ const ItemDetails = () => {
         setBigPicture(value);
     };
     let img = config.NO_IMAGE;
-    if(singleProduct.picture) img = `${config.BACKEND_URL}/product/image/${singleProduct.picture}`;
+    if(singleProduct?.picture) img = `${config.BACKEND_URL}/product/image/${singleProduct.picture}`;
     return (
         <div className={'main_container'}>
             {singleProduct &&

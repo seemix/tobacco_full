@@ -1,4 +1,5 @@
 export { default as About } from './About/About';
+export { default as AgeVerification } from './AgeVerification/AgeVerification';
 export { default as Brands } from './Admin/Brands/Brands';
 export { default as SingleBrand } from './Admin/Brands/SingleBrand';
 export { default as AddEditForm } from './Admin/CategoriesAdmin/AddEditForm/AddEditForm';
@@ -7,6 +8,7 @@ export { default as CategoriesAdmin } from './Admin/CategoriesAdmin/CategoriesAd
 export { default as ConfirmDeleteCategory } from './Admin/CategoriesAdmin/ConfirmDeleteCategory';
 export { default as HeaderAdmin } from './Admin/HeaderAdmin/HeaderAdmin';
 export { default as SearchBarAdmin } from './Admin/HeaderAdmin/SearchBarAdmin';
+export { default as LangSwitcher } from './LangSwitcher/LangSwitcher';
 export { default as Login } from './Admin/Login/Login';
 export { default as ConfirmDeleteOrder } from './Admin/Orders/ConfirmDeleteOrder/ConfirmDeleteOrder';
 export { default as SingleOrder } from './Admin/Orders/SingleOrder/SingleOrder';
@@ -21,7 +23,6 @@ export { default as ConfirmDeleteSlide } from './Admin/Slider/ConfirmDeleteSlide
 export { default as Slide } from './Admin/Slider/Slide';
 export { default as SearchAdmin } from './Admin/SearchAdmin/SearchAdmin';
 //export { default as AdminLayout } from './Admin/AdminLayout';
-
 
 export { default as Cart } from './Cart/Cart';
 export { default as CartIcon } from './Header/CartIcon';

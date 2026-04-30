@@ -14,13 +14,12 @@ import {
     closeMenu,
     hideSearchBar,
     openMenu, setFilteredLang,
-    setLanguage,
     showCart,
     showSearchBar
 } from '../../store/appearance';
 import { getAllCategories } from '../../store/category';
 import { useOutsideClick } from '../../hooks/outside-click';
-import { Cart, CartIcon, Loader, SearchBar, SearchIcon } from '../index';
+import { Cart, CartIcon, LangSwitcher, Loader, SearchBar, SearchIcon } from '../index';
 
 const Header = () => {
     const { products } = useSelector(state => state.orderStore);
@@ -33,7 +32,6 @@ const Header = () => {
         openedMenu,
         cart,
         showElement,
-        filteredLang,
         searchBar
     } = useSelector(state => state.appearanceStore);
 
@@ -58,10 +56,7 @@ const Header = () => {
     const searchRef = useOutsideClick(searchOutside);
 
     const { t } = useTranslation();
-    const changeLanguage = (language) => {
-        dispatch(setLanguage(language));
-        i18n.changeLanguage(language);
-    }
+
     return (
         <div className={'header_wrapper'}>
             {status === 'loading' && <Loader/>}
@@ -78,7 +73,8 @@ const Header = () => {
             </div>
             <div>
                 <img src={logo} alt={'logo'} className={'logo'}/>
-            </div>'
+            </div>
+
             <nav className={!openedMenu ? 'menu_wrapper' : 'menu_wrapper show_menu'}>
                 <ul ref={menuRef}>
                     <li><NavLink to={'/'} onClick={() => dispatch(closeMenu())}>{t('home')}</NavLink></li>
@@ -98,23 +94,24 @@ const Header = () => {
                     </li>
                 </ul>
             </nav>
-            <nav id={'lang'} className={'menu_wrapper'} style={{ minWidth: '70px' }}>
-                <ul>
-                    <li>
-                        <Link to={''} className={'menu_parent'}>{i18n.language} <i className={'arrow_right'}></i></Link>
-                        <ul style={{ width: '80px' }}>
-                            {
-                                filteredLang.map(item => <li style={{ borderBottom: 0 }} key={item}>
-                                    <Link to={''} onClick={() => changeLanguage(item)}>{item}</Link>
-                                </li>)
-                            }
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
+            <LangSwitcher/>
+            {/*<nav id={'lang'} className={'menu_wrapper'} style={{ minWidth: '70px' }}>*/}
+            {/*    <ul>*/}
+            {/*        <li>*/}
+            {/*            <Link to={''} className={'menu_parent'}>{i18n.language} <i className={'arrow_right'}></i></Link>*/}
+            {/*            <ul style={{ width: '70px' }}>*/}
+            {/*                {*/}
+            {/*                    filteredLang.map(item => <li style={{ borderBottom: 0 }} key={item}>*/}
+            {/*                        <Link to={''} onClick={() => changeLanguage(item)}>{item}</Link>*/}
+            {/*                    </li>)*/}
+            {/*                }*/}
+            {/*            </ul>*/}
+            {/*        </li>*/}
+            {/*    </ul>*/}
+            {/*</nav>*/}
             <div className={'icons_wrapper'}>
                 <div onClick={() => dispatch(showCart())} style={{ cursor: 'pointer' }}>
-                    <Badge badgeContent={products.length} color={'secondary'} style={{ top: '3px', zIndex: -1 }}>
+                    <Badge badgeContent={products.length} color={'secondary'} style={{ top: '1px', zIndex: -1 }}>
                         <CartIcon size={2}/>
                     </Badge>
                 </div>

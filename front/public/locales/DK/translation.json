@@ -33,5 +33,10 @@
   "submit": "Indsend",
   "dear": "Kære",
   "completeOrder": "din ordre er færdig",
-  "phoneDetails": "hvis du har spørgsmål, er du velkommen til at ringe"
+  "phoneDetails": "hvis du har spørgsmål, er du velkommen til at ringe",
+  "ageVerification": "Aldersbekræftelse",
+  "areYou18": "Er du allerede 18 år gammel?",
+  "18verification": "Denne hjemmeside indeholder indhold, der ikke er beregnet til personer under 18 år. Ved at fortsætte bekræfter du din alder.",
+  "im18": "Ja, jeg er 18",
+  "no": "Nej"
 }

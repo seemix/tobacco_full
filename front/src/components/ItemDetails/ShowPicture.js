@@ -11,7 +11,7 @@ const ShowPicture = (props) => {
     }
     return (
         <div className={'show_picture_wrapper'}>
-            {props && <img src={`${config.BACKEND_URL}/product/image/${props.picture}`} width={'90%'} alt={'picture'}/>}
+            {props && <img src={`${config.BACKEND_URL}/product/image/${props?.picture}`} width={'90%'} alt={'picture'}/>}
             <DialogActions>
                 <CloseIcon onClick={handleClose} className={'show_picture_close'}  />
             </DialogActions>

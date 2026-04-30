@@ -6,7 +6,7 @@ import theme from './themes/theme';
 import './App.css';
 
 import {
-    About, Brands, CategoriesAdmin,
+    About, AgeVerification, Brands, CategoriesAdmin,
     Category,
     CompleteOrder,
     Contacts,
@@ -26,6 +26,7 @@ function App() {
             <ThemeProvider theme={theme}>
                 <Routes>
                     <Route element={<React.Suspense fallback={<Loader/>}>
+                        <AgeVerification/>
                         <Layout/>
                     </React.Suspense>}>
                         <Route path={'/'} index element={<Main/>}/>

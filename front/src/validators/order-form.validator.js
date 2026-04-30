@@ -9,8 +9,15 @@ export const orderFormValidator = Joi.object({
         .alphanum().message('only alphanumeric symbols')
         .min(3).message('name must be at least 3 symbols')
         .max(25).message('name must be maximum 25 symbols').required(),
-    customerPhone: Joi.string().regex(/^[0-9]{10}$/)
-        .messages({ 'string.pattern.base': `Phone number must have 10 digits` })
+    customerPhone: Joi.string().regex(/^[0-9]{8}$/)
+        .messages({ 'string.pattern.base': `Phone number must have 8 digits` })
         .required(),
+    customerEmail: Joi.string()
+        .email({ tlds: { allow: false } })
+        .messages({
+            'string.email': 'Email must be valid'
+        })
+        .required(),
+    zipCode: Joi.string().regex(/^[0-9]{4}$/).message('Zip Code must contain 4 digits').required(),
     address: Joi.string().min(10).message('Address must contain at least 10 symbols')
 });

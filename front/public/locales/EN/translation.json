@@ -33,6 +33,10 @@
   "submit": "submit",
   "dear": "Dear",
   "completeOrder": "your order is complete",
-  "phoneDetails": "If you have any questions, please call"
-
+  "phoneDetails": "If you have any questions, please call",
+  "ageVerification": "Age verification",
+  "areYou18": "Are you 18 years old?",
+  "18verification": "This website contains content not intended for persons under 18 years of age. By continuing, you confirm your age.",
+  "im18": "Yes, I am 18",
+  "no": "No"
 }

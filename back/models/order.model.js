@@ -4,6 +4,8 @@ const orderSchema = new Schema({
     customerName: { type: String, required: true },
     customerSurname: { type: String },
     customerPhone: { type: String, required: true },
+    customerEmail: { type: String, required: true },
+    zipCode: { type: String, required: true },
     address: { type: String },
     products: [
         {

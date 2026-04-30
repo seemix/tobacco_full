@@ -41,7 +41,7 @@ const ProductsAdmin = () => {
                 }
             </div>
             <div className={'pagination_wrapper'}>
-                {pages && pages > 1 &&
+                {pages && +pages > 1 &&
                     <Pagination shape={'rounded'} count={pages || 1} onChange={handlePage} page={Number(page)}/>
                 }
             </div>
