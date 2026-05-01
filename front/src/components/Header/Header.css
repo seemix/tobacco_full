@@ -50,7 +50,7 @@
 }
 
 .menu_wrapper ul li a {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 500;
     margin: 0 20px;
     text-transform: uppercase;
@@ -72,7 +72,7 @@
     opacity: 0;
     position: absolute;
     top: 35px;
-    width: 180px;
+    width: 190px;
     background-color: rgba(240, 240, 240, 1);
     visibility: hidden;
     transition: all .5s ease;
@@ -237,7 +237,6 @@
 
     .menu_wrapper#lang ul li {
         padding: 0;
-        /*margin-top: 10px;*/
     }
 
     .menu_wrapper#lang ul li ul {
